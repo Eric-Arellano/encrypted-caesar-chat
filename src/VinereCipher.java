@@ -7,7 +7,7 @@ public class VinereCipher {
 	private int keyIndex;
 
 	private char currentCharacter;
-	private int messageIndex;
+	private int characterIndex;
 
 	public VinereCipher(String message, String key) {
 		messageString = message;
@@ -20,16 +20,16 @@ public class VinereCipher {
 
 	public String encryptMessage(){
 		String encryptedMessage = "";
-		while (messageIndex < messageString.length()) {
+		while (characterIndex < messageString.length()) {
 			encryptedMessage += encryptCurrentCharacter();
 //			System.out.println("before key: " + currentKey);
-			System.out.println("before char index: " + messageIndex);
+			System.out.println("before char index: " + characterIndex);
 			System.out.println("before char: " + currentCharacter);
 
 			updateCurrentKey();
 			updateCurrentCharacter();
 //			System.out.println("after key: " + currentKey);
-			System.out.println("after char index: " + messageIndex);
+			System.out.println("after char index: " + characterIndex);
 			System.out.println("after char: " + currentCharacter);
 
 			System.out.println();
@@ -67,8 +67,8 @@ public class VinereCipher {
 	 * Move substring index up one and update value.
 	 */
 	private void updateCurrentCharacter() {
-		currentCharacter = messageString.charAt(messageIndex);
-		messageIndex++;
+		currentCharacter = messageString.charAt(characterIndex);
+		characterIndex++;
 	}
 
 }
