@@ -6,8 +6,8 @@ public class VinereCipher {
 	private char currentKey;
 	private int keyIndex;
 
-	private char currentCharacter;
-	private int characterIndex;
+	private char currentChar;
+	private int charIndex;
 
 	public VinereCipher(String message, String key) {
 		fullMessage = message;
@@ -15,32 +15,32 @@ public class VinereCipher {
 
 		keyIndex = 0;
 		currentKey = fullKey.charAt(keyIndex);
-		characterIndex = 0;
-		currentCharacter = fullMessage.charAt(characterIndex);
+		charIndex = 0;
+		currentChar = fullMessage.charAt(charIndex);
 	}
 
 	public String encryptMessage(){
 		String encryptedMessage = "";
-		while (characterIndex < fullMessage.length()) {
-			encryptedMessage += encryptCurrentCharacter();
+		while (charIndex < fullMessage.length()) {
+			encryptedMessage += encryptCurrentChar();
 //			System.out.println("before key: " + currentKey);
-			System.out.println("before char index: " + characterIndex);
-			System.out.println("before char: " + currentCharacter);
+			System.out.println("before char index: " + charIndex);
+			System.out.println("before char: " + currentChar);
 
 			updateCurrentKey();
-			updateCurrentCharacter();
+			updateCurrentChar();
 //			System.out.println("after key: " + currentKey);
-			System.out.println("after char index: " + characterIndex);
-			System.out.println("after char: " + currentCharacter);
+			System.out.println("after char index: " + charIndex);
+			System.out.println("after char: " + currentChar);
 
 			System.out.println();
 		}
 		return encryptedMessage;
 	}
 
-	private String encryptCurrentCharacter(){
+	private String encryptCurrentChar(){
 		int key = (int)(currentKey);
-		char encryptedCharacter = currentCharacter;
+		char encryptedCharacter = currentChar;
 		// shift down to alphabet
 		encryptedCharacter = (char)(encryptedCharacter - 65);
 		// add key
@@ -67,9 +67,9 @@ public class VinereCipher {
 	/**
 	 * Move substring index up one and update value.
 	 */
-	private void updateCurrentCharacter() {
-		currentCharacter = fullMessage.charAt(characterIndex);
-		characterIndex++;
+	private void updateCurrentChar() {
+		currentChar = fullMessage.charAt(charIndex);
+		charIndex++;
 	}
 
 }
