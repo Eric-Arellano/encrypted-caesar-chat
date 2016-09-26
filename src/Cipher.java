@@ -6,10 +6,10 @@ public class Cipher {
 	public static void main(String[] args) {
 
 		String sampleMessage = "LAVALOSPLATOS";
-		char sampleKey = 'J';
-		CaesarCipher sample = new CaesarCipher(sampleMessage, sampleKey);
+		String sampleKey = "J";
+		CaesarCipher sample = new CaesarCipher();
 
-		System.out.print(sample.encryptMessage());
+		System.out.print(sample.encryptMessage(sampleMessage, sampleKey));
 
 	}
 }
