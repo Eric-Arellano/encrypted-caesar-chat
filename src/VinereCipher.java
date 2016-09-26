@@ -14,10 +14,8 @@ public class VinereCipher {
 		fullKey = key;
 
 		updateCurrentKey();
-		keyIndex = 0;
 
 		updateCurrentCharacter();
-		messageIndex = 0;
 	}
 
 	public String encryptMessage(){
@@ -57,13 +55,12 @@ public class VinereCipher {
 	private void updateCurrentKey() {
 		if (keyIndex < fullKey.length()) {
 			currentKey = fullKey.charAt(keyIndex);
-			keyIndex++;
 		}
 		else {
 			keyIndex = 0;
 			currentKey = fullKey.charAt(keyIndex);
-			keyIndex++;
 		}
+		keyIndex++;
 	}
 
 	/**
