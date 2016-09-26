@@ -24,21 +24,31 @@ public class VinereCipher {
 		String encryptedMessage = "";
 		while (messageIndex < messageString.length()) {
 			encryptedMessage += encryptCurrentCharacter();
+//			System.out.println("before key: " + currentKey);
+			System.out.println("before char index: " + messageIndex);
+			System.out.println("before char: " + currentCharacter);
+
 			updateCurrentKey();
 			updateCurrentCharacter();
+//			System.out.println("after key: " + currentKey);
+			System.out.println("after char index: " + messageIndex);
+			System.out.println("after char: " + currentCharacter);
+
+			System.out.println();
 		}
 		return encryptedMessage;
 	}
 
 	private String encryptCurrentCharacter(){
 		int key = (int)(currentKey);
+		char encryptedCharacter = currentCharacter;
 		// shift down to alphabet
-		currentCharacter = (char)(currentCharacter - 65);
+		encryptedCharacter = (char)(encryptedCharacter - 65);
 		// add key
-		currentCharacter = (char)((currentCharacter + key) % 26);
+		encryptedCharacter = (char)((encryptedCharacter + key) % 26);
 		// convert to String
-		currentCharacter = (char)(currentCharacter + 65);
-		return Character.toString(currentCharacter);
+		encryptedCharacter = (char)(encryptedCharacter + 65);
+		return Character.toString(encryptedCharacter);
 	}
 
 	/**
@@ -52,6 +62,7 @@ public class VinereCipher {
 		else {
 			keyIndex = 0;
 			currentKey = fullKey.charAt(keyIndex);
+			keyIndex++;
 		}
 	}
 
