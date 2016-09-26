@@ -6,8 +6,8 @@ public class Cipher {
 	public static void main(String[] args) {
 
 		String sampleMessage = "LAVALOSPLATOS";
-		String sampleKey = "J";
-		VinereCipher sample = new VinereCipher(sampleMessage, sampleKey);
+		char sampleKey = 'J';
+		CaesarCipher sample = new CaesarCipher(sampleMessage, sampleKey);
 
 		System.out.print(sample.encryptMessage());
 

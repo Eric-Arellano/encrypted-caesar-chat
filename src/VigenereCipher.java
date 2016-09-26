@@ -1,4 +1,4 @@
-public class VinereCipher {
+public class VigenereCipher {
 
 	private static String fullMessage;
 	private static String fullKey;
@@ -9,7 +9,7 @@ public class VinereCipher {
 	private char currentChar;
 	private int charIndex;
 
-	public VinereCipher(String message, String key) {
+	public VigenereCipher(String message, String key) {
 		fullMessage = message;
 		fullKey = key;
 
