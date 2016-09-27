@@ -34,7 +34,9 @@ public class LetterFrequency {
 		letterMap.put('Z', 0);
 	}
 
-	public void analyzeLetterFrequency(String message) {
+	public void analyzeLetterFrequency(String message, int keyLength) {
+		// divide message into appropriate length
+
 		// count letter frequency
 
 		// display letter frequency
