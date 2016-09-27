@@ -9,13 +9,9 @@ public class CaesarCipher implements Encryptable {
 		for (int index = 0; index < message.length(); index++) {
 			char letter = encryptedChars[index];
 			int value = letter - 65;
-//			System.out.print(value + " ");
 			value = (value + shiftNumber) % 26;
-//			System.out.print(value + " ");
 			value = value + 65;
-//			System.out.print(value + " ");
 			encryptedChars[index] = (char)(value);
-//			System.out.println();
 		}
 		return new String(encryptedChars);
 
