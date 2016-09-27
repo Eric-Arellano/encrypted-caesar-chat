@@ -1,7 +1,7 @@
 /**
  * Allows encryption of String with either Caesar or Vigenere cipher.
  */
-public class Cipher {
+public class Encryptor {
 
 	public static void main(String[] args) {
 
