@@ -6,7 +6,7 @@ public class Encryptor {
 	public static void main(String[] args) {
 
 		String sampleMessage = "TESTTEST";
-		String sampleKey = "HOLA";
+		String sampleKey = "AB";
 		VigenereCipher sample = new VigenereCipher();
 
 		System.out.print(sample.encryptMessage(sampleMessage, sampleKey));
