@@ -3,7 +3,6 @@ public class CaesarCipher implements Encryptable {
 	public String encryptMessage(String message, String shift) {
 
 		char[] encryptedChars = message.toCharArray();
-		System.out.println(encryptedChars);
 		int shiftNumber = convertKey(shift);
 
 		for (int index = 0; index < message.length(); index++) {

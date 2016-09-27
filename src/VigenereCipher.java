@@ -1,7 +1,20 @@
 public class VigenereCipher implements Encryptable {
 
+	private CaesarCipher caesarCipher;
+
+	public VigenereCipher() {
+		caesarCipher = new CaesarCipher();
+	}
+
 	public String encryptMessage(String message, String key) {
-		return "";
+		StringBuilder messageBuilder = new StringBuilder();
+		for (int messageIndex = 0; messageIndex < message.length(); messageIndex++ ) {
+			String substring = message.substring(messageIndex, messageIndex + 1);
+
+			String encryption = caesarCipher.encryptMessage(substring, key);
+			messageBuilder.append(encryption);
+		}
+		return messageBuilder.toString();
 	}
 
 	private int[] convertKey(String key) {
