@@ -1,4 +1,4 @@
-public interface Encryptable {
+interface Encryptable {
 
 	String encryptMessage(String message, String key);
 

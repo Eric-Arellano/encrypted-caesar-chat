@@ -1,5 +1,5 @@
 /**
- * Created by ericarellano on 9/26/16.
+ * Allows encryption of String with either Caesar or Vigenere cipher.
  */
 public class Cipher {
 

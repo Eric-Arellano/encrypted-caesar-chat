@@ -1,6 +1,6 @@
 public class VigenereCipher implements Encryptable {
 
-	private CaesarCipher caesarCipher;
+	private final CaesarCipher caesarCipher;
 
 	public VigenereCipher() {
 		caesarCipher = new CaesarCipher();
