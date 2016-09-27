@@ -6,8 +6,11 @@ public class Encryptor {
 	public static void main(String[] args) {
 
 		String sampleMessage = "TESTTEST";
-		String sampleKey = "AB";
+		String sampleKey = "A";
 		VigenereCipher sample = new VigenereCipher();
+		LetterFrequencyAnalysis letterFrequency = new LetterFrequencyAnalysis();
+
+		letterFrequency.analyzeLetterFrequency(sampleMessage, 2);
 
 		System.out.print(sample.encryptMessage(sampleMessage, sampleKey));
 

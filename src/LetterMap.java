@@ -1,8 +1,10 @@
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.LinkedHashMap;
 
 class LetterMap extends LinkedHashMap<Character, Integer> {
 
-	private String message;
+	private final String message;
 
 	LetterMap(String message) {
 		super(26);
@@ -36,7 +38,18 @@ class LetterMap extends LinkedHashMap<Character, Integer> {
 	}
 
 	void countLetterFrequency() {
-
+		try (StringReader reader = new StringReader(this.message)) {
+			boolean moreText = true;
+			while (moreText) {
+				int value = reader.read();
+				incrementCount((char) value);
+				if (value == -1) {
+					moreText = false;
+				}
+			}
+		} catch (IOException exception) {
+			System.out.println("Issue analyzing letters.");
+		}
 	}
 
 	private void incrementCount(char letter) {
@@ -48,7 +61,8 @@ class LetterMap extends LinkedHashMap<Character, Integer> {
 	String getLetterFrequency() {
 		StringBuilder result = new StringBuilder();
 		for (char index = 'A'; index <= 'Z'; index++) {
-			result.append(index + " ");
+			int count = get(index);
+			result.append(count).append("  ");
 		}
 		return result.toString();
 	}

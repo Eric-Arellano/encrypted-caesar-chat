@@ -1,4 +1,4 @@
-public class LetterFrequencyAnalysis {
+public final class LetterFrequencyAnalysis {
 
 	public void analyzeLetterFrequency(String message, int keyLength) {
 		String[] submessages = divideMessage(message, keyLength);
