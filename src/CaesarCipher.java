@@ -7,10 +7,7 @@ public class CaesarCipher implements Encryptable {
 
 		for (int index = 0; index < message.length(); index++) {
 			char letter = encryptedChars[index];
-			int value = letter - 65;
-			value = (value + shiftNumber) % 26;
-			value = value + 65;
-			encryptedChars[index] = (char)(value);
+			encryptedChars[index] = encryptChar(letter, shiftNumber);
 		}
 		return new String(encryptedChars);
 
@@ -21,6 +18,14 @@ public class CaesarCipher implements Encryptable {
 		shift = (shift - 65) % 26;
 		shift++; // increment in order to produce shift
 		return shift;
+	}
+
+	private char encryptChar(char letter, int shift) {
+		int value = letter;
+		value = value - 65;
+		value = (value + shift) % 26;
+		value = value + 65;
+		return (char)(value);
 	}
 
 
