@@ -2,9 +2,7 @@ import java.util.LinkedHashMap;
 
 public class LetterFrequency {
 
-	// decide how to break up the string based on keySize
-		// each char changes subkey
-		// return list for each subkey
+
 
 	// read substrings and count letter frequency
 		// read char by char
@@ -47,11 +45,27 @@ public class LetterFrequency {
 	}
 
 	public void analyzeLetterFrequency(String message, int keyLength) {
-		// divide message into appropriate length
+		String[] subMessages = divideMessage(message, keyLength);
 
 		// count letter frequency
 
 		// display letter frequency
+	}
+
+	private String[] divideMessage(String message, int keyLength) {
+		String[] submessages = new String[keyLength];
+		final int messageLength = message.length();
+		final int jump = messageLength / keyLength;
+
+		for (int index = 0; index < keyLength; index++) {
+			StringBuilder substring = new StringBuilder();
+//			while (message has next) {
+//				String newChar = nextCharWithJump;
+//				substring.append(newChar);
+//			}
+			submessages[index] = substring.toString();
+		}
+		return submessages;
 	}
 
 	private LinkedHashMap<Character, Integer> countLetterFrequency(String message) {
