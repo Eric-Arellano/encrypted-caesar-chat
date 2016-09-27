@@ -39,6 +39,12 @@ class LetterMap extends LinkedHashMap<Character, Integer> {
 
 	}
 
+	private void incrementCount(char letter) {
+		if (letter >= 'A' && letter <= 'Z') {
+			this.put(letter, this.get(letter) + 1);
+		}
+	}
+
 	String getLetterFrequency() {
 		StringBuilder result = new StringBuilder();
 		for (char index = 'A'; index <= 'Z'; index++) {
