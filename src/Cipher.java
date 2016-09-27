@@ -6,7 +6,7 @@ public class Cipher {
 	public static void main(String[] args) {
 
 		String sampleMessage = "POTUSINTHEHOSUE";
-		int sampleKey = 1;
+		String sampleKey = "B";
 		CaesarCipher sample = new CaesarCipher();
 
 		System.out.print(sample.encryptMessage(sampleMessage, sampleKey));
