@@ -55,10 +55,19 @@ public class LetterFrequency {
 	}
 
 	private LinkedHashMap<Character, Integer> countLetterFrequency(String message) {
-		// upon reading key value, increment count value
+		// TODO: read String for char
+		char readChar = 'A';
+		if (readChar >= 'A' && readChar <= 'Z') {
+			letterMap.incrementCount('A');
+		}
 	}
 
-	private void displayLetterFrequency(LinkedHashMap<Character, Integer> charMap)  {
+	private void incrementCount(char letter) {
+
+	}
+
+
+	private String getLetterFrequency(LinkedHashMap<Character, Integer> charMap)  {
 		// print visualization and/or table
 	}
 
