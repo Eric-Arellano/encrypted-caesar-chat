@@ -45,25 +45,30 @@ public class LetterFrequency {
 	}
 
 	public void analyzeLetterFrequency(String message, int keyLength) {
-		String[] subMessages = divideMessage(message, keyLength);
+		String[] submessages = divideMessage(message, keyLength);
 
-		// count letter frequency
+		// display and count letter frequency
+		System.out.println(tableTitle);
+		for (int arrayIndex = 0; arrayIndex < keyLength; arrayIndex++) {
+			submessages[arrayIndex].countLetterFrequency();
+			System.out.println(submessages[arrayIndex].getLetterFrequency());
+		}
 
-		// display letter frequency
 	}
 
 	private String[] divideMessage(String message, int keyLength) {
 		String[] submessages = new String[keyLength];
-		final int messageLength = message.length();
-		final int jump = messageLength / keyLength;
+		final int jump = keyLength - 1;
 
-		for (int index = 0; index < keyLength; index++) {
+		for (int arrayIndex = 0; arrayIndex < keyLength; arrayIndex++) {
 			StringBuilder substring = new StringBuilder();
-//			while (message has next) {
-//				String newChar = nextCharWithJump;
-//				substring.append(newChar);
-//			}
-			submessages[index] = substring.toString();
+			int charIndex = arrayIndex;
+			while (charIndex < message.length()) {
+				String newChar = message.substring(charIndex, charIndex + 1);
+				charIndex += jump;
+				substring.append(newChar);
+			}
+			submessages[arrayIndex] = substring.toString();
 		}
 		return submessages;
 	}
@@ -84,5 +89,8 @@ public class LetterFrequency {
 	private String getLetterFrequency(LinkedHashMap<Character, Integer> charMap)  {
 		// print visualization and/or table
 	}
+
+	private String tableTitle = "A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  " +
+			"W  X  Y  Z\n-----------------------------------------------------------------------";
 
 }
