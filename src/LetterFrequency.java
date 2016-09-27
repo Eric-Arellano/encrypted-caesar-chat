@@ -2,6 +2,18 @@ import java.util.LinkedHashMap;
 
 public class LetterFrequency {
 
+	// decide how to break up the string based on keySize
+		// each char changes subkey
+		// return list for each subkey
+
+	// read substrings and count letter frequency
+		// read char by char
+		// each instance increments respective count by 1
+
+	// display results
+		// show title with letter names
+		// show each subkey's respective letter frequency
+
 	private LinkedHashMap<Character, Integer> letterMap;
 
 	public LetterFrequency() {
@@ -42,11 +54,11 @@ public class LetterFrequency {
 		// display letter frequency
 	}
 
-	private void countLetterFrequency(String message) {
+	private LinkedHashMap<Character, Integer> countLetterFrequency(String message) {
 		// upon reading key value, increment count value
 	}
 
-	private void displayLetterFrequency() {
+	private void displayLetterFrequency(LinkedHashMap<Character, Integer> charMap)  {
 		// print visualization and/or table
 	}
 
