@@ -10,14 +10,15 @@ public class Encryptor {
 		// ----------------------------------------------------------
 
 		String sampleMessage = "TEST";
-		String sampleKey = "Y";
-		VigenereCipher sample = new VigenereCipher();
+		String sampleKey = "YETI";
+		CaesarCipher caesar = new CaesarCipher();
+		VigenereCipher vigenere = new VigenereCipher();
 
-		String encryptedSample = sample.encryptMessage(sampleMessage, sampleKey);
-		System.out.print(encryptedSample);
-		System.out.println();
-		System.out.println(sample.decryptMessage(encryptedSample, sampleKey));
-		System.out.println();
+//		String encryptedSample = vigenere.encryptMessage(sampleMessage, sampleKey);
+//		System.out.print(encryptedSample);
+//		System.out.println();
+//		System.out.println(vigenere.decryptMessage(encryptedSample, sampleKey));
+//		System.out.println();
 
 		// ----------------------------------------------------------
 		// Letter Analysis / breaking key
@@ -28,8 +29,8 @@ public class Encryptor {
 				"XNWISEZKDSQDJLIKTEVZVMIIDTWIHEITWRWKDRLIJMWWIHMSDMJVWALKLOKFBPTVIEAVISWWROVKPCBJDNMWDRQEEUBKDWIISSBYTRMWAEKKDRIESTPVDTPVGFWIDUBGJTNIDMBYTRMWAEKKDRAFIHIKIHMITFTVRTMUHIOEPLKFJLLGPSASPCSKWRWLVHIJTPIIPTMJTTWWROVKPCBTAKYSRCDWALFCEPLCDZVSAVUUOCILIZVQRCJWEANWIKYBALVROVKPCBNXTPKWEXCPTMFCTWNWIKYIHMPLEZVAOIUTDBYTBZLHHMJPNLKWEKFGRMJEOVUXNOJTTWWROVKPCBJDNBYTPTRIEEVGEIIGAVXTDQEUOCIROVTTNBIXCKZGCTVHONKLEVKNSQOIHMFJTMIEAQIDFKZGCTVHIVGJTIESOCKEUBNTRMVFUQMPLMEITWKWEKLGRMEIIVRCEVZVMIGPSAZCGQEDNMUXRMTIIWEIHZFJGPKWEATGAUSAEZRCDBYTIVETRXRXRMHJIDRAEVKIOBYTCCIGEVKULWNXNOZCTPVDPXFHIBVSIZVRTQFC";
 		letterFrequency.analyzeLetterFrequency(encryptedMessage, 4);
 		System.out.println();
-		String testKey = "A";
-		System.out.println(sample.decryptMessage(encryptedMessage, testKey));
+		String testKey = "PAIR";
+		System.out.println(vigenere.decryptMessage(encryptedMessage, testKey));
 
 	}
 }
