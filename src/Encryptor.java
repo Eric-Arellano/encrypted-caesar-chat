@@ -9,8 +9,8 @@ public class Encryptor {
 		// Sample Encryption/Decryption
 		// ----------------------------------------------------------
 
-		String sampleMessage = "TESTTEST";
-		String sampleKey = "A";
+		String sampleMessage = "TEST";
+		String sampleKey = "Y";
 		VigenereCipher sample = new VigenereCipher();
 
 		String encryptedSample = sample.encryptMessage(sampleMessage, sampleKey);
@@ -26,9 +26,9 @@ public class Encryptor {
 		LetterFrequencyAnalysis letterFrequency = new LetterFrequencyAnalysis();
 		String encryptedMessage =
 				"XNWISEZKDSQDJLIKTEVZVMIIDTWIHEITWRWKDRLIJMWWIHMSDMJVWALKLOKFBPTVIEAVISWWROVKPCBJDNMWDRQEEUBKDWIISSBYTRMWAEKKDRIESTPVDTPVGFWIDUBGJTNIDMBYTRMWAEKKDRAFIHIKIHMITFTVRTMUHIOEPLKFJLLGPSASPCSKWRWLVHIJTPIIPTMJTTWWROVKPCBTAKYSRCDWALFCEPLCDZVSAVUUOCILIZVQRCJWEANWIKYBALVROVKPCBNXTPKWEXCPTMFCTWNWIKYIHMPLEZVAOIUTDBYTBZLHHMJPNLKWEKFGRMJEOVUXNOJTTWWROVKPCBJDNBYTPTRIEEVGEIIGAVXTDQEUOCIROVTTNBIXCKZGCTVHONKLEVKNSQOIHMFJTMIEAQIDFKZGCTVHIVGJTIESOCKEUBNTRMVFUQMPLMEITWKWEKLGRMEIIVRCEVZVMIGPSAZCGQEDNMUXRMTIIWEIHZFJGPKWEATGAUSAEZRCDBYTIVETRXRXRMHJIDRAEVKIOBYTCCIGEVKULWNXNOZCTPVDPXFHIBVSIZVRTQFC";
-		letterFrequency.analyzeLetterFrequency(encryptedMessage, 1);
+		letterFrequency.analyzeLetterFrequency(encryptedMessage, 4);
 		System.out.println();
-		String testKey = "Z";
+		String testKey = "A";
 		System.out.println(sample.decryptMessage(encryptedMessage, testKey));
 
 	}

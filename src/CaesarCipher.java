@@ -32,16 +32,15 @@ public class CaesarCipher implements Encryptable, Decryptable {
 	private char encryptChar(char letter, int shift) {
 		int value = letter;
 		value = value - 65;
-		value = (value + shift) % 26;
+		value = Math.floorMod((value + shift), 26);
 		value = value + 65;
 		return (char)(value);
 	}
 
-	// TODO: not working for high keys
 	private char decryptChar(char letter, int shift) {
 		int value = letter;
 		value = value - 65;
-		value = (value - shift) % 26;
+		value = Math.floorMod((value - shift), 26);
 		value = value + 65;
 		return (char)(value);
 	}
