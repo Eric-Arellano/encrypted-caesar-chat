@@ -30,6 +30,7 @@ class LetterMap extends LinkedHashMap<Character, Integer> {
 		this.put('T', 0);
 		this.put('U', 0);
 		this.put('V', 0);
+		this.put('W', 0);
 		this.put('X', 0);
 		this.put('Y', 0);
 		this.put('Z', 0);
@@ -61,7 +62,7 @@ class LetterMap extends LinkedHashMap<Character, Integer> {
 	String getLetterFrequency() {
 		StringBuilder result = new StringBuilder();
 		for (char index = 'A'; index <= 'Z'; index++) {
-			int count = get(index);
+			int count = this.get(index);
 			result.append(count).append("  ");
 		}
 		return result.toString();

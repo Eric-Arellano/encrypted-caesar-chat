@@ -10,7 +10,7 @@ public class Encryptor {
 		VigenereCipher sample = new VigenereCipher();
 		LetterFrequencyAnalysis letterFrequency = new LetterFrequencyAnalysis();
 
-		letterFrequency.analyzeLetterFrequency(sampleMessage, 2);
+		letterFrequency.analyzeLetterFrequency(sampleMessage, 1);
 
 		System.out.print(sample.encryptMessage(sampleMessage, sampleKey));
 
