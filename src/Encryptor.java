@@ -5,14 +5,26 @@ public class Encryptor {
 
 	public static void main(String[] args) {
 
+		// ----------------------------------------------------------
+		// Sample Encryption/Decryption
+		// ----------------------------------------------------------
+
 		String sampleMessage = "TESTTEST";
 		String sampleKey = "A";
 		VigenereCipher sample = new VigenereCipher();
+
+		String encryptedSample = sample.encryptMessage(sampleMessage, sampleKey);
+		System.out.print(encryptedSample);
+		System.out.println();
+		System.out.println(sample.decryptMessage(encryptedSample, sampleKey));
+		System.out.println();
+
+		// ----------------------------------------------------------
+		// Letter Analysis / breaking key
+		// ----------------------------------------------------------
+
 		LetterFrequencyAnalysis letterFrequency = new LetterFrequencyAnalysis();
-
 		letterFrequency.analyzeLetterFrequency(sampleMessage, 1);
-
-		System.out.print(sample.encryptMessage(sampleMessage, sampleKey));
 
 	}
 }
