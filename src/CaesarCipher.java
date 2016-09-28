@@ -37,6 +37,7 @@ public class CaesarCipher implements Encryptable, Decryptable {
 		return (char)(value);
 	}
 
+	// TODO: not working for high keys
 	private char decryptChar(char letter, int shift) {
 		int value = letter;
 		value = value - 65;
