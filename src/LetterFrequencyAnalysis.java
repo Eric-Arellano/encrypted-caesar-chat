@@ -17,16 +17,21 @@ public final class LetterFrequencyAnalysis {
 		String[] submessages = new String[keyLength];
 		final int jump = keyLength - 1;
 
-		for (int arrayIndex = 0; arrayIndex < keyLength; arrayIndex++) {
-			StringBuilder substring = new StringBuilder();
-			int charIndex = arrayIndex;
-			while (charIndex < message.length()) {
-				String newChar = message.substring(charIndex, charIndex + 1);
-				charIndex += jump;
-				substring.append(newChar);
+		if (keyLength < 2) {
+			submessages[0] = message;
+		} else {
+			for (int arrayIndex = 0; arrayIndex < keyLength; arrayIndex++) {
+				StringBuilder substring = new StringBuilder();
+				int charIndex = arrayIndex;
+				while (charIndex < message.length()) {
+					String newChar = message.substring(charIndex, charIndex + 1);
+					charIndex += jump;
+					substring.append(newChar);
+				}
+				submessages[arrayIndex] = substring.toString();
 			}
-			submessages[arrayIndex] = substring.toString();
 		}
+
 		return submessages;
 	}
 
