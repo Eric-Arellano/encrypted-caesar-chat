@@ -24,7 +24,10 @@ public class Encryptor {
 		// ----------------------------------------------------------
 
 		LetterFrequencyAnalysis letterFrequency = new LetterFrequencyAnalysis();
-		letterFrequency.analyzeLetterFrequency(sampleMessage, 1);
+		String encryptedMessage = sample.encryptMessage("TESTTESTTESTTESTS", "A");
+		letterFrequency.analyzeLetterFrequency(encryptedMessage, 1);
+		String testKey = "A";
+		System.out.println(sample.decryptMessage(encryptedMessage, testKey));
 
 	}
 }
