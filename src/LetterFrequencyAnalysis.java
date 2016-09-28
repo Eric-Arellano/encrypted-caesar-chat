@@ -35,7 +35,8 @@ public final class LetterFrequencyAnalysis {
 		return submessages;
 	}
 
-	private String tableTitle = "A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  " +
-			"W  X  Y  Z\n-----------------------------------------------------------------------";
+	private String tableTitle = "A   B   C   D   E   F   G   H   I   J   K   L   M   N   O   P   Q " +
+			"  R   S   T   U   V   W   X   Y   " +
+			"Z\n-----------------------------------------------------------------------";
 
 }

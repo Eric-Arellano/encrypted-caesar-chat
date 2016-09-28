@@ -31,6 +31,5 @@ public class Encryptor {
 		System.out.println();
 		String testKey = "PAIR";
 		System.out.println(vigenere.decryptMessage(encryptedMessage, testKey));
-
 	}
 }
