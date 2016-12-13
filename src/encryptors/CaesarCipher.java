@@ -1,3 +1,5 @@
+package encryptors;
+
 public class CaesarCipher implements Encryptable, Decryptable {
 
 	public String encryptMessage(String message, String shift) {
