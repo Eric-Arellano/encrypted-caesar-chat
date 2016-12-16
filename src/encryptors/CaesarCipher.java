@@ -5,9 +5,9 @@ public class CaesarCipher implements Encryptable, Decryptable {
 	private final int ASCII_SHIFT_FOR_LOWER_CASE = 97;
 	private final int ALPHABET_SIZE = 26;
 
-	public String encryptMessage(String message, String shift) {
+	public String encryptMessage(String message, String key) {
 		char[] chars = message.toCharArray();
-		int shiftNumber = convertKey(shift);
+		int shiftNumber = convertKey(key);
 		return encryptChars(chars, shiftNumber);
 	}
 
