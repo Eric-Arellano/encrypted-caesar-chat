@@ -19,7 +19,8 @@ public class CaesarCipher implements Encryptable, Decryptable {
 
 	private int convertKey(String key) {
 		int shift = key.charAt(0);
-		shift = (shift - ASCII_SHIFT_FOR_LOWER_CASE) % ALPHABET_SIZE;
+		shift = shift - ASCII_SHIFT_FOR_LOWER_CASE;
+		shift = Math.floorMod(shift, ALPHABET_SIZE);
 		shift++; // increment in order to produce shift
 		return shift;
 	}
