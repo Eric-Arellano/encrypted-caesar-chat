@@ -1,8 +1,12 @@
 package tests;
 
+import encryptors.CaesarCipher;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("encryption test")
 class EncryptTest {
@@ -11,22 +15,29 @@ class EncryptTest {
 	@DisplayName("Caesar")
 	class CaesarTest {
 
+		private CaesarCipher caesar;
+
+		@BeforeEach
+		void instantiateCipher() {
+			caesar = new CaesarCipher();
+		}
+
 		@Test
 		@DisplayName("no string")
 		void noString() {
-
+			assertEquals("", caesar.encryptMessage("", "t"));
 		}
 
 		@Test
 		@DisplayName("normal encryption")
 		void encryptNormalASCII() {
-
+			assertEquals("cdgn", caesar.encryptMessage("zack", "c"));
 		}
 
 		@Test
 		@DisplayName("special characters & numbers")
 		void encryptNumbersSpecialCharacters() {
-
+			// TODO: how is this supposed to encrypt?
 		}
 
 	}
