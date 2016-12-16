@@ -2,6 +2,9 @@ package encryptors;
 
 public class CaesarCipher implements Encryptable, Decryptable {
 
+	private final int ASCII_SHIFT_FOR_LOWER_CASE = 65;
+	private final int ALPHABET_SIZE = 26;
+
 	public String encryptMessage(String message, String shift) {
 		char[] encryptedChars = message.toCharArray();
 		int shiftNumber = convertKey(shift);
@@ -26,24 +29,24 @@ public class CaesarCipher implements Encryptable, Decryptable {
 
 	private int convertKey(String key) {
 		int shift = key.charAt(0);
-		shift = (shift - 65) % 26;
+		shift = (shift - ASCII_SHIFT_FOR_LOWER_CASE) % ALPHABET_SIZE;
 		shift++; // increment in order to produce shift
 		return shift;
 	}
 
 	private char encryptChar(char letter, int shift) {
 		int value = letter;
-		value = value - 65;
-		value = Math.floorMod((value + shift), 26);
-		value = value + 65;
+		value = value - ASCII_SHIFT_FOR_LOWER_CASE;
+		value = Math.floorMod((value + shift), ALPHABET_SIZE);
+		value = value + ASCII_SHIFT_FOR_LOWER_CASE;
 		return (char)(value);
 	}
 
 	private char decryptChar(char letter, int shift) {
 		int value = letter;
-		value = value - 65;
-		value = Math.floorMod((value - shift), 26);
-		value = value + 65;
+		value = value - ASCII_SHIFT_FOR_LOWER_CASE;
+		value = Math.floorMod((value - shift), ALPHABET_SIZE);
+		value = value + ASCII_SHIFT_FOR_LOWER_CASE;
 		return (char)(value);
 	}
 
