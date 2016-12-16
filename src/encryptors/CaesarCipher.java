@@ -6,25 +6,15 @@ public class CaesarCipher implements Encryptable, Decryptable {
 	private final int ALPHABET_SIZE = 26;
 
 	public String encryptMessage(String message, String shift) {
-		char[] encryptedChars = message.toCharArray();
+		char[] chars = message.toCharArray();
 		int shiftNumber = convertKey(shift);
-
-		for (int index = 0; index < message.length(); index++) {
-			char letter = encryptedChars[index];
-			encryptedChars[index] = encryptChar(letter, shiftNumber);
-		}
-		return new String(encryptedChars);
+		return encryptChars(chars, shiftNumber);
 	}
 
 	public String decryptMessage(String encryptedMessage, String key) {
-		char[] decryptedChars = encryptedMessage.toCharArray();
+		char[] chars = encryptedMessage.toCharArray();
 		int shiftNumber = convertKey(key);
-
-		for (int index = 0; index < encryptedMessage.length(); index++) {
-			char letter = decryptedChars[index];
-			decryptedChars[index] = decryptChar(letter, shiftNumber);
-		}
-		return new String(decryptedChars);
+		return decryptChars(chars, shiftNumber);
 	}
 
 	private int convertKey(String key) {
@@ -32,6 +22,22 @@ public class CaesarCipher implements Encryptable, Decryptable {
 		shift = (shift - ASCII_SHIFT_FOR_LOWER_CASE) % ALPHABET_SIZE;
 		shift++; // increment in order to produce shift
 		return shift;
+	}
+
+	private String encryptChars(char[] chars, int shiftNumber) {
+		for (int index = 0; index < chars.length; index++) {
+			char letter = chars[index];
+			chars[index] = encryptChar(letter, shiftNumber);
+		}
+		return new String(chars);
+	}
+
+	private String decryptChars(char[] chars, int shiftNumber) {
+		for (int index = 0; index < chars.length; index++) {
+			char letter = chars[index];
+			chars[index] = decryptChar(letter, shiftNumber);
+		}
+		return new String(chars);
 	}
 
 	private char encryptChar(char letter, int shift) {
