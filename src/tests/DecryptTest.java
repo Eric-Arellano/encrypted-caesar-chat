@@ -1,10 +1,8 @@
 package tests;
 
 import encryptors.CaesarCipher;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import encryptors.VigenereCipher;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -34,12 +32,14 @@ class DecryptTest {
 			assertEquals("zack", caesar.decryptMessage("cdfn", "c"));
 		}
 
+		@Disabled("Add support for uppercase encryption/decryption")
         @Test
         @DisplayName("uppercase decryption")
         void decryptUppercaseASCII() {
             assertEquals("ZACK", caesar.decryptMessage("CDFN", "C"));
         }
 
+		@Disabled("Add support for special characters, spaces, & numbers in encryption/decryption")
 		@Test
 		@DisplayName("special characters & numbers")
 		void decryptNumbersSpecialCharacters() {
@@ -52,28 +52,43 @@ class DecryptTest {
 	@DisplayName("Vigenere")
 	class VigenereTest {
 
+		private VigenereCipher vigenere;
+
+		@BeforeEach
+		void instantiateVigenere() {
+			vigenere = new VigenereCipher();
+		}
+
 		@Test
 		@DisplayName("no string")
 		void noString() {
-
+			assertEquals("", vigenere.decryptMessage("", "ab"));
 		}
 
 		@Test
-		@DisplayName("normal decryption")
+		@DisplayName("normal lowercase decryption")
 		void decryptNormalASCII() {
-
+			assertEquals("zack", vigenere.decryptMessage("acdm", "ab"));
 		}
 
+		@Disabled("Add support for uppercase encryption/decryption")
+		@Test
+		@DisplayName("uppercase decryption")
+		void decryptUppercaseASCII() {
+			assertEquals("ZACK", vigenere.decryptMessage("ACDM", "AB"));
+		}
+
+		@Disabled("Add support for special characters, spaces, & numbers in encryption/decryption")
 		@Test
 		@DisplayName("special characters & numbers")
 		void decryptNumbersSpecialCharacters() {
-
+			// TODO: how is this supposed to decrypt?
 		}
 
 		@Test
 		@DisplayName("message shorter than key")
 		void decryptMessageShorterThanKey() {
-
+			assertEquals("zack", vigenere.decryptMessage("acfo", "abcdefg"));
 		}
 
 	}
