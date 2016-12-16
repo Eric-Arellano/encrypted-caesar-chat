@@ -29,9 +29,15 @@ class EncryptTest {
 		}
 
 		@Test
-		@DisplayName("normal encryption")
+		@DisplayName("normal lowercase encryption")
 		void encryptNormalASCII() {
 			assertEquals("cdfn", caesar.encryptMessage("zack", "c"));
+		}
+
+		@Test
+		@DisplayName("uppercase encryption")
+		void encryptUppercaseASCII() {
+			assertEquals("CDFN", caesar.encryptMessage("ZACK", "c"));
 		}
 
 		@Test

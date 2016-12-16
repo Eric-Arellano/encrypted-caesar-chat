@@ -29,10 +29,16 @@ class DecryptTest {
 		}
 
 		@Test
-		@DisplayName("normal decryption")
+		@DisplayName("normal lowercase decryption")
 		void decryptNormalASCII() {
 			assertEquals("zack", caesar.decryptMessage("cdfn", "c"));
 		}
+
+        @Test
+        @DisplayName("uppercase decryption")
+        void decryptUppercaseASCII() {
+            assertEquals("ZACK", caesar.decryptMessage("CDFN", "c"));
+        }
 
 		@Test
 		@DisplayName("special characters & numbers")
