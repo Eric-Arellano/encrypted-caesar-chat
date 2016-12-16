@@ -31,7 +31,7 @@ class EncryptTest {
 		@Test
 		@DisplayName("normal encryption")
 		void encryptNormalASCII() {
-			assertEquals("cdgn", caesar.encryptMessage("zack", "c"));
+			assertEquals("cdfn", caesar.encryptMessage("zack", "c"));
 		}
 
 		@Test

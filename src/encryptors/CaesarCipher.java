@@ -2,7 +2,7 @@ package encryptors;
 
 public class CaesarCipher implements Encryptable, Decryptable {
 
-	private final int ASCII_SHIFT_FOR_LOWER_CASE = 65;
+	private final int ASCII_SHIFT_FOR_LOWER_CASE = 97;
 	private final int ALPHABET_SIZE = 26;
 
 	public String encryptMessage(String message, String shift) {
