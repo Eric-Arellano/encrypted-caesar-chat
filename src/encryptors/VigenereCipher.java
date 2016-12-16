@@ -34,9 +34,9 @@ public class VigenereCipher implements Encryptable, Decryptable {
 			String currentLetter = getCurrentLetter(encryptedMessage, messageIndex);
 			String currentKey = getCurrentKey(key, keyIndex);
 
-			// append encryption
-			String encryptedLetter = caesarCipher.decryptMessage(currentLetter, currentKey);
-			messageBuilder.append(encryptedLetter);
+			// append decryption
+			String decryptedLetter = caesarCipher.decryptMessage(currentLetter, currentKey);
+			messageBuilder.append(decryptedLetter);
 
 			// update keyIndex
 			keyIndex = updateKeyIndex(keyIndex, key.length());
