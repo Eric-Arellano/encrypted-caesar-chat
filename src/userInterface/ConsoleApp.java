@@ -79,7 +79,8 @@ public class ConsoleApp {
 	}
 
 	private void promptMessage() {
-		String prompt = String.format("Please type your %sed message: ", encryptMode);
+		String prompt = String.format("Please type your %sed message (use lowercase and/or uppercase " +
+				"letters, but no spaces or special characters): ", encryptMode);
 		System.out.println(prompt);
 	}
 
@@ -93,7 +94,8 @@ public class ConsoleApp {
 	}
 
 	private void promptKey() {
-		String prompt = String.format("Please type your %sion key: ", encryptMode);
+		String prompt = String.format("Please type your %sion key (use a lowercase letter or letters)" +
+				": ", encryptMode);
 		System.out.println(prompt);
 	}
 
@@ -120,7 +122,7 @@ public class ConsoleApp {
 	}
 
 	private void printNewMessage(String message) {
-		String newMessage = String.format("Your new %sed message is: %s", encryptMode, message);
+		String newMessage = String.format("Your new %sed message is: \n\n%s\n\n", encryptMode, message);
 		System.out.println(newMessage);
 	}
 
