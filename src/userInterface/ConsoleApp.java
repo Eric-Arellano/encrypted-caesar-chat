@@ -21,10 +21,12 @@ public class ConsoleApp {
 		welcomeUser();
 		do {
 			chooseEncryptOrDecrypt();
-			String message = requestMessage();
-			String key = requestKey();
-			String translatedMessage = translateMessage(message, key);
-			printNewMessage(translatedMessage);
+			if (!quitApp) {
+				String message = requestMessage();
+				String key = requestKey();
+				String translatedMessage = translateMessage(message, key);
+				printNewMessage(translatedMessage);
+			}
 		} while (!quitApp);
 		closeApp();
 	}
@@ -35,7 +37,7 @@ public class ConsoleApp {
 	}
 
 	private void closeApp() {
-		System.out.println("This app is closing. Come back again for sharing your secrets.");
+		System.out.println("This app is closing. Come back again to share some secrets.");
 	}
 
 	// -----------------------------------------------------------------------------------
@@ -48,11 +50,14 @@ public class ConsoleApp {
 	}
 
 	private void promptEncryptMode() {
-		System.out.println("Would you like to encrypt or decrypt your message?");
+		String instruction = "\nWould you like to encrypt or decrypt your message? Please input \"1\", " +
+				"\"2\" or \"0\" to quit.";
+		String menuOptions = "\n1)\tEncrypt message\n2)\tDecrypt message";
+		System.out.println(instruction + menuOptions);
 	}
 
 	private void listenForEncryptMode() {
-		final int RANGE_LOWER_BOUND = 1;
+		final int RANGE_LOWER_BOUND = 0;
 		final int RANGE_UPPER_BOUND = 2;
 		int userInput = getValidIntInput(RANGE_LOWER_BOUND, RANGE_UPPER_BOUND);
 		switch (userInput) {
@@ -61,6 +66,9 @@ public class ConsoleApp {
 				break;
 			case 2:
 				encryptMode = EncryptMode.DECRYPT;
+				break;
+			case 0:
+				quitApp = true;
 				break;
 		}
 	}
@@ -71,7 +79,7 @@ public class ConsoleApp {
 	}
 
 	private void promptMessage() {
-		String prompt = String.format("Please type your %sd message: ", encryptMode);
+		String prompt = String.format("Please type your %sed message: ", encryptMode);
 		System.out.println(prompt);
 	}
 
