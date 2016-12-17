@@ -1,9 +1,9 @@
 package tests;
 
-import encryptors.CaesarCipher;
-import encryptors.VigenereCipher;
+import encryptors.Encryptable;
 import org.junit.jupiter.api.*;
 
+import static encryptors.CipherChooser.chooseEncryptionCipher;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("encryption test")
@@ -13,11 +13,11 @@ class EncryptTest {
 	@DisplayName("Caesar")
 	class CaesarTest {
 
-		private CaesarCipher caesar;
+		private Encryptable caesar;
 
 		@BeforeEach
 		void instantiateCipher() {
-			caesar = new CaesarCipher();
+			caesar = chooseEncryptionCipher("s");
 		}
 
 		@Test
@@ -57,11 +57,11 @@ class EncryptTest {
 	@DisplayName("Vigenere")
 	class VigenereTest {
 
-		private VigenereCipher vigenere;
+		private Encryptable vigenere;
 
 		@BeforeEach
 		void instantiateVigenere() {
-			vigenere = new VigenereCipher();
+			vigenere = chooseEncryptionCipher("sample");
 		}
 
 		@Test

@@ -2,7 +2,7 @@ package encryptors;
 
 import static encryptors.ConversionUtilities.*;
 
-public class CaesarCipher implements Encryptable, Decryptable {
+class CaesarCipher implements Encryptable, Decryptable {
 
 	public String encryptMessage(String message, String key) {
 		char[] chars = message.toCharArray();
