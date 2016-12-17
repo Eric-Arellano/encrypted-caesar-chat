@@ -2,8 +2,6 @@ package encryptors;
 
 public class CaesarCipher implements Encryptable, Decryptable {
 
-	private static final int ALPHABET_SIZE = 26;
-
 	public String encryptMessage(String message, String key) {
 		char[] chars = message.toCharArray();
 		int shiftNumber = convertKey(key);
@@ -24,8 +22,12 @@ public class CaesarCipher implements Encryptable, Decryptable {
         else if (Character.isUpperCase(shift)) {
 		    shift = convertCharDownFromASCII((char) shift, Case.UPPERCASE);
         }
-		shift = shiftChar((char) shift, ShiftCharType.CONVERT_KEY);
+		shift = shiftKey((char) shift);
 		return shift;
+	}
+
+	private int shiftKey(char letter) {
+		return ShiftCharType.CONVERT_KEY.shiftChar(letter, 1);
 	}
 
 	private String encryptChars(char[] chars, int shiftNumber) {
@@ -104,11 +106,6 @@ public class CaesarCipher implements Encryptable, Decryptable {
 		return encryptOrDecrypt.shiftChar(letter, shift);
 	}
 
-	private int shiftChar(char letter, ShiftCharType convertKey) {
-		return convertKey.shiftChar(letter, 1);
-	}
-
-
     private enum Case {
 	    UPPERCASE(65), LOWERCASE(97);
 
@@ -139,6 +136,8 @@ public class CaesarCipher implements Encryptable, Decryptable {
 				return Math.floorMod((letter), ALPHABET_SIZE) + 1;
 			}
 		};
+
+		private static final int ALPHABET_SIZE = 26;
 
 		abstract int shiftChar(char letter, int shift);
 	}
