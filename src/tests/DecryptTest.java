@@ -32,18 +32,16 @@ class DecryptTest {
 			assertEquals("zack", caesar.decryptMessage("cdfn", "c"));
 		}
 
-		@Disabled("Add support for uppercase encryption/decryption")
         @Test
         @DisplayName("uppercase decryption")
         void decryptUppercaseASCII() {
-            assertEquals("ZACK", caesar.decryptMessage("CDFN", "C"));
+            assertEquals("ZACK", caesar.decryptMessage("CDFN", "c"));
         }
 
-		@Disabled("Add support for mixed case encryption/decryption")
 		@Test
 		@DisplayName("mixed case decryption")
 		void decryptMixedcaseASCII() {
-			assertEquals("Cdfn", caesar.decryptMessage("Zack", "c"));
+			assertEquals("Zack", caesar.decryptMessage("Cdfn", "c"));
 		}
 
 		@Disabled("Add support for special characters, spaces, & numbers in encryption/decryption")
@@ -78,18 +76,16 @@ class DecryptTest {
 			assertEquals("zack", vigenere.decryptMessage("acdm", "ab"));
 		}
 
-		@Disabled("Add support for uppercase encryption/decryption")
 		@Test
 		@DisplayName("uppercase decryption")
 		void decryptUppercaseASCII() {
-			assertEquals("ZACK", vigenere.decryptMessage("ACDM", "AB"));
+			assertEquals("ZACK", vigenere.decryptMessage("ACDM", "ab"));
 		}
 
-		@Disabled("Add support for mixed case encryption/decryption")
 		@Test
 		@DisplayName("mixed case decryption")
 		void decryptMixedcaseASCII() {
-			assertEquals("Acdm", vigenere.decryptMessage("Zack", "ab"));
+			assertEquals("Zack", vigenere.decryptMessage("Acdm", "ab"));
 		}
 
 		@Disabled("Add support for special characters, spaces, & numbers in encryption/decryption")
