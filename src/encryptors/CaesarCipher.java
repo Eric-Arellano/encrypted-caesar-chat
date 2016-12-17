@@ -1,5 +1,7 @@
 package encryptors;
 
+import static encryptors.ConversionUtilities.*;
+
 public class CaesarCipher implements Encryptable, Decryptable {
 
 	public String encryptMessage(String message, String key) {
@@ -29,10 +31,6 @@ public class CaesarCipher implements Encryptable, Decryptable {
         }
 		shift = shiftKey((char) shift);
 		return shift;
-	}
-
-	private int shiftKey(char letter) {
-		return ShiftCharType.CONVERT_KEY.shiftChar(letter, 1);
 	}
 
 	// -----------------------------------------------------------------------------------
@@ -102,58 +100,5 @@ public class CaesarCipher implements Encryptable, Decryptable {
         value = convertCharBackToASCII((char) value, Case.UPPERCASE);
 		return (char)(value);
 	}
-
-	// -----------------------------------------------------------------------------------
-	// Helper conversion functions and enums
-	// -----------------------------------------------------------------------------------
-
-	private int convertCharDownFromASCII(char letter, Case CASE) {
-	    return (int) letter - CASE.asciiShift();
-    }
-
-    private int convertCharBackToASCII(char letter, Case CASE) {
-	    return (int) letter + CASE.asciiShift();
-    }
-
-    private int shiftChar(char letter, int shift, ShiftCharType encryptOrDecrypt) {
-		return encryptOrDecrypt.shiftChar(letter, shift);
-	}
-
-    private enum Case {
-	    UPPERCASE(65), LOWERCASE(97);
-
-	    private final int asciiShiftValue;
-
-	    Case(int asciiShiftValue) {
-	        this.asciiShiftValue = asciiShiftValue;
-        }
-
-        public int asciiShift() {
-	        return asciiShiftValue;
-        }
-    }
-
-    private enum ShiftCharType {
-		ENCRYPT {
-			int shiftChar(char letter, int shift) {
-				return Math.floorMod((letter + shift), ALPHABET_SIZE);
-			}
-		},
-		DECRYPT {
-			int shiftChar(char letter, int shift) {
-				return Math.floorMod((letter - shift), ALPHABET_SIZE);
-			}
-		},
-		CONVERT_KEY {
-			int shiftChar(char letter, int shift) {
-				return Math.floorMod((letter), ALPHABET_SIZE) + 1;
-			}
-		};
-
-		private static final int ALPHABET_SIZE = 26;
-
-		abstract int shiftChar(char letter, int shift);
-	}
-
 
 }
