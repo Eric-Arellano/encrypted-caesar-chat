@@ -2,7 +2,7 @@ package encryptors;
 
 public class CaesarCipher implements Encryptable, Decryptable {
 
-	private final int ALPHABET_SIZE = 26;
+	private static final int ALPHABET_SIZE = 26;
 
 	public String encryptMessage(String message, String key) {
 		char[] chars = message.toCharArray();
@@ -24,8 +24,7 @@ public class CaesarCipher implements Encryptable, Decryptable {
         else if (Character.isUpperCase(shift)) {
 		    shift = convertCharDownFromASCII((char) shift, Case.UPPERCASE);
         }
-		shift = Math.floorMod(shift, ALPHABET_SIZE);
-		shift++; // increment in order to produce shift
+		shift = shiftChar((char) shift, ShiftCharType.CONVERT_KEY);
 		return shift;
 	}
 
@@ -67,28 +66,28 @@ public class CaesarCipher implements Encryptable, Decryptable {
 
 	private char encryptLowerCaseChar(char letter, int shift) {
 		int value = convertCharDownFromASCII(letter, Case.LOWERCASE);
-		value = Math.floorMod((value + shift), ALPHABET_SIZE);
+		value = shiftChar((char) value, shift, ShiftCharType.ENCRYPT);
 		value = convertCharBackToASCII((char) value, Case.LOWERCASE);
 		return (char)(value);
 	}
 
 	private char encryptUpperCaseChar(char letter, int shift) {
         int value = convertCharDownFromASCII(letter, Case.UPPERCASE);
-		value = Math.floorMod((value + shift), ALPHABET_SIZE);
+		value = shiftChar((char) value, shift, ShiftCharType.ENCRYPT);
 		value = convertCharBackToASCII((char) value, Case.UPPERCASE);
 		return (char)(value);
 	}
 
 	private char decryptLowerCaseChar(char letter, int shift) {
         int value = convertCharDownFromASCII(letter, Case.LOWERCASE);
-		value = Math.floorMod((value - shift), ALPHABET_SIZE);
+		value = shiftChar((char) value, shift, ShiftCharType.DECRYPT);
         value = convertCharBackToASCII((char) value, Case.LOWERCASE);
 		return (char)(value);
 	}
 
 	private char decryptUpperCaseChar(char letter, int shift) {
         int value = convertCharDownFromASCII(letter, Case.UPPERCASE);
-		value = Math.floorMod((value - shift), ALPHABET_SIZE);
+		value = shiftChar((char) value, shift, ShiftCharType.DECRYPT);
         value = convertCharBackToASCII((char) value, Case.UPPERCASE);
 		return (char)(value);
 	}
@@ -100,6 +99,15 @@ public class CaesarCipher implements Encryptable, Decryptable {
     private int convertCharBackToASCII(char letter, Case CASE) {
 	    return (int) letter + CASE.asciiShift();
     }
+
+    private int shiftChar(char letter, int shift, ShiftCharType encryptOrDecrypt) {
+		return encryptOrDecrypt.shiftChar(letter, shift);
+	}
+
+	private int shiftChar(char letter, ShiftCharType convertKey) {
+		return convertKey.shiftChar(letter, 1);
+	}
+
 
     private enum Case {
 	    UPPERCASE(65), LOWERCASE(97);
@@ -114,6 +122,26 @@ public class CaesarCipher implements Encryptable, Decryptable {
 	        return asciiShiftValue;
         }
     }
+
+    private enum ShiftCharType {
+		ENCRYPT {
+			int shiftChar(char letter, int shift) {
+				return Math.floorMod((letter + shift), ALPHABET_SIZE);
+			}
+		},
+		DECRYPT {
+			int shiftChar(char letter, int shift) {
+				return Math.floorMod((letter - shift), ALPHABET_SIZE);
+			}
+		},
+		CONVERT_KEY {
+			int shiftChar(char letter, int shift) {
+				return Math.floorMod((letter), ALPHABET_SIZE) + 1;
+			}
+		};
+
+		abstract int shiftChar(char letter, int shift);
+	}
 
 
 }
