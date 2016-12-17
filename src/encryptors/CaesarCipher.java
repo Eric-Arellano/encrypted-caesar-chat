@@ -23,12 +23,8 @@ public class CaesarCipher implements Encryptable, Decryptable {
 
 	private int convertKey(String key) {
 		int shift = key.charAt(0);
-		if (Character.isLowerCase(shift)) {
-            shift = convertCharDownFromASCII((char) shift, Case.LOWERCASE);
-        }
-        else if (Character.isUpperCase(shift)) {
-		    shift = convertCharDownFromASCII((char) shift, Case.UPPERCASE);
-        }
+		shift = Character.toLowerCase((char) shift);
+		shift = convertCharDownFromASCII((char) shift, Case.LOWERCASE);
 		shift = shiftKey((char) shift);
 		return shift;
 	}
