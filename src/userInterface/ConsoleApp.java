@@ -5,6 +5,8 @@ import encryptors.Encryptable;
 
 import static encryptors.CipherChooser.chooseDecryptionCipher;
 import static encryptors.CipherChooser.chooseEncryptionCipher;
+import static userInterface.UserInputHelper.getValidIntInput;
+import static userInterface.UserInputHelper.getValidStringInput;
 
 public class ConsoleApp {
 
@@ -121,22 +123,6 @@ public class ConsoleApp {
 		public String toString() {
 			return name().toLowerCase();
 		}
-	}
-
-	// -----------------------------------------------------------------------------------
-	// User input helper
-	// -----------------------------------------------------------------------------------
-
-	private class UserInputHelper {
-
-	}
-
-	private static int getValidIntInput(int RANGE_LOWER_BOUND, int RANGE_UPPER_BOUND) {
-		// keep asking until within inclusive range
-	}
-
-	private static String getValidStringInput() {
-		// only upper and lower case letters; no numbers, special characters, or spaces
 	}
 
 }
