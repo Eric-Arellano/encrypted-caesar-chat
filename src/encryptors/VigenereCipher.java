@@ -11,7 +11,7 @@ public class VigenereCipher implements Encryptable, Decryptable {
 	public String encryptMessage(String message, String key) {
 		StringBuilder messageBuilder = new StringBuilder();
 		int keyIndex = 0;
-		for (int messageIndex = 0; messageIndex < message.length(); messageIndex++ ) {
+		for (int messageIndex = 0; messageIndex < message.length(); messageIndex++) {
 			// get current values
 			String currentLetter = getCurrentLetter(message, messageIndex);
 			String currentKey = getCurrentKey(key, keyIndex);
@@ -29,7 +29,7 @@ public class VigenereCipher implements Encryptable, Decryptable {
 	public String decryptMessage(String encryptedMessage, String key) {
 		StringBuilder messageBuilder = new StringBuilder();
 		int keyIndex = 0;
-		for (int messageIndex = 0; messageIndex < encryptedMessage.length(); messageIndex++ ) {
+		for (int messageIndex = 0; messageIndex < encryptedMessage.length(); messageIndex++) {
 			// get current values
 			String currentLetter = getCurrentLetter(encryptedMessage, messageIndex);
 			String currentKey = getCurrentKey(key, keyIndex);
@@ -44,15 +44,15 @@ public class VigenereCipher implements Encryptable, Decryptable {
 		return messageBuilder.toString();
 	}
 
-    private String getCurrentLetter(String message, int messageIndex) {
+	private String getCurrentLetter(String message, int messageIndex) {
 		return message.substring(messageIndex, messageIndex + 1);
-    }
+	}
 
-    private String getCurrentKey(String key, int keyIndex) {
+	private String getCurrentKey(String key, int keyIndex) {
 		return key.substring(keyIndex, keyIndex + 1);
-    }
+	}
 
-    private int updateKeyIndex(int keyIndex, int keyLength) {
+	private int updateKeyIndex(int keyIndex, int keyLength) {
 		if (keyIndex < keyLength - 1) {
 			return keyIndex + 1;
 		} else {

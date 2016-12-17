@@ -77,23 +77,23 @@ public class CaesarCipher implements Encryptable, Decryptable {
 	}
 
 	private char encryptUpperCaseChar(char letter, int shift) {
-        char encryptedLetter = convertCharDownFromASCII(letter, Case.UPPERCASE);
+		char encryptedLetter = convertCharDownFromASCII(letter, Case.UPPERCASE);
 		encryptedLetter = shiftChar(encryptedLetter, shift, ShiftCharType.ENCRYPT);
 		encryptedLetter = convertCharBackToASCII(encryptedLetter, Case.UPPERCASE);
 		return encryptedLetter;
 	}
 
 	private char decryptLowerCaseChar(char letter, int shift) {
-        char decryptedLetter = convertCharDownFromASCII(letter, Case.LOWERCASE);
+		char decryptedLetter = convertCharDownFromASCII(letter, Case.LOWERCASE);
 		decryptedLetter = shiftChar(decryptedLetter, shift, ShiftCharType.DECRYPT);
-        decryptedLetter = convertCharBackToASCII(decryptedLetter, Case.LOWERCASE);
+		decryptedLetter = convertCharBackToASCII(decryptedLetter, Case.LOWERCASE);
 		return decryptedLetter;
 	}
 
 	private char decryptUpperCaseChar(char letter, int shift) {
-        char decryptedLetter = convertCharDownFromASCII(letter, Case.UPPERCASE);
+		char decryptedLetter = convertCharDownFromASCII(letter, Case.UPPERCASE);
 		decryptedLetter = shiftChar(decryptedLetter, shift, ShiftCharType.DECRYPT);
-        decryptedLetter = convertCharBackToASCII(decryptedLetter, Case.UPPERCASE);
+		decryptedLetter = convertCharBackToASCII(decryptedLetter, Case.UPPERCASE);
 		return decryptedLetter;
 	}
 

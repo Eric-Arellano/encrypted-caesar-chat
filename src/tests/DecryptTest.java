@@ -32,11 +32,11 @@ class DecryptTest {
 			assertEquals("zack", caesar.decryptMessage("cdfn", "c"));
 		}
 
-        @Test
-        @DisplayName("uppercase decryption")
-        void decryptUppercaseASCII() {
-            assertEquals("ZACK", caesar.decryptMessage("CDFN", "C"));
-        }
+		@Test
+		@DisplayName("uppercase decryption")
+		void decryptUppercaseASCII() {
+			assertEquals("ZACK", caesar.decryptMessage("CDFN", "C"));
+		}
 
 		@Test
 		@DisplayName("mixed case decryption")

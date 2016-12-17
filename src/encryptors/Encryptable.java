@@ -1,6 +1,6 @@
 package encryptors;
 
-interface Encryptable {
+public interface Encryptable {
 
 	String encryptMessage(String message, String key);
 

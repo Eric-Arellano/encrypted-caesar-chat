@@ -1,6 +1,7 @@
 import analysis.LetterFrequencyAnalysis;
 import encryptors.CaesarCipher;
 import encryptors.VigenereCipher;
+
 /**
  * Allows encryption of String with either Caesar or Vigenere cipher.
  */
