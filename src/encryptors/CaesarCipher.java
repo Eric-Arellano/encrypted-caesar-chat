@@ -2,8 +2,6 @@ package encryptors;
 
 public class CaesarCipher implements Encryptable, Decryptable {
 
-	private final int ASCII_SHIFT_FOR_LOWER_CASE = 97;
-	private final int ASCII_SHIFT_FOR_UPPER_CASE = 65;
 	private final int ALPHABET_SIZE = 26;
 
 	public String encryptMessage(String message, String key) {
@@ -19,9 +17,13 @@ public class CaesarCipher implements Encryptable, Decryptable {
 	}
 
 	private int convertKey(String key) {
-		key = key.toLowerCase();
 		int shift = key.charAt(0);
-		shift = shift - ASCII_SHIFT_FOR_LOWER_CASE;
+		if (Character.isLowerCase(shift)) {
+            shift = convertCharDownFromASCII((char) shift, Case.LOWERCASE);
+        }
+        else if (Character.isUpperCase(shift)) {
+		    shift = convertCharDownFromASCII((char) shift, Case.UPPERCASE);
+        }
 		shift = Math.floorMod(shift, ALPHABET_SIZE);
 		shift++; // increment in order to produce shift
 		return shift;
@@ -64,36 +66,54 @@ public class CaesarCipher implements Encryptable, Decryptable {
 	}
 
 	private char encryptLowerCaseChar(char letter, int shift) {
-		int value = letter;
-		value = value - ASCII_SHIFT_FOR_LOWER_CASE;
+		int value = convertCharDownFromASCII(letter, Case.LOWERCASE);
 		value = Math.floorMod((value + shift), ALPHABET_SIZE);
-		value = value + ASCII_SHIFT_FOR_LOWER_CASE;
+		value = convertCharBackToASCII((char) value, Case.LOWERCASE);
 		return (char)(value);
 	}
 
 	private char encryptUpperCaseChar(char letter, int shift) {
-		int value = letter;
-		value = value - ASCII_SHIFT_FOR_UPPER_CASE;
+        int value = convertCharDownFromASCII(letter, Case.UPPERCASE);
 		value = Math.floorMod((value + shift), ALPHABET_SIZE);
-		value = value + ASCII_SHIFT_FOR_UPPER_CASE;
+		value = convertCharBackToASCII((char) value, Case.UPPERCASE);
 		return (char)(value);
 	}
 
 	private char decryptLowerCaseChar(char letter, int shift) {
-		int value = letter;
-		value = value - ASCII_SHIFT_FOR_LOWER_CASE;
+        int value = convertCharDownFromASCII(letter, Case.LOWERCASE);
 		value = Math.floorMod((value - shift), ALPHABET_SIZE);
-		value = value + ASCII_SHIFT_FOR_LOWER_CASE;
+        value = convertCharBackToASCII((char) value, Case.LOWERCASE);
 		return (char)(value);
 	}
 
 	private char decryptUpperCaseChar(char letter, int shift) {
-		int value = letter;
-		value = value - ASCII_SHIFT_FOR_UPPER_CASE;
+        int value = convertCharDownFromASCII(letter, Case.UPPERCASE);
 		value = Math.floorMod((value - shift), ALPHABET_SIZE);
-		value = value + ASCII_SHIFT_FOR_UPPER_CASE;
+        value = convertCharBackToASCII((char) value, Case.UPPERCASE);
 		return (char)(value);
 	}
+
+	private int convertCharDownFromASCII(char letter, Case CASE) {
+	    return (int) letter - CASE.asciiShift();
+    }
+
+    private int convertCharBackToASCII(char letter, Case CASE) {
+	    return (int) letter + CASE.asciiShift();
+    }
+
+    private enum Case {
+	    UPPERCASE(65), LOWERCASE(97);
+
+	    private final int asciiShiftValue;
+
+	    Case(int asciiShiftValue) {
+	        this.asciiShiftValue = asciiShiftValue;
+        }
+
+        public int asciiShift() {
+	        return asciiShiftValue;
+        }
+    }
 
 
 }
