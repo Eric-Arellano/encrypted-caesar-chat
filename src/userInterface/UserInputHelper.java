@@ -12,6 +12,7 @@ class UserInputHelper {
 		try {
 			if (scanner.hasNextInt()) {
 				inputtedValue = scanner.nextInt();
+				scanner.nextLine();
 				if (isNotValidRange(inputtedValue, RANGE_LOWER_BOUND, RANGE_UPPER_BOUND)) {
 					throw new InvalidInputException("Out of range.");
 				}
@@ -29,8 +30,8 @@ class UserInputHelper {
 	static String getValidStringInput() {
 		String inputtedValue = "";
 		try {
-			if (scanner.hasNext()) {
-				inputtedValue = scanner.next();
+			if (scanner.hasNextLine()) {
+				inputtedValue = scanner.nextLine();
 				if (isNotValidLetter(inputtedValue)) {
 					throw new InvalidInputException("Includes non-letters.");
 				}
