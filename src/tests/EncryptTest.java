@@ -39,6 +39,13 @@ class EncryptTest {
 			assertEquals("CDFN", caesar.encryptMessage("ZACK", "C"));
 		}
 
+		@Disabled("Add support for mixed case encryption/decryption")
+		@Test
+		@DisplayName("mixed case encryption")
+		void encryptMixedcaseASCII() {
+			assertEquals("Cdfn", caesar.encryptMessage("Zack", "c"));
+		}
+
 		@Disabled("Add support for special characters, spaces, & numbers in encryption/decryption")
 		@Test
 		@DisplayName("special characters & numbers")
@@ -76,6 +83,13 @@ class EncryptTest {
 		@DisplayName("uppercase encryption")
 		void encryptUppercaseASCII() {
 			assertEquals("ACDM", vigenere.encryptMessage("ZACK", "AB"));
+		}
+
+		@Disabled("Add support for mixed case encryption/decryption")
+		@Test
+		@DisplayName("mixed case encryption")
+		void encryptMixedcaseASCII() {
+			assertEquals("Acdm", vigenere.encryptMessage("Zack", "ab"));
 		}
 
 		@Disabled("Add support for special characters, spaces, & numbers in encryption/decryption")
