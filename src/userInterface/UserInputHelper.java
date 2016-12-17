@@ -3,7 +3,7 @@ package userInterface;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class UserInputHelper {
+class UserInputHelper {
 
 	private static final Scanner scanner = new Scanner(System.in);
 
@@ -51,6 +51,10 @@ public class UserInputHelper {
 	}
 
 	private static boolean isNotValidLetter(String message) {
+		return !isValidLetter(message);
+	}
+
+	private static boolean isValidLetter(String message) {
 		for (Character character : message.toCharArray()) {
 			if (!Character.isLetter(character)) {
 				return false;
@@ -70,7 +74,7 @@ public class UserInputHelper {
 
 	private static class InvalidInputException extends Exception {
 
-		public InvalidInputException(String message) {
+		InvalidInputException(String message) {
 			super(message);
 		}
 	}

@@ -1,4 +1,4 @@
-import analysis.LetterFrequencyAnalysis;
+import userInterface.ConsoleApp;
 
 /**
  * Allows encryption of String with either Caesar or Vigenere cipher.
@@ -6,6 +6,9 @@ import analysis.LetterFrequencyAnalysis;
 public class Encryptor {
 
 	public static void main(String[] args) {
+
+		ConsoleApp app = new ConsoleApp();
+		app.launchConsoleApp();
 
 	}
 }
