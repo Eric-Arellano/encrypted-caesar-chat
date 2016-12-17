@@ -1,16 +1,15 @@
 package userInterface;
 
-import encryptors.CaesarCipher;
-import encryptors.Encryptable;
 import encryptors.Decryptable;
-import encryptors.VigenereCipher;
+import encryptors.Encryptable;
+
+import static encryptors.CipherChooser.chooseDecryptionCipher;
+import static encryptors.CipherChooser.chooseEncryptionCipher;
 
 public class ConsoleApp {
 
 	private boolean quitApp;
 	private EncryptMode encryptMode;
-	private Encryptable encryptor;
-	private Decryptable decryptor;
 
 	public ConsoleApp() {
 		quitApp = false;
@@ -98,36 +97,16 @@ public class ConsoleApp {
 
 	private String translateMessage(String message, String key) {
 		if (isEncryption()) {
-			encryptor = chooseEncryptionCipher(key);
+			Encryptable encryptor = chooseEncryptionCipher(key);
 			return encryptor.encryptMessage(message, key);
 		} else {
-			decryptor = chooseDecryptionCipher(key);
+			Decryptable decryptor = chooseDecryptionCipher(key);
 			return decryptor.decryptMessage(message, key);
 		}
 	}
 
 	private boolean isEncryption() {
 		return encryptMode.equals(EncryptMode.ENCRYPT);
-	}
-
-	private Encryptable chooseEncryptionCipher(String key) {
-		int keyLength = key.length();
-		if (keyLength == 1) {
-			return new CaesarCipher();
-		}
-		else {
-			return new VigenereCipher();
-		}
-	}
-
-	private Decryptable chooseDecryptionCipher(String key) {
-		int keyLength = key.length();
-		if (keyLength == 1) {
-			return new CaesarCipher();
-		}
-		else {
-			return new VigenereCipher();
-		}
 	}
 
 	private void printNewMessage(String message) {
@@ -148,7 +127,11 @@ public class ConsoleApp {
 	// User input helper
 	// -----------------------------------------------------------------------------------
 
-	private static int getValidIntInput(int RANGE_LOWER_BOUND, int RANGE_UPPPER_BOUND) {
+	private class UserInputHelper {
+
+	}
+
+	private static int getValidIntInput(int RANGE_LOWER_BOUND, int RANGE_UPPER_BOUND) {
 		// keep asking until within inclusive range
 	}
 
