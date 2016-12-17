@@ -14,6 +14,11 @@ public class CaesarCipher implements Encryptable, Decryptable {
 		return decryptChars(chars, shiftNumber);
 	}
 
+
+	// -----------------------------------------------------------------------------------
+	// Convert key
+	// -----------------------------------------------------------------------------------
+
 	private int convertKey(String key) {
 		int shift = key.charAt(0);
 		if (Character.isLowerCase(shift)) {
@@ -29,6 +34,10 @@ public class CaesarCipher implements Encryptable, Decryptable {
 	private int shiftKey(char letter) {
 		return ShiftCharType.CONVERT_KEY.shiftChar(letter, 1);
 	}
+
+	// -----------------------------------------------------------------------------------
+	// Encrypt/decrypt chars
+	// -----------------------------------------------------------------------------------
 
 	private String encryptChars(char[] chars, int shiftNumber) {
 		for (int index = 0; index < chars.length; index++) {
@@ -93,6 +102,10 @@ public class CaesarCipher implements Encryptable, Decryptable {
         value = convertCharBackToASCII((char) value, Case.UPPERCASE);
 		return (char)(value);
 	}
+
+	// -----------------------------------------------------------------------------------
+	// Helper conversion functions and enums
+	// -----------------------------------------------------------------------------------
 
 	private int convertCharDownFromASCII(char letter, Case CASE) {
 	    return (int) letter - CASE.asciiShift();
