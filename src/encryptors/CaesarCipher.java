@@ -1,51 +1,100 @@
 package encryptors;
 
+import static encryptors.ConversionUtilities.*;
+
 public class CaesarCipher implements Encryptable, Decryptable {
 
-	public String encryptMessage(String message, String shift) {
-		char[] encryptedChars = message.toCharArray();
-		int shiftNumber = convertKey(shift);
-
-		for (int index = 0; index < message.length(); index++) {
-			char letter = encryptedChars[index];
-			encryptedChars[index] = encryptChar(letter, shiftNumber);
-		}
-		return new String(encryptedChars);
+	public String encryptMessage(String message, String key) {
+		char[] chars = message.toCharArray();
+		int shiftNumber = convertKey(key);
+		return encryptChars(chars, shiftNumber);
 	}
 
 	public String decryptMessage(String encryptedMessage, String key) {
-		char[] decryptedChars = encryptedMessage.toCharArray();
+		char[] chars = encryptedMessage.toCharArray();
 		int shiftNumber = convertKey(key);
-
-		for (int index = 0; index < encryptedMessage.length(); index++) {
-			char letter = decryptedChars[index];
-			decryptedChars[index] = decryptChar(letter, shiftNumber);
-		}
-		return new String(decryptedChars);
+		return decryptChars(chars, shiftNumber);
 	}
+
+
+	// -----------------------------------------------------------------------------------
+	// Convert key
+	// -----------------------------------------------------------------------------------
 
 	private int convertKey(String key) {
 		int shift = key.charAt(0);
-		shift = (shift - 65) % 26;
-		shift++; // increment in order to produce shift
+		shift = Character.toLowerCase((char) shift);
+		shift = convertCharDownFromASCII((char) shift, Case.LOWERCASE);
+		shift = shiftKey((char) shift);
 		return shift;
 	}
 
+	// -----------------------------------------------------------------------------------
+	// Encrypt/decrypt chars
+	// -----------------------------------------------------------------------------------
+
+	private String encryptChars(char[] chars, int shiftNumber) {
+		for (int index = 0; index < chars.length; index++) {
+			char letter = chars[index];
+			chars[index] = encryptChar(letter, shiftNumber);
+		}
+		return new String(chars);
+	}
+
+	private String decryptChars(char[] chars, int shiftNumber) {
+		for (int index = 0; index < chars.length; index++) {
+			char letter = chars[index];
+			chars[index] = decryptChar(letter, shiftNumber);
+		}
+		return new String(chars);
+	}
+
 	private char encryptChar(char letter, int shift) {
-		int value = letter;
-		value = value - 65;
-		value = Math.floorMod((value + shift), 26);
-		value = value + 65;
-		return (char)(value);
+		if (Character.isLowerCase(letter)) {
+			return encryptLowerCaseChar(letter, shift);
+		} else if (Character.isUpperCase(letter)) {
+			return encryptUpperCaseChar(letter, shift);
+		} else {
+			return letter; //TODO: improve this control flow, what should else really do?
+		}
 	}
 
 	private char decryptChar(char letter, int shift) {
-		int value = letter;
-		value = value - 65;
-		value = Math.floorMod((value - shift), 26);
-		value = value + 65;
-		return (char)(value);
+		if (Character.isLowerCase(letter)) {
+			return decryptLowerCaseChar(letter, shift);
+		} else if (Character.isUpperCase(letter)) {
+			return decryptUpperCaseChar(letter, shift);
+		} else {
+			return letter; //TODO: improve this control flow, what should else really do?
+		}
 	}
 
+	private char encryptLowerCaseChar(char letter, int shift) {
+		char encryptedLetter = convertCharDownFromASCII(letter, Case.LOWERCASE);
+		encryptedLetter = shiftChar(encryptedLetter, shift, ShiftCharType.ENCRYPT);
+		encryptedLetter = convertCharBackToASCII(encryptedLetter, Case.LOWERCASE);
+		return encryptedLetter;
+	}
+
+	private char encryptUpperCaseChar(char letter, int shift) {
+        char encryptedLetter = convertCharDownFromASCII(letter, Case.UPPERCASE);
+		encryptedLetter = shiftChar(encryptedLetter, shift, ShiftCharType.ENCRYPT);
+		encryptedLetter = convertCharBackToASCII(encryptedLetter, Case.UPPERCASE);
+		return encryptedLetter;
+	}
+
+	private char decryptLowerCaseChar(char letter, int shift) {
+        char decryptedLetter = convertCharDownFromASCII(letter, Case.LOWERCASE);
+		decryptedLetter = shiftChar(decryptedLetter, shift, ShiftCharType.DECRYPT);
+        decryptedLetter = convertCharBackToASCII(decryptedLetter, Case.LOWERCASE);
+		return decryptedLetter;
+	}
+
+	private char decryptUpperCaseChar(char letter, int shift) {
+        char decryptedLetter = convertCharDownFromASCII(letter, Case.UPPERCASE);
+		decryptedLetter = shiftChar(decryptedLetter, shift, ShiftCharType.DECRYPT);
+        decryptedLetter = convertCharBackToASCII(decryptedLetter, Case.UPPERCASE);
+		return decryptedLetter;
+	}
 
 }
