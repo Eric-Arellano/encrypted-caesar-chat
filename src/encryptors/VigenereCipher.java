@@ -1,6 +1,6 @@
 package encryptors;
 
-class VigenereCipher implements Encryptable, Decryptable {
+public class VigenereCipher implements Encryptable, Decryptable {
 
 	private final CaesarCipher caesarCipher;
 
