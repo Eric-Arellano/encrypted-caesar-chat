@@ -22,11 +22,11 @@ public class CaesarCipher implements Encryptable, Decryptable {
 	// -----------------------------------------------------------------------------------
 
 	private int convertKey(String key) {
-		int shift = key.charAt(0);
-		shift = Character.toLowerCase((char) shift);
-		shift = convertCharDownFromASCII((char) shift, Case.LOWERCASE);
-		shift = shiftKey((char) shift);
-		return shift;
+		char shift = key.charAt(0);
+		shift = Character.toLowerCase(shift);
+		shift = convertCharDownFromASCII(shift, Case.LOWERCASE);
+		shift = shiftKey(shift);
+		return (int) shift;
 	}
 
 	// -----------------------------------------------------------------------------------
