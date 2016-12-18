@@ -3,6 +3,9 @@ package userInterface.networking;
 import userInterface.Launchable;
 import userInterface.utilities.CommandLineHelper;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 // TODO: For now, only client can send messages and server receive them; not vice versa
 public class NetworkingApp implements Launchable {
 
@@ -29,22 +32,37 @@ public class NetworkingApp implements Launchable {
 
 	private Server createServer() {
 		// TODO: add validation/exception handling for Port number
-		final int PORT_NUMBER = Integer.parseInt(args[0]);
+		final int PORT_NUMBER = parsePortNumber();
 		return new Server(PORT_NUMBER);
 	}
 
 	private Client createClient(String messageToSend) {
 		// TODO: add validation/exception handling for Port number and host name
-		final String HOST_NAME = args[0];
-		final int PORT_NUMBER = Integer.parseInt(args[1]);
+		final String HOST_NAME = getHostName();
+		final int PORT_NUMBER = parsePortNumber();
 		return new Client(HOST_NAME, PORT_NUMBER, messageToSend);
 
 	}
 
+	private String getHostName() {
+		String hostName = "";
+		try {
+			hostName = InetAddress.getLocalHost().getHostName();
+		} catch (UnknownHostException unknownHostException) {
+			System.out.println("Host cannot be resolved.");
+			System.exit(1);
+		}
+		return hostName;
+	}
+
+	private int parsePortNumber() {
+		return Integer.parseInt(args[0]);
+	}
+
 	private String parseAndTranslateInputtedMessage() {
-		String mode = args[2];
-		String message = args[3];
-		String key = args[4];
+		String mode = args[1];
+		String message = args[2];
+		String key = args[3];
 		return CommandLineHelper.parseAndTranslateInputtedMessage(mode, message, key);
 	}
 }
