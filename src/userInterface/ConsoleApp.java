@@ -80,7 +80,7 @@ public class ConsoleApp {
 
 	private void promptMessage() {
 		String prompt = String.format("Please type your %sed message (use lowercase and/or uppercase " +
-				"letters, but no spaces or special characters): ", encryptMode);
+				"letters, but no spaces or special characters): ", EncryptMode.getInverseMode(encryptMode));
 		System.out.println(prompt);
 	}
 
@@ -132,6 +132,14 @@ public class ConsoleApp {
 		@Override
 		public String toString() {
 			return name().toLowerCase();
+		}
+
+		public static String getInverseMode(EncryptMode currentMode) {
+			if (currentMode.equals(ENCRYPT)) {
+				return DECRYPT.toString();
+			} else {
+				return ENCRYPT.toString();
+			}
 		}
 	}
 
