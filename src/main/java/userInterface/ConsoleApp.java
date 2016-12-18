@@ -1,19 +1,16 @@
 package userInterface;
 
-import encryptors.Decryptable;
-import encryptors.Encryptable;
-
-import static encryptors.CipherChooser.chooseDecryptionCipher;
-import static encryptors.CipherChooser.chooseEncryptionCipher;
-import static userInterface.utilities.UserInputHelper.getValidIntInput;
-import static userInterface.utilities.UserInputHelper.getValidStringInput;
+import static userInterface.utilities.MessageTranslator.EncryptMode;
+import static userInterface.utilities.MessageTranslator.translateMessage;
+import static userInterface.utilities.UserInputParser.getValidIntInput;
+import static userInterface.utilities.UserInputParser.getValidStringInput;
 
 class ConsoleApp implements Launchable {
 
 	private boolean quitApp;
 	private EncryptMode encryptMode;
 
-	public ConsoleApp() {
+	ConsoleApp() {
 		quitApp = false;
 	}
 
@@ -24,7 +21,7 @@ class ConsoleApp implements Launchable {
 			if (!quitApp) {
 				String message = requestMessage();
 				String key = requestKey();
-				String translatedMessage = translateMessage(message, key);
+				String translatedMessage = translateMessage(encryptMode, message, key);
 				printNewMessage(translatedMessage);
 			}
 		} while (!quitApp);
@@ -41,7 +38,7 @@ class ConsoleApp implements Launchable {
 	}
 
 	// -----------------------------------------------------------------------------------
-	// Get user request
+	// Request & parse user request
 	// -----------------------------------------------------------------------------------
 
 	private void chooseEncryptOrDecrypt() {
@@ -103,44 +100,14 @@ class ConsoleApp implements Launchable {
 		return getValidStringInput();
 	}
 
+
 	// -----------------------------------------------------------------------------------
 	// Convert message
 	// -----------------------------------------------------------------------------------
 
-	private String translateMessage(String message, String key) {
-		if (isEncryption()) {
-			Encryptable encryptor = chooseEncryptionCipher(key);
-			return encryptor.encryptMessage(message, key);
-		} else {
-			Decryptable decryptor = chooseDecryptionCipher(key);
-			return decryptor.decryptMessage(message, key);
-		}
-	}
-
-	private boolean isEncryption() {
-		return encryptMode.equals(EncryptMode.ENCRYPT);
-	}
-
 	private void printNewMessage(String message) {
 		String newMessage = String.format("Your new %sed message is: \n\n%s\n\n", encryptMode, message);
 		System.out.println(newMessage);
-	}
-
-	private enum EncryptMode {
-		ENCRYPT, DECRYPT;
-
-		@Override
-		public String toString() {
-			return name().toLowerCase();
-		}
-
-		public static String getInverseMode(EncryptMode currentMode) {
-			if (currentMode.equals(ENCRYPT)) {
-				return DECRYPT.toString();
-			} else {
-				return ENCRYPT.toString();
-			}
-		}
 	}
 
 }

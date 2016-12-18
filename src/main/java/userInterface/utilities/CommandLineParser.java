@@ -1,12 +1,9 @@
 package userInterface.utilities;
 
-import encryptors.Decryptable;
-import encryptors.Encryptable;
+import static userInterface.utilities.MessageTranslator.EncryptMode;
+import static userInterface.utilities.MessageTranslator.translateMessage;
 
-import static encryptors.CipherChooser.chooseDecryptionCipher;
-import static encryptors.CipherChooser.chooseEncryptionCipher;
-
-public class CommandLineHelper {
+public class CommandLineParser {
 
 	public static String parseAndTranslateInputtedMessage(String encryptMode, String message,
 	                                                      String key) {
@@ -71,26 +68,4 @@ public class CommandLineHelper {
 		return inputtedKey;
 	}
 
-	private static String translateMessage(EncryptMode mode, String message, String key) {
-		if (isEncryption(mode)) {
-			Encryptable encryptor = chooseEncryptionCipher(key);
-			return encryptor.encryptMessage(message, key);
-		} else {
-			Decryptable decryptor = chooseDecryptionCipher(key);
-			return decryptor.decryptMessage(message, key);
-		}
-	}
-
-	private static boolean isEncryption(EncryptMode mode) {
-		return mode.equals(EncryptMode.ENCRYPT);
-	}
-
-	private enum EncryptMode {
-		ENCRYPT, DECRYPT, INVALID;
-
-		@Override
-		public String toString() {
-			return name().toLowerCase();
-		}
-	}
 }

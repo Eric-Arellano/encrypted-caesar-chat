@@ -3,7 +3,7 @@ package userInterface.utilities;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class UserInputHelper {
+public class UserInputParser {
 
 	private static final Scanner scanner = new Scanner(System.in);
 

@@ -1,12 +1,12 @@
 package userInterface;
 
-import static userInterface.utilities.CommandLineHelper.parseAndTranslateInputtedMessage;
+import static userInterface.utilities.CommandLineParser.parseAndTranslateInputtedMessage;
 
 class CommandLineApp implements Launchable {
 
 	private final String[] args;
 
-	public CommandLineApp(String[] args) {
+	CommandLineApp(String[] args) {
 		this.args = args;
 	}
 

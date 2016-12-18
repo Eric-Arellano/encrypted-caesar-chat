@@ -1,7 +1,7 @@
 package userInterface.networking;
 
 import userInterface.Launchable;
-import userInterface.utilities.CommandLineHelper;
+import userInterface.utilities.CommandLineParser;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -63,6 +63,6 @@ public class NetworkingApp implements Launchable {
 		String mode = args[1];
 		String message = args[2];
 		String key = args[3];
-		return CommandLineHelper.parseAndTranslateInputtedMessage(mode, message, key);
+		return CommandLineParser.parseAndTranslateInputtedMessage(mode, message, key);
 	}
 }
