@@ -16,11 +16,11 @@ public class CommandLineApp {
 		this.args = args;
 	}
 
-	public String launchCommandLineApp() {
+	public void launchCommandLineApp() {
 		EncryptMode mode = parseMode();
 		String message = parseMessage();
 		String key = parseKey();
-		return translateMessage(mode, message, key);
+		System.out.println(translateMessage(mode, message, key));
 	}
 
 	private EncryptMode parseMode() {
