@@ -8,7 +8,7 @@ import static encryptors.CipherChooser.chooseEncryptionCipher;
 import static userInterface.UserInputHelper.InvalidInputException;
 import static userInterface.UserInputHelper.isNotValidLetter;
 
-class CommandLineApp {
+class CommandLineApp implements Launchable {
 
 	String[] args;
 
@@ -16,7 +16,7 @@ class CommandLineApp {
 		this.args = args;
 	}
 
-	public void launchCommandLineApp() {
+	public void launchApp() {
 		EncryptMode mode = parseMode();
 		String message = parseMessage();
 		String key = parseKey();

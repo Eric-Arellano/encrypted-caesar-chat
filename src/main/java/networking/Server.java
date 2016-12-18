@@ -1,5 +1,7 @@
 package networking;
 
+import userInterface.Launchable;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -8,7 +10,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class Server {
+public class Server implements Launchable {
 
 	String[] args;
 	int portNumber;
@@ -18,7 +20,7 @@ public class Server {
 		this.portNumber = Integer.parseInt(args[0]);
 	}
 
-	public void launchConnection() {
+	public void launchApp() {
 		try (
 				ServerSocket serverSocket =
 						new ServerSocket(portNumber);

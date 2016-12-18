@@ -1,4 +1,5 @@
 import userInterface.InterfaceChooser;
+import userInterface.Launchable;
 
 /**
  * Allows encryption of String with either Caesar or Vigenere cipher.
@@ -6,7 +7,7 @@ import userInterface.InterfaceChooser;
 public class Encryptor {
 
 	public static void main(String[] args) {
-		InterfaceChooser app = new InterfaceChooser(args);
+		Launchable app = new InterfaceChooser(args);
 		app.launchApp();
 	}
 }

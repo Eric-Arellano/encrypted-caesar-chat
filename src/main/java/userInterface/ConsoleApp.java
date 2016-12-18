@@ -8,7 +8,7 @@ import static encryptors.CipherChooser.chooseEncryptionCipher;
 import static userInterface.UserInputHelper.getValidIntInput;
 import static userInterface.UserInputHelper.getValidStringInput;
 
-class ConsoleApp {
+class ConsoleApp implements Launchable {
 
 	private boolean quitApp;
 	private EncryptMode encryptMode;
@@ -17,7 +17,7 @@ class ConsoleApp {
 		quitApp = false;
 	}
 
-	public void launchConsoleApp() {
+	public void launchApp() {
 		welcomeUser();
 		do {
 			chooseEncryptOrDecrypt();

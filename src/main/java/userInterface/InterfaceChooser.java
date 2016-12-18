@@ -5,9 +5,10 @@ import networking.Server;
 
 import static userInterface.UserInputHelper.InvalidInputException;
 
-public class InterfaceChooser {
+public class InterfaceChooser implements Launchable {
 
-	public String[] args;
+	private String[] args;
+	private Launchable app;
 
 	public InterfaceChooser(String[] args) {
 		this.args = args;
@@ -50,23 +51,23 @@ public class InterfaceChooser {
 	}
 
 	private void launchConsoleApp() {
-		ConsoleApp app = new ConsoleApp();
-		app.launchConsoleApp();
+		app = new ConsoleApp();
+		app.launchApp();
 	}
 
 	private void launchCommandLineApp() {
-		CommandLineApp app = new CommandLineApp(args);
-		app.launchCommandLineApp();
+		app = new CommandLineApp(args);
+		app.launchApp();
 	}
 
 	private void launchServer() {
-		Server app = new Server(args);
-		app.launchConnection();
+		app = new Server(args);
+		app.launchApp();
 	}
 
 	private void launchClient() {
-		Client app = new Client(args);
-		app.launchConnection();
+		app = new Client(args);
+		app.launchApp();
 	}
 
 }
