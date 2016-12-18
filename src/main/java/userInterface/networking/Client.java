@@ -25,7 +25,8 @@ class Client {
 		) {
 			System.out.println();
 		} catch (IOException ioException) {
-			System.out.println();
+			System.out.println("IO Exception.");
+			System.exit(1);
 		}
 	}
 

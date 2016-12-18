@@ -28,6 +28,7 @@ public class CommandLineHelper {
 			}
 		} catch (InvalidInputException invalidInputException) {
 			System.out.println("Invalid mode input.");
+			System.exit(1);
 		}
 		return mode;
 	}
@@ -52,7 +53,8 @@ public class CommandLineHelper {
 				throw new InvalidInputException("Invalid message.");
 			}
 		} catch (InvalidInputException invalidInputException) {
-			System.out.println("Invalid message");
+			System.out.println("Invalid message.");
+			System.exit(1);
 		}
 		return inputtedMessage;
 	}
@@ -60,10 +62,11 @@ public class CommandLineHelper {
 	private static String validateKey(String inputtedKey) {
 		try {
 			if (InvalidInputException.isNotValidLetter(inputtedKey)) {
-				throw new InvalidInputException("Invalid message.");
+				throw new InvalidInputException("Invalid key.");
 			}
 		} catch (InvalidInputException invalidInputException) {
-			System.out.println("Invalid message");
+			System.out.println("Invalid key.");
+			System.exit(1);
 		}
 		return inputtedKey;
 	}
