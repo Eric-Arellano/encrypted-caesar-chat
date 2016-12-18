@@ -1,9 +1,7 @@
 package userInterface.networking;
 
-import userInterface.CommandLineApp;
+import userInterface.CommandLineUtilities;
 import userInterface.Launchable;
-
-import java.util.Arrays;
 
 // TODO: For now, only client can send messages and server receive them; not vice versa
 public class NetworkingApp implements Launchable {
@@ -42,8 +40,9 @@ public class NetworkingApp implements Launchable {
 	}
 
 	private String parseAndTranslateInputtedMessage() {
-		String[] messageArgs = Arrays.copyOfRange(args, 2, 5);
-		CommandLineApp commandLineApp = new CommandLineApp(messageArgs);
-		return commandLineApp.parseAndTranslateInputtedMessage();
+		String mode = args[2];
+		String message = args[3];
+		String key = args[4];
+		return CommandLineUtilities.parseAndTranslateInputtedMessage(mode, message, key);
 	}
 }
