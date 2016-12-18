@@ -8,15 +8,15 @@ class Client {
 
 	private final String hostName;
 	private final int portNumber;
-	private String messageToSend;
+	private final String messageToSend;
 
-	public Client(String hostName, int portNumber, String messageToSend) {
+	Client(String hostName, int portNumber, String messageToSend) {
 		this.hostName = hostName;
 		this.portNumber = portNumber;
 		this.messageToSend = messageToSend;
 	}
 
-	public void launchConnection() {
+	void launchConnection() {
 		System.out.println("Opening client connection...");
 		System.out.println("Sending to server...");
 		try (
@@ -26,7 +26,7 @@ class Client {
 						new PrintWriter(encryptionSocket.getOutputStream(), true)
 		) {
 			out.println(messageToSend);
-			System.out.println("Message sent! Check the server.");
+			System.out.println("\nMessage sent! Check the server.");
 			closeConnection();
 		} catch (IOException ioException) {
 			System.out.println("IO Exception from client.");

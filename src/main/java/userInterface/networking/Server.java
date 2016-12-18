@@ -8,13 +8,13 @@ import java.net.Socket;
 
 class Server {
 
-	private int portNumber;
+	private final int portNumber;
 
-	public Server(int portNumber) {
+	Server(int portNumber) {
 		this.portNumber = portNumber;
 	}
 
-	public void launchConnection() {
+	void launchConnection() {
 		System.out.println("Opening server connection...");
 		System.out.println("Waiting for client...\n");
 		try (
