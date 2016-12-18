@@ -1,7 +1,5 @@
 package userInterface.networking;
 
-import userInterface.Launchable;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class Client implements Launchable {
+class Client {
 
 	private String[] args;
 	private String hostName;
@@ -21,7 +19,7 @@ public class Client implements Launchable {
 		this.portNumber = Integer.parseInt(args[1]);
 	}
 
-	public void launchApp() {
+	public void launchConnection() {
 		try (
 				Socket encryptionSocket =
 						new Socket(hostName, portNumber);

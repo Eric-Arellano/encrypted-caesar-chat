@@ -1,7 +1,6 @@
 package userInterface;
 
-import userInterface.networking.Client;
-import userInterface.networking.Server;
+import userInterface.networking.NetworkingApp;
 
 import static userInterface.UserInputHelper.InvalidInputException;
 
@@ -20,10 +19,8 @@ public class InterfaceChooser implements Launchable {
 				launchConsoleApp();
 			} else if (isCommandLineApp()) {
 				launchCommandLineApp();
-			} else if (isServer()) {
-				launchServer();
-			} else if (isClient()) {
-				launchClient();
+			} else if (isNetworkingApp()) {
+				launchNetworkingApp();
 			} else {
 				throw new InvalidInputException("Invalid command line arguments.");
 			}
@@ -42,12 +39,8 @@ public class InterfaceChooser implements Launchable {
 		return args.length == 3;
 	}
 
-	private boolean isServer() {
-		return args.length == 4;
-	}
-
-	private boolean isClient() {
-		return args.length == 5;
+	private boolean isNetworkingApp() {
+		return args.length == 4 || args.length == 5;
 	}
 
 	private void launchConsoleApp() {
@@ -60,13 +53,8 @@ public class InterfaceChooser implements Launchable {
 		app.launchApp();
 	}
 
-	private void launchServer() {
-		app = new Server(args);
-		app.launchApp();
-	}
-
-	private void launchClient() {
-		app = new Client(args);
+	private void launchNetworkingApp() {
+		app = new NetworkingApp(args);
 		app.launchApp();
 	}
 

@@ -1,4 +1,5 @@
 package userInterface.networking;
 
-public class Protocol {
+class Protocol {
+
 }
