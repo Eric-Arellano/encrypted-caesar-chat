@@ -17,14 +17,16 @@ class Client {
 	}
 
 	public void launchConnection() {
+		System.out.println("Opening client connection...");
+		System.out.println("Sending to server...");
 		try (
 				Socket encryptionSocket =
 						new Socket(hostName, portNumber);
 				PrintWriter out =
 						new PrintWriter(encryptionSocket.getOutputStream(), true)
 		) {
-			System.out.println("Opening client connection...");
 			out.println(messageToSend);
+			System.out.println("Message sent! Check the server.");
 			closeConnection();
 		} catch (IOException ioException) {
 			System.out.println("IO Exception from client.");
@@ -33,7 +35,7 @@ class Client {
 	}
 
 	private void closeConnection() {
-		System.out.println("Closing client's connection. Restart app if you'd like to run it again.");
+		System.out.println("\nClosing client's connection. Restart app if you'd like to run it again.");
 		System.exit(1);
 	}
 

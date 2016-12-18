@@ -15,6 +15,8 @@ class Server {
 	}
 
 	public void launchConnection() {
+		System.out.println("Opening server connection...");
+		System.out.println("Waiting for client...\n");
 		try (
 				ServerSocket serverSocket =
 						new ServerSocket(portNumber);
@@ -23,7 +25,6 @@ class Server {
 						new BufferedReader(
 								new InputStreamReader(clientSocket.getInputStream()))
 		) {
-			System.out.println("Opening server connection...");
 			String receivedMessage = in.readLine();
 			System.out.println(receivedMessage);
 			closeConnection();
@@ -34,7 +35,7 @@ class Server {
 	}
 
 	private void closeConnection() {
-		System.out.println("Closing server's connection. Restart app if you'd like to run it again.");
+		System.out.println("\nClosing server's connection. Restart app if you'd like to run it again.");
 		System.exit(1);
 	}
 
