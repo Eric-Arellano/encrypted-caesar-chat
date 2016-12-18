@@ -8,7 +8,7 @@ import static encryptors.CipherChooser.chooseEncryptionCipher;
 import static userInterface.UserInputHelper.InvalidInputException;
 import static userInterface.UserInputHelper.isNotValidLetter;
 
-class CommandLineApp implements Launchable {
+public class CommandLineApp implements Launchable {
 
 	String[] args;
 
@@ -21,6 +21,13 @@ class CommandLineApp implements Launchable {
 		String message = parseMessage();
 		String key = parseKey();
 		System.out.println(translateMessage(mode, message, key));
+	}
+
+	public String parseAndTranslateInputtedMessage() {
+		EncryptMode mode = parseMode();
+		String message = parseMessage();
+		String key = parseKey();
+		return translateMessage(mode, message, key);
 	}
 
 	private EncryptMode parseMode() {

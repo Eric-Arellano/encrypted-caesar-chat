@@ -1,22 +1,20 @@
 package userInterface.networking;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 class Client {
 
-	private String[] args;
 	private String hostName;
 	private int portNumber;
+	private String messageToSend;
 
-	public Client(String[] args) {
-		this.args = args;
-		this.hostName = args[0];
-		this.portNumber = Integer.parseInt(args[1]);
+	public Client(String hostName, int portNumber, String messageToSend) {
+		this.hostName = hostName;
+		this.portNumber = portNumber;
+		this.messageToSend = messageToSend;
 	}
 
 	public void launchConnection() {
@@ -24,13 +22,7 @@ class Client {
 				Socket encryptionSocket =
 						new Socket(hostName, portNumber);
 				PrintWriter out =
-						new PrintWriter(encryptionSocket.getOutputStream(), true);
-				BufferedReader in =
-						new BufferedReader(
-								new InputStreamReader(encryptionSocket.getInputStream()));
-				BufferedReader stdIn =
-						new BufferedReader(
-								new InputStreamReader(System.in))
+						new PrintWriter(encryptionSocket.getOutputStream(), true)
 		) {
 			System.out.println();
 		} catch (UnknownHostException unknownHostException) {
