@@ -5,8 +5,8 @@ import encryptors.Encryptable;
 
 import static encryptors.CipherChooser.chooseDecryptionCipher;
 import static encryptors.CipherChooser.chooseEncryptionCipher;
-import static userInterface.UserInputHelper.getValidIntInput;
-import static userInterface.UserInputHelper.getValidStringInput;
+import static userInterface.utilities.UserInputHelper.getValidIntInput;
+import static userInterface.utilities.UserInputHelper.getValidStringInput;
 
 class ConsoleApp implements Launchable {
 

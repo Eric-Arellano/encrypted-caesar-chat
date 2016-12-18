@@ -1,8 +1,7 @@
 package userInterface;
 
 import userInterface.networking.NetworkingApp;
-
-import static userInterface.UserInputHelper.InvalidInputException;
+import userInterface.utilities.InvalidInputException;
 
 public class InterfaceChooser implements Launchable {
 

@@ -1,11 +1,10 @@
-package userInterface;
+package userInterface.utilities;
 
 import encryptors.Decryptable;
 import encryptors.Encryptable;
 
 import static encryptors.CipherChooser.chooseDecryptionCipher;
 import static encryptors.CipherChooser.chooseEncryptionCipher;
-import static userInterface.UserInputHelper.isNotValidLetter;
 
 public class CommandLineUtilities {
 
@@ -25,9 +24,9 @@ public class CommandLineUtilities {
 			} else if (isDecryptionInput(modeValue)) {
 				mode = EncryptMode.DECRYPT;
 			} else {
-				throw new UserInputHelper.InvalidInputException("Invalid mode input.");
+				throw new InvalidInputException("Invalid mode input.");
 			}
-		} catch (UserInputHelper.InvalidInputException invalidInputException) {
+		} catch (InvalidInputException invalidInputException) {
 			System.out.println("Invalid mode input.");
 		}
 		return mode;
@@ -49,10 +48,10 @@ public class CommandLineUtilities {
 
 	private static String validateMessage(String inputtedMessage) {
 		try {
-			if (isNotValidLetter(inputtedMessage)) {
-				throw new UserInputHelper.InvalidInputException("Invalid message.");
+			if (InvalidInputException.isNotValidLetter(inputtedMessage)) {
+				throw new InvalidInputException("Invalid message.");
 			}
-		} catch (UserInputHelper.InvalidInputException invalidInputException) {
+		} catch (InvalidInputException invalidInputException) {
 			System.out.println("Invalid message");
 		}
 		return inputtedMessage;
@@ -60,10 +59,10 @@ public class CommandLineUtilities {
 
 	private static String validateKey(String inputtedKey) {
 		try {
-			if (isNotValidLetter(inputtedKey)) {
-				throw new UserInputHelper.InvalidInputException("Invalid message.");
+			if (InvalidInputException.isNotValidLetter(inputtedKey)) {
+				throw new InvalidInputException("Invalid message.");
 			}
-		} catch (UserInputHelper.InvalidInputException invalidInputException) {
+		} catch (InvalidInputException invalidInputException) {
 			System.out.println("Invalid message");
 		}
 		return inputtedKey;

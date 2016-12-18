@@ -1,7 +1,7 @@
 package userInterface.networking;
 
-import userInterface.CommandLineUtilities;
 import userInterface.Launchable;
+import userInterface.utilities.CommandLineUtilities;
 
 // TODO: For now, only client can send messages and server receive them; not vice versa
 public class NetworkingApp implements Launchable {
