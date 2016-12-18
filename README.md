@@ -5,7 +5,7 @@ For Innovation Week Encryption Workshop.
 
 # Run program
 1. Clone this repo.
-1. Build with command line ```gradlew``` (gradle wrapper)
+1. Build with command line ```gradlew build``` (pc) or ```./gradlew build``` (mac/linux)
 1. Execute program with ```java -cp build/classes/main Encryptor [args]```
 #### Arg options:
   1. ```[]``` - interactive console app
