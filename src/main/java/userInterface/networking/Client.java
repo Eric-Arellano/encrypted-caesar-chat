@@ -23,11 +23,18 @@ class Client {
 				PrintWriter out =
 						new PrintWriter(encryptionSocket.getOutputStream(), true)
 		) {
-			System.out.println();
+			System.out.println("Opening client connection...");
+			out.println(messageToSend);
+			closeConnection();
 		} catch (IOException ioException) {
-			System.out.println("IO Exception.");
+			System.out.println("IO Exception from client.");
 			System.exit(1);
 		}
+	}
+
+	private void closeConnection() {
+		System.out.println("Closing client's connection. Restart app if you'd like to run it again.");
+		System.exit(1);
 	}
 
 }

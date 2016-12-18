@@ -28,11 +28,13 @@ public class NetworkingApp implements Launchable {
 	}
 
 	private Server createServer() {
+		// TODO: add validation/exception handling for Port number
 		final int PORT_NUMBER = Integer.parseInt(args[0]);
 		return new Server(PORT_NUMBER);
 	}
 
 	private Client createClient(String messageToSend) {
+		// TODO: add validation/exception handling for Port number and host name
 		final String HOST_NAME = args[0];
 		final int PORT_NUMBER = Integer.parseInt(args[1]);
 		return new Client(HOST_NAME, PORT_NUMBER, messageToSend);

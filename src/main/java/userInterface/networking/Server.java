@@ -23,11 +23,19 @@ class Server {
 						new BufferedReader(
 								new InputStreamReader(clientSocket.getInputStream()))
 		) {
-			System.out.println();
+			System.out.println("Opening server connection...");
+			String receivedMessage = in.readLine();
+			System.out.println(receivedMessage);
+			closeConnection();
 		} catch (IOException ioException) {
-			System.out.println("IO Exception.");
+			System.out.println("IO Exception from server.");
 			System.exit(1);
 		}
+	}
+
+	private void closeConnection() {
+		System.out.println("Closing server's connection. Restart app if you'd like to run it again.");
+		System.exit(1);
 	}
 
 }
