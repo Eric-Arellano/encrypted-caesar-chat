@@ -3,8 +3,7 @@ package userInterface.networking;
 import userInterface.Launchable;
 import userInterface.utilities.CommandLineParser;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
 
 // TODO: For now, only client can send messages and server receive them; not vice versa
 public class NetworkingApp implements Launchable {
@@ -59,24 +58,13 @@ public class NetworkingApp implements Launchable {
 		if (isLocalClient()) {
 			hostName = getLocalHostName();
 		} else if (isNetworkClient()) {
-			hostName = getNetworkHostName();
+			hostName = getInputtedHostName();
 		}
 		return hostName;
 	}
 
-	private String getNetworkHostName() {
+	private String getInputtedHostName() {
 		return args[0];
-	}
-
-	private String getLocalHostName() {
-		String hostName = "";
-		try {
-			hostName = InetAddress.getLocalHost().getHostName();
-		} catch (UnknownHostException unknownHostException) {
-			System.out.println("Host cannot be resolved.");
-			System.exit(1);
-		}
-		return hostName;
 	}
 
 	private int parsePortNumber() {

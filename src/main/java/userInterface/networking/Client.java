@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
+import static userInterface.networking.LocalHostNameUtility.getLocalIPAddress;
+
 class Client {
 
 	private final String hostName;
@@ -17,7 +20,7 @@ class Client {
 	}
 
 	void launchConnection() {
-		System.out.println("Opening client connection...");
+		openClient();
 		try (
 				Socket encryptionSocket =
 						new Socket(hostName, portNumber);
@@ -32,6 +35,12 @@ class Client {
 			System.out.println("IO Exception from client.");
 			System.exit(1);
 		}
+	}
+
+	private void openClient() {
+		String openingMessage = String.format("Opening client connection on %s (%s)...",
+				getLocalHostName(), getLocalIPAddress());
+		System.out.println(openingMessage);
 	}
 
 	private void closeConnection() {

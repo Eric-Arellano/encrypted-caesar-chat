@@ -3,10 +3,11 @@ package userInterface.networking;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
+
+import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
+import static userInterface.networking.LocalHostNameUtility.getLocalIPAddress;
 
 class Server {
 
@@ -28,6 +29,7 @@ class Server {
 								new InputStreamReader(clientSocket.getInputStream()))
 		) {
 			String receivedMessage = in.readLine();
+			System.out.println("Message received!\n");
 			System.out.println(receivedMessage);
 			closeConnection();
 		} catch (IOException ioException) {
@@ -37,19 +39,9 @@ class Server {
 	}
 
 	private void openServer() {
-		String openingMessage = String.format("Opening server connection on %s...", getLocalHostName());
+		String openingMessage = String.format("Opening server connection on %s (%s)...",
+				getLocalHostName(), getLocalIPAddress());
 		System.out.println(openingMessage);
-	}
-
-	private String getLocalHostName() {
-		String hostName = "";
-		try {
-			hostName = InetAddress.getLocalHost().getHostName();
-		} catch (UnknownHostException unknownHostException) {
-			System.out.println("Host cannot be resolved.");
-			System.exit(1);
-		}
-		return hostName;
 	}
 
 	private void waitForClient() {
