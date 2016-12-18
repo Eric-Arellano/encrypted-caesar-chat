@@ -1,7 +1,7 @@
 package userInterface.networking;
 
 import userInterface.Launchable;
-import userInterface.utilities.CommandLineUtilities;
+import userInterface.utilities.CommandLineHelper;
 
 // TODO: For now, only client can send messages and server receive them; not vice versa
 public class NetworkingApp implements Launchable {
@@ -43,6 +43,6 @@ public class NetworkingApp implements Launchable {
 		String mode = args[2];
 		String message = args[3];
 		String key = args[4];
-		return CommandLineUtilities.parseAndTranslateInputtedMessage(mode, message, key);
+		return CommandLineHelper.parseAndTranslateInputtedMessage(mode, message, key);
 	}
 }

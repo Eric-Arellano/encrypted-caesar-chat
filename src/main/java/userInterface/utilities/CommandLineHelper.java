@@ -6,7 +6,7 @@ import encryptors.Encryptable;
 import static encryptors.CipherChooser.chooseDecryptionCipher;
 import static encryptors.CipherChooser.chooseEncryptionCipher;
 
-public class CommandLineUtilities {
+public class CommandLineHelper {
 
 	public static String parseAndTranslateInputtedMessage(String encryptMode, String message,
 	                                                      String key) {
