@@ -18,13 +18,13 @@ class Client {
 
 	void launchConnection() {
 		System.out.println("Opening client connection...");
-		System.out.println("Sending to server...");
 		try (
 				Socket encryptionSocket =
 						new Socket(hostName, portNumber);
 				PrintWriter out =
 						new PrintWriter(encryptionSocket.getOutputStream(), true)
 		) {
+			System.out.println("Sending to server...");
 			out.println(messageToSend);
 			System.out.println("\nMessage sent! Check the server.");
 			closeConnection();
