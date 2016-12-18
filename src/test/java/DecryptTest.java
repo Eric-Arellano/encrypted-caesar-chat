@@ -1,5 +1,3 @@
-package tests;
-
 import encryptors.Decryptable;
 import org.junit.jupiter.api.*;
 
