@@ -1,7 +1,7 @@
 package userInterface;
 
-import networking.Client;
-import networking.Server;
+import userInterface.networking.Client;
+import userInterface.networking.Server;
 
 import static userInterface.UserInputHelper.InvalidInputException;
 

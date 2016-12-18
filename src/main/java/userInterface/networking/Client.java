@@ -1,4 +1,4 @@
-package networking;
+package userInterface.networking;
 
 import userInterface.Launchable;
 
