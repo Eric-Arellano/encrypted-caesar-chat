@@ -3,12 +3,11 @@ package userInterface.networking;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 class Client {
 
-	private String hostName;
-	private int portNumber;
+	private final String hostName;
+	private final int portNumber;
 	private String messageToSend;
 
 	public Client(String hostName, int portNumber, String messageToSend) {
@@ -24,8 +23,6 @@ class Client {
 				PrintWriter out =
 						new PrintWriter(encryptionSocket.getOutputStream(), true)
 		) {
-			System.out.println();
-		} catch (UnknownHostException unknownHostException) {
 			System.out.println();
 		} catch (IOException ioException) {
 			System.out.println();

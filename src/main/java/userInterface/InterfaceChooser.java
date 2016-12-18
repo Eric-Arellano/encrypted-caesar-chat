@@ -5,7 +5,7 @@ import userInterface.utilities.InvalidInputException;
 
 public class InterfaceChooser implements Launchable {
 
-	private String[] args;
+	private final String[] args;
 	private Launchable app;
 
 	public InterfaceChooser(String[] args) {

@@ -6,7 +6,7 @@ import userInterface.utilities.CommandLineHelper;
 // TODO: For now, only client can send messages and server receive them; not vice versa
 public class NetworkingApp implements Launchable {
 
-	private String[] args;
+	private final String[] args;
 
 	public NetworkingApp(String[] args) {
 		this.args = args;

@@ -4,7 +4,7 @@ import static userInterface.utilities.CommandLineHelper.parseAndTranslateInputte
 
 class CommandLineApp implements Launchable {
 
-	String[] args;
+	private final String[] args;
 
 	public CommandLineApp(String[] args) {
 		this.args = args;
