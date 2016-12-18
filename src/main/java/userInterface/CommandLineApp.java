@@ -8,7 +8,7 @@ import static encryptors.CipherChooser.chooseEncryptionCipher;
 import static userInterface.UserInputHelper.InvalidInputException;
 import static userInterface.UserInputHelper.isNotValidLetter;
 
-public class CommandLineApp {
+class CommandLineApp {
 
 	String[] args;
 

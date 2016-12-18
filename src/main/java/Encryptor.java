@@ -1,5 +1,4 @@
-import userInterface.CommandLineApp;
-import userInterface.ConsoleApp;
+import userInterface.InterfaceChooser;
 
 /**
  * Allows encryption of String with either Caesar or Vigenere cipher.
@@ -7,14 +6,7 @@ import userInterface.ConsoleApp;
 public class Encryptor {
 
 	public static void main(String[] args) {
-
-		if (args.length > 0) {
-			CommandLineApp app = new CommandLineApp(args);
-			app.launchCommandLineApp();
-		} else {
-			ConsoleApp app = new ConsoleApp();
-			app.launchConsoleApp();
-		}
-
+		InterfaceChooser app = new InterfaceChooser(args);
+		app.launchApp();
 	}
 }

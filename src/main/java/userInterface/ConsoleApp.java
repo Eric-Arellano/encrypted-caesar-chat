@@ -8,7 +8,7 @@ import static encryptors.CipherChooser.chooseEncryptionCipher;
 import static userInterface.UserInputHelper.getValidIntInput;
 import static userInterface.UserInputHelper.getValidStringInput;
 
-public class ConsoleApp {
+class ConsoleApp {
 
 	private boolean quitApp;
 	private EncryptMode encryptMode;
