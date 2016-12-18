@@ -51,7 +51,7 @@ class UserInputHelper {
 		return input < lowerBound || input > upperBound;
 	}
 
-	private static boolean isNotValidLetter(String message) {
+	static boolean isNotValidLetter(String message) {
 		return !isValidLetter(message);
 	}
 
@@ -73,7 +73,7 @@ class UserInputHelper {
 				"spaces, or special characters).";
 	}
 
-	private static class InvalidInputException extends Exception {
+	static class InvalidInputException extends Exception {
 
 		InvalidInputException(String message) {
 			super(message);
