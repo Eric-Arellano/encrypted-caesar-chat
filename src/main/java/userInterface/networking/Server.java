@@ -11,10 +11,10 @@ import static userInterface.networking.LocalHostNameUtility.getLocalIPAddress;
 
 class Server {
 
-	private final int portNumber;
+	private final int PORT_NUMBER;
 
-	Server(int portNumber) {
-		this.portNumber = portNumber;
+	Server(int PORT_NUMBER) {
+		this.PORT_NUMBER = PORT_NUMBER;
 	}
 
 	void launchConnection() {
@@ -22,19 +22,16 @@ class Server {
 		waitForClient();
 		try (
 				ServerSocket serverSocket =
-						new ServerSocket(portNumber);
+						new ServerSocket(PORT_NUMBER);
 				Socket clientSocket = serverSocket.accept();
 				BufferedReader in =
 						new BufferedReader(
 								new InputStreamReader(clientSocket.getInputStream()))
 		) {
-			String receivedMessage = in.readLine();
-			System.out.println("Message received!\n");
-			System.out.println(receivedMessage);
+			readMessage(in);
 			closeConnection();
 		} catch (IOException ioException) {
-			System.out.println("IO Exception from server.");
-			System.exit(1);
+			handleIOException();
 		}
 	}
 
@@ -48,8 +45,19 @@ class Server {
 		System.out.println("Waiting for client...\n");
 	}
 
+	private void readMessage(BufferedReader in) throws IOException {
+		String receivedMessage = in.readLine();
+		System.out.println("Message received!\n");
+		System.out.println(receivedMessage);
+	}
+
 	private void closeConnection() {
 		System.out.println("\nClosing server's connection. Restart app if you'd like to run it again.");
+		System.exit(1);
+	}
+
+	private void handleIOException() {
+		System.out.println("IO Exception from server.");
 		System.exit(1);
 	}
 

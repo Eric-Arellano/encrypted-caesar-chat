@@ -9,13 +9,13 @@ import static userInterface.networking.LocalHostNameUtility.getLocalIPAddress;
 
 class Client {
 
-	private final String hostName;
-	private final int portNumber;
+	private final String HOST_NAME;
+	private final int PORT_NUMBER;
 	private final String messageToSend;
 
-	Client(String hostName, int portNumber, String messageToSend) {
-		this.hostName = hostName;
-		this.portNumber = portNumber;
+	Client(String HOST_NAME, int PORT_NUMBER, String messageToSend) {
+		this.HOST_NAME = HOST_NAME;
+		this.PORT_NUMBER = PORT_NUMBER;
 		this.messageToSend = messageToSend;
 	}
 
@@ -23,17 +23,14 @@ class Client {
 		openClient();
 		try (
 				Socket encryptionSocket =
-						new Socket(hostName, portNumber);
+						new Socket(HOST_NAME, PORT_NUMBER);
 				PrintWriter out =
 						new PrintWriter(encryptionSocket.getOutputStream(), true)
 		) {
-			System.out.println("Sending to server...");
-			out.println(messageToSend);
-			System.out.println("\nMessage sent! Check the server.");
+			sendToServer(out);
 			closeConnection();
 		} catch (IOException ioException) {
-			System.out.println("IO Exception from client.");
-			System.exit(1);
+			handleIOException();
 		}
 	}
 
@@ -43,8 +40,19 @@ class Client {
 		System.out.println(openingMessage);
 	}
 
+	private void sendToServer(PrintWriter out) {
+		System.out.println("Sending to server...");
+		out.println(messageToSend);
+		System.out.println("\nMessage sent! Check the server.");
+	}
+
 	private void closeConnection() {
 		System.out.println("\nClosing client's connection. Restart app if you'd like to run it again.");
+		System.exit(1);
+	}
+
+	private void handleIOException() {
+		System.out.println("IO Exception from client.");
 		System.exit(1);
 	}
 
