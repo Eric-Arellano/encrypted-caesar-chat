@@ -1,4 +1,4 @@
-package userinterface.utilities.networking;
+package userinterface.networkingutilities;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
