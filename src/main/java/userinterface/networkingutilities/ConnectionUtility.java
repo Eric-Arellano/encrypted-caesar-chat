@@ -1,5 +1,6 @@
 package userinterface.networkingutilities;
 
+import userinterface.InterfaceChooser;
 import userinterface.utilities.CommandLineParser;
 
 import static userinterface.networkingutilities.LocalHostNameUtility.getLocalHostName;
@@ -13,33 +14,48 @@ public class ConnectionUtility {
 	}
 
 	public void launchConnection() {
-		if (isServer()) {
+		InterfaceChooser chooser = new InterfaceChooser(args);
+		if (chooser.isChatApp()) {
+			launchChatConnection();
+		} else if (chooser.isNetworkingApp()) {
+			launchNetworkConnection();
+		}
+	}
+
+	private void launchChatConnection() {
+		if (isChatServer()) {
 			Server server = createServer();
 			server.launchConnection();
-		} else if (isClient()) {
+		} else if (isChatClient()) {
 			Client client = createClient();
 			client.launchConnection();
 		}
 	}
 
+	private boolean isChatServer() {
+		return args.length == 2;
+	}
 
-	private boolean isServer() {
+	private boolean isChatClient() {
+		return args.length == 3;
+	}
+
+	private void launchNetworkConnection() {
+		if (isNetworkServer()) {
+			Server server = createServer();
+			server.launchConnection();
+		} else if (isNetworkClient()) {
+			Client client = createClient();
+			client.launchConnection();
+		}
+	}
+
+	private boolean isNetworkServer() {
 		return args.length == 1 || args.length == 4;
 	}
 
-	private boolean isClient() {
+	private boolean isNetworkClient() {
 		return args.length == 2 || args.length == 5;
-	}
-
-	private boolean isLocalClient() {
-		String HOST_NAME = args[0];
-		return HOST_NAME.equalsIgnoreCase("local")
-				|| HOST_NAME.equalsIgnoreCase("l")
-				|| HOST_NAME.equalsIgnoreCase("-l");
-	}
-
-	private boolean includesMessage() {
-		return args.length == 4 || args.length == 5;
 	}
 
 	private Server createServer() {
@@ -73,16 +89,32 @@ public class ConnectionUtility {
 		return hostName;
 	}
 
+	private boolean isLocalClient() {
+		String HOST_NAME = args[0];
+		return HOST_NAME.equalsIgnoreCase("local")
+				|| HOST_NAME.equalsIgnoreCase("l")
+				|| HOST_NAME.equalsIgnoreCase("-l");
+	}
+
 	private String getInputtedHostName() {
 		return args[0];
 	}
 
 	private int parsePortNumber() {
-		if (isServer()) {
+		if (isChatServer()) {
+			return Integer.parseInt(args[1]);
+		} else if (isChatClient()) {
+			return Integer.parseInt(args[2]);
+		} else if (isNetworkServer()) {
 			return Integer.parseInt(args[0]);
 		} else {
 			return Integer.parseInt(args[1]);
 		}
+	}
+
+	private boolean includesMessage() {
+		InterfaceChooser chooser = new InterfaceChooser(args);
+		return chooser.isNetworkingApp() && (args.length == 4 || args.length == 5);
 	}
 
 	private String parseAndTranslateInputtedMessage() {
@@ -94,7 +126,7 @@ public class ConnectionUtility {
 	}
 
 	private int parseMessageArgIndex() {
-		if (isServer()) {
+		if (isNetworkServer()) {
 			return 1;
 		} else {
 			return 2;

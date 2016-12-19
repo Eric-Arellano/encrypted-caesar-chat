@@ -47,7 +47,7 @@ public class InterfaceChooser implements Launchable {
 		return args.length == 3;
 	}
 
-	private boolean isNetworkingApp() {
+	public boolean isNetworkingApp() {
 		return isNetworkingArgsLength() && isNotChatApp();
 	}
 
@@ -59,7 +59,7 @@ public class InterfaceChooser implements Launchable {
 		return !isChatApp();
 	}
 
-	private boolean isChatApp() {
+	public boolean isChatApp() {
 		return isChatArgsLength() && isChatPrefix();
 	}
 
