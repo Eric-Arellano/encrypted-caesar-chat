@@ -1,35 +1,36 @@
 package userinterface;
 
+import userinterface.networkingutilities.ConnectionLauncher;
+
 class ChatApp implements Launchable {
 
-	private final String[] args;
+	private final ConnectionLauncher connectionLauncher;
 
-	// expected args[] = chat port || chat host port (no command-line message)
-	public ChatApp(String[] args) {
-		this.args = args;
+	ChatApp(String[] args) {
+		this.connectionLauncher = new ConnectionLauncher(args);
 	}
 
 	public void launchApp() {
-		// new Network
-		// parse args[] to set up socket
-		// listen constantly for message
-		// ask to:
-		// 1) send message that will be encrypted upon arrival
-		// 2) wait until receiving encrypted message that can then be decrypted locally with key
-		// (never send key)
+		Runnable networkListener = new NetworkListener();
+		networkListener.run();
+		Runnable commandLineInterface = new CommandLineInterface();
+		commandLineInterface.run();
 	}
 
-	class Network implements Runnable {
+	private class NetworkListener implements Runnable {
 
 		public void run() {
-			// launchConnection(); // chooses server or client; will listen constantly for message
+			connectionLauncher.launchConnection();
 		}
 	}
 
-	static class CommandLine implements Runnable {
+	private class CommandLineInterface implements Runnable {
 
 		public void run() {
-
+			// ask to:
+			// 1) send message that will be encrypted upon arrival
+			// 2) wait until receiving encrypted message that can then be decrypted locally with key
+			// (never send key)
 		}
 
 	}

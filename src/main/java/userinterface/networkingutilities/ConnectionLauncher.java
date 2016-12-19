@@ -5,16 +5,17 @@ import userinterface.utilities.CommandLineParser;
 
 import static userinterface.networkingutilities.LocalHostNameUtility.getLocalHostName;
 
-public class ConnectionUtility {
+public class ConnectionLauncher {
 
 	private final String[] args;
+	private final InterfaceChooser chooser;
 
-	public ConnectionUtility(String[] args) {
+	public ConnectionLauncher(String[] args) {
 		this.args = args;
+		chooser = new InterfaceChooser(args);
 	}
 
 	public void launchConnection() {
-		InterfaceChooser chooser = new InterfaceChooser(args);
 		if (chooser.isChatApp()) {
 			launchChatConnection();
 		} else if (chooser.isNetworkingApp()) {
@@ -90,14 +91,18 @@ public class ConnectionUtility {
 	}
 
 	private boolean isLocalClient() {
-		String HOST_NAME = args[0];
+		String HOST_NAME = getInputtedHostName();
 		return HOST_NAME.equalsIgnoreCase("local")
 				|| HOST_NAME.equalsIgnoreCase("l")
 				|| HOST_NAME.equalsIgnoreCase("-l");
 	}
 
 	private String getInputtedHostName() {
-		return args[0];
+		if (chooser.isChatApp()) {
+			return args[1];
+		} else {
+			return args[0];
+		}
 	}
 
 	private int parsePortNumber() {
@@ -113,7 +118,6 @@ public class ConnectionUtility {
 	}
 
 	private boolean includesMessage() {
-		InterfaceChooser chooser = new InterfaceChooser(args);
 		return chooser.isNetworkingApp() && (args.length == 4 || args.length == 5);
 	}
 

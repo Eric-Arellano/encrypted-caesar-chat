@@ -1,17 +1,17 @@
 package userinterface;
 
-import userinterface.networkingutilities.ConnectionUtility;
+import userinterface.networkingutilities.ConnectionLauncher;
 
 class NetworkingApp implements Launchable {
 
-	private final ConnectionUtility connectionUtility;
+	private final ConnectionLauncher connectionLauncher;
 
 	NetworkingApp(String[] args) {
-		this.connectionUtility = new ConnectionUtility(args);
+		this.connectionLauncher = new ConnectionLauncher(args);
 	}
 
 	public void launchApp() {
-		connectionUtility.launchConnection();
+		connectionLauncher.launchConnection();
 	}
 
 }
