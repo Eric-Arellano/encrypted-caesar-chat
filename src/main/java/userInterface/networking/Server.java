@@ -41,9 +41,8 @@ class Server {
 		) {
 			if (messageToSend != null) {
 				protocol.sendMessage(out, messageToSend);
-			} else {
-				protocol.readMessage(in);
 			}
+			protocol.readMessage(in);
 			protocol.closeConnection();
 		} catch (IOException ioException) {
 			protocol.handleIOException();

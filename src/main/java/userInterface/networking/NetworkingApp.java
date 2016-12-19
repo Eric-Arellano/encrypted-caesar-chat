@@ -5,7 +5,6 @@ import userInterface.utilities.CommandLineParser;
 
 import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
 
-// TODO: Now that both can receive and send, issue when both try to do same thing
 public class NetworkingApp implements Launchable {
 
 	private final String[] args;

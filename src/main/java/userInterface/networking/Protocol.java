@@ -41,8 +41,10 @@ class Protocol {
 
 	void readMessage(BufferedReader reader) throws IOException {
 		String receivedMessage = reader.readLine();
-		notifyReceived();
-		System.out.println(receivedMessage);
+		if (receivedMessage != null) {
+			notifyReceived();
+			System.out.println(receivedMessage);
+		}
 	}
 
 	private void notifyReceived() {
