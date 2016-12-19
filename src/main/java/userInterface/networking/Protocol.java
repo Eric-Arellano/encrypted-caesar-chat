@@ -3,13 +3,16 @@ package userInterface.networking;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
 
 import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
 import static userInterface.networking.LocalHostNameUtility.getLocalIPAddress;
 
 class Protocol {
 
-	private ConnectionType connectionType;
+	private final ConnectionType connectionType;
 
 	Protocol(ConnectionType connectionType) {
 		this.connectionType = connectionType;
@@ -21,7 +24,18 @@ class Protocol {
 		System.out.println(openingMessage);
 	}
 
-	void sendMessage(PrintWriter writer, String messageToSend) throws IOException {
+	void setTimeout(Socket socket) throws SocketException {
+		final int THREE_SECONDS = 3000;
+		socket.setSoTimeout(THREE_SECONDS);
+	}
+
+	void setTimeout(ServerSocket socket) throws SocketException {
+		final int THREE_SECONDS = 3000;
+		socket.setSoTimeout(THREE_SECONDS);
+	}
+
+
+	void sendMessage(PrintWriter writer, String messageToSend) {
 		notifySending();
 		writer.println(messageToSend);
 		notifySent();
@@ -55,6 +69,13 @@ class Protocol {
 		String closingMessage = String.format("\nClosing %s's connection. Restart app if you'd like " +
 				"to run it again.", connectionType.toString());
 		System.out.println(closingMessage);
+		System.exit(1);
+	}
+
+	void handleTimeoutException() {
+		String exceptionMessage = "Connection timeout. Make sure either the server or client is " +
+				"sending a message.";
+		System.out.println(exceptionMessage);
 		System.exit(1);
 	}
 

@@ -64,7 +64,7 @@ public class NetworkingApp implements Launchable {
 	}
 
 	private String parseHostName() {
-		String hostName = "";
+		String hostName;
 		if (isLocalClient()) {
 			hostName = getLocalHostName();
 		} else {

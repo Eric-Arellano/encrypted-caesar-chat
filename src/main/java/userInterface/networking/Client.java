@@ -1,9 +1,6 @@
 package userInterface.networking;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 class Client {
@@ -39,11 +36,14 @@ class Client {
 						new BufferedReader(
 								new InputStreamReader(socket.getInputStream()))
 		) {
+			protocol.setTimeout(socket);
 			if (messageToSend != null) {
 				protocol.sendMessage(out, messageToSend);
 			}
 			protocol.readMessage(in);
 			protocol.closeConnection();
+		} catch (InterruptedIOException timeoutException) {
+			protocol.handleTimeoutException();
 		} catch (IOException ioException) {
 			protocol.handleIOException();
 		}
