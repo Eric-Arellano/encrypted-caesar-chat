@@ -1,11 +1,12 @@
-package userInterface.networking;
+package userinterface;
 
-import userInterface.Launchable;
-import userInterface.utilities.CommandLineParser;
+import userinterface.utilities.CommandLineParser;
+import userinterface.utilities.networking.Client;
+import userinterface.utilities.networking.Server;
 
-import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
+import static userinterface.utilities.networking.LocalHostNameUtility.getLocalHostName;
 
-public class NetworkingApp implements Launchable {
+class NetworkingApp implements Launchable {
 
 	private final String[] args;
 

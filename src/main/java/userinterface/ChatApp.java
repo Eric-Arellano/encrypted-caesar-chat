@@ -1,8 +1,6 @@
-package userInterface.networking;
+package userinterface;
 
-import userInterface.Launchable;
-
-public class ChatApp implements Launchable {
+class ChatApp implements Launchable {
 
 	private final String[] args;
 
