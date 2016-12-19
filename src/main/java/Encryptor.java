@@ -1,5 +1,5 @@
-import userInterface.InterfaceChooser;
-import userInterface.Launchable;
+import userinterface.InterfaceChooser;
+import userinterface.Launchable;
 
 /**
  * Allows encryption of String with either Caesar or Vigenere cipher.

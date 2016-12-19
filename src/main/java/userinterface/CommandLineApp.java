@@ -1,6 +1,6 @@
-package userInterface;
+package userinterface;
 
-import static userInterface.utilities.CommandLineParser.parseAndTranslateInputtedMessage;
+import static userinterface.utilities.CommandLineParser.parseAndTranslateInputtedMessage;
 
 class CommandLineApp implements Launchable {
 

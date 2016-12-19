@@ -1,8 +1,6 @@
-package userInterface;
+package userinterface;
 
-import userInterface.networking.ChatApp;
-import userInterface.networking.NetworkingApp;
-import userInterface.utilities.InvalidInputException;
+import userinterface.utilities.InvalidInputException;
 
 public class InterfaceChooser implements Launchable {
 

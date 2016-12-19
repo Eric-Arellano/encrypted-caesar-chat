@@ -1,4 +1,4 @@
-package userInterface.utilities;
+package userinterface.utilities;
 
 public class InvalidInputException extends Exception {
 
