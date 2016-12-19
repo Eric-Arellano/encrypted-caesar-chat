@@ -39,7 +39,7 @@ public class InterfaceChooser implements Launchable {
 	}
 
 	private boolean isNetworkingApp() {
-		return args.length == 1 || args.length == 4 || args.length == 5;
+		return args.length == 1 || args.length == 2 || args.length == 4 || args.length == 5;
 	}
 
 	private void launchConsoleApp() {

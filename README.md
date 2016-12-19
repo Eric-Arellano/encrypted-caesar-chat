@@ -10,10 +10,12 @@ For Innovation Week Encryption Workshop.
   1. ```[]``` - interactive console app
   1. ```[encrypt_mode message key]``` returns message either encrypted (```-e```) or decrypted (```-d```)
   1. ```[PORT_NUMBER]``` - start server (waits for client's message)
-  1. ```[PORT_NUMBER encrypt_mode message key]``` - start client and send 
-  message to local server
+  1. ```[PORT_NUMBER encrypt_mode message key]``` - start server (will send 
+  message when client connects)
+  1. ```[SERVER_HOST_NAME PORT_NUMBER]``` - start client and read message 
+  from specified server (use name ```local``` if localhost)
   1. ```[SERVER_HOST_NAME PORT_NUMBER encrypt_mode message key]``` - start 
-  client and send message to specified server
+  client and send message to specified server (use name ```local``` if localhost)
 
 # What I learned
 * Traditional encryption/decryption

@@ -5,7 +5,6 @@ import userInterface.utilities.CommandLineParser;
 
 import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
 
-// TODO: For now, only client can send messages and server receive them; not vice versa
 public class NetworkingApp implements Launchable {
 
 	private final String[] args;
@@ -26,19 +25,18 @@ public class NetworkingApp implements Launchable {
 	}
 
 	private boolean isServer() {
-		return args.length == 1;
+		return args.length == 1 || args.length == 4;
 	}
 
 	private boolean isClient() {
-		return isLocalClient() || isNetworkClient();
+		return args.length == 2 || args.length == 5;
 	}
 
 	private boolean isLocalClient() {
-		return args.length == 4;
-	}
-
-	private boolean isNetworkClient() {
-		return args.length == 5;
+		String HOST_NAME = args[0];
+		return HOST_NAME.equalsIgnoreCase("local")
+				|| HOST_NAME.equalsIgnoreCase("l")
+				|| HOST_NAME.equalsIgnoreCase("-l");
 	}
 
 	private Server createServer() {
@@ -57,7 +55,7 @@ public class NetworkingApp implements Launchable {
 		String hostName = "";
 		if (isLocalClient()) {
 			hostName = getLocalHostName();
-		} else if (isNetworkClient()) {
+		} else {
 			hostName = getInputtedHostName();
 		}
 		return hostName;
@@ -68,10 +66,10 @@ public class NetworkingApp implements Launchable {
 	}
 
 	private int parsePortNumber() {
-		if (isNetworkClient()) {
-			return Integer.parseInt(args[1]);
-		} else {
+		if (isServer()) {
 			return Integer.parseInt(args[0]);
+		} else {
+			return Integer.parseInt(args[1]);
 		}
 	}
 
@@ -84,10 +82,10 @@ public class NetworkingApp implements Launchable {
 	}
 
 	private int parseMessageArgIndex() {
-		if (isNetworkClient()) {
-			return 2;
-		} else {
+		if (isServer()) {
 			return 1;
+		} else {
+			return 2;
 		}
 	}
 }
