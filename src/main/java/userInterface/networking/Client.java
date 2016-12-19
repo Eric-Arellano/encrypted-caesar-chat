@@ -4,56 +4,33 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
-import static userInterface.networking.LocalHostNameUtility.getLocalIPAddress;
-
 class Client {
 
 	private final String HOST_NAME;
 	private final int PORT_NUMBER;
 	private final String messageToSend;
+	private final Protocol protocol;
 
 	Client(String HOST_NAME, int PORT_NUMBER, String messageToSend) {
 		this.HOST_NAME = HOST_NAME;
 		this.PORT_NUMBER = PORT_NUMBER;
 		this.messageToSend = messageToSend;
+		this.protocol = new Protocol(Protocol.ConnectionType.CLIENT);
 	}
 
 	void launchConnection() {
-		openClient();
+		protocol.notifyOpeningConnection();
 		try (
 				Socket encryptionSocket =
 						new Socket(HOST_NAME, PORT_NUMBER);
 				PrintWriter out =
 						new PrintWriter(encryptionSocket.getOutputStream(), true)
 		) {
-			sendToServer(out);
-			closeConnection();
+			protocol.sendMessage(out, messageToSend);
+			protocol.closeConnection();
 		} catch (IOException ioException) {
-			handleIOException();
+			protocol.handleIOException();
 		}
-	}
-
-	private void openClient() {
-		String openingMessage = String.format("Opening client connection on %s (%s)...",
-				getLocalHostName(), getLocalIPAddress());
-		System.out.println(openingMessage);
-	}
-
-	private void sendToServer(PrintWriter out) {
-		System.out.println("Sending to server...");
-		out.println(messageToSend);
-		System.out.println("\nMessage sent! Check the server.");
-	}
-
-	private void closeConnection() {
-		System.out.println("\nClosing client's connection. Restart app if you'd like to run it again.");
-		System.exit(1);
-	}
-
-	private void handleIOException() {
-		System.out.println("IO Exception from client.");
-		System.exit(1);
 	}
 
 }
