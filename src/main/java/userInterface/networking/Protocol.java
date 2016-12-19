@@ -28,13 +28,14 @@ class Protocol {
 	}
 
 	private void notifySending() {
-		String sendingNotification = String.format("Sending to %s...", connectionType.toString());
+		String sendingNotification = String.format("Sending to %s...", ConnectionType
+				.getOtherConnectionType(connectionType));
 		System.out.println(sendingNotification);
 	}
 
 	private void notifySent() {
-		String sentNotification = String.format("\nMessage sent! Check the %s.", connectionType
-				.toString());
+		String sentNotification = String.format("\nMessage sent! Check the %s.", ConnectionType
+				.getOtherConnectionType(connectionType));
 		System.out.println(sentNotification);
 	}
 
@@ -67,6 +68,17 @@ class Protocol {
 		@Override
 		public String toString() {
 			return name().toLowerCase();
+		}
+
+		static String getOtherConnectionType(ConnectionType currentType) {
+			switch (currentType) {
+				case CLIENT:
+					return SERVER.toString();
+				case SERVER:
+					return CLIENT.toString();
+				default:
+					return null;
+			}
 		}
 
 	}
