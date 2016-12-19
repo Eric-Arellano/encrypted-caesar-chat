@@ -5,6 +5,7 @@ import userInterface.utilities.CommandLineParser;
 
 import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
 
+// TODO: Now that both can receive and send, issue when both try to do same thing
 public class NetworkingApp implements Launchable {
 
 	private final String[] args;
@@ -18,8 +19,7 @@ public class NetworkingApp implements Launchable {
 			Server server = createServer();
 			server.launchConnection();
 		} else if (isClient()) {
-			String messageToSend = parseAndTranslateInputtedMessage();
-			Client client = createClient(messageToSend);
+			Client client = createClient();
 			client.launchConnection();
 		}
 	}
@@ -39,16 +39,29 @@ public class NetworkingApp implements Launchable {
 				|| HOST_NAME.equalsIgnoreCase("-l");
 	}
 
-	private Server createServer() {
-		final int PORT_NUMBER = parsePortNumber();
-		return new Server(PORT_NUMBER);
+	private boolean includesMessage() {
+		return args.length == 4 || args.length == 5;
 	}
 
-	private Client createClient(String messageToSend) {
+	private Server createServer() {
+		final int PORT_NUMBER = parsePortNumber();
+		if (includesMessage()) {
+			String messageToSend = parseAndTranslateInputtedMessage();
+			return new Server(PORT_NUMBER, messageToSend);
+		} else {
+			return new Server(PORT_NUMBER);
+		}
+	}
+
+	private Client createClient() {
 		final String HOST_NAME = parseHostName();
 		final int PORT_NUMBER = parsePortNumber();
-		return new Client(HOST_NAME, PORT_NUMBER, messageToSend);
-
+		if (includesMessage()) {
+			String messageToSend = parseAndTranslateInputtedMessage();
+			return new Client(HOST_NAME, PORT_NUMBER, messageToSend);
+		} else {
+			return new Client(HOST_NAME, PORT_NUMBER);
+		}
 	}
 
 	private String parseHostName() {

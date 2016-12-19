@@ -28,7 +28,7 @@ class Protocol {
 	}
 
 	private void notifySending() {
-		String sendingNotification = String.format("Sending to %s...", ConnectionType
+		String sendingNotification = String.format("\nSending to %s...", ConnectionType
 				.getOtherConnectionType(connectionType));
 		System.out.println(sendingNotification);
 	}
@@ -46,7 +46,7 @@ class Protocol {
 	}
 
 	private void notifyReceived() {
-		System.out.println("Message received!\n");
+		System.out.println("\nMessage received!\n");
 	}
 
 	void closeConnection() {
