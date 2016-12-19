@@ -1,9 +1,9 @@
-package userinterface;
+package apps;
 
-import static userinterface.utilities.MessageTranslator.EncryptMode;
-import static userinterface.utilities.MessageTranslator.translateMessage;
-import static userinterface.utilities.UserInputParser.getValidIntInput;
-import static userinterface.utilities.UserInputParser.getValidStringInput;
+import static apps.utilities.MessageTranslator.EncryptMode;
+import static apps.utilities.MessageTranslator.translateMessage;
+import static apps.utilities.UserInputParser.getValidIntInput;
+import static apps.utilities.UserInputParser.getValidStringInput;
 
 class ConsoleApp implements Launchable {
 

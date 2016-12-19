@@ -1,11 +1,11 @@
-package userinterface.networkingutilities;
+package apps.networkingutilities;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-public class LocalHostNameUtility {
+class LocalHostNameUtility {
 
-	public static String getLocalHostName() {
+	static String getLocalHostName() {
 		String hostName = "";
 		try {
 			hostName = InetAddress.getLocalHost().getHostName();
@@ -16,7 +16,7 @@ public class LocalHostNameUtility {
 		return hostName;
 	}
 
-	public static String getLocalIPAddress() {
+	static String getLocalIPAddress() {
 		String ipAddress = "";
 		try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress();

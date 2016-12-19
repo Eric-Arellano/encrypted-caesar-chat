@@ -1,4 +1,4 @@
-package userinterface.utilities;
+package apps.utilities;
 
 import encryptors.Decryptable;
 import encryptors.Encryptable;

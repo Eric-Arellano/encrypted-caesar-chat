@@ -1,4 +1,4 @@
-package userinterface.utilities;
+package apps.utilities;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

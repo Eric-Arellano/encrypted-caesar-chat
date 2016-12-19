@@ -1,6 +1,6 @@
-package userinterface;
+package apps;
 
-import userinterface.networkingutilities.ConnectionLauncher;
+import apps.networkingutilities.ConnectionLauncher;
 
 class NetworkingApp implements Launchable {
 

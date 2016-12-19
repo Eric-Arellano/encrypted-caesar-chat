@@ -1,18 +1,18 @@
-package userinterface.networkingutilities;
+package apps.networkingutilities;
 
-import userinterface.InterfaceChooser;
-import userinterface.utilities.CommandLineParser;
+import apps.AppChooser;
+import apps.utilities.CommandLineParser;
 
-import static userinterface.networkingutilities.LocalHostNameUtility.getLocalHostName;
+import static apps.networkingutilities.LocalHostNameUtility.getLocalHostName;
 
 public class ConnectionLauncher {
 
 	private final String[] args;
-	private final InterfaceChooser chooser;
+	private final AppChooser chooser;
 
 	public ConnectionLauncher(String[] args) {
 		this.args = args;
-		chooser = new InterfaceChooser(args);
+		chooser = new AppChooser(args);
 	}
 
 	public void launchConnection() {

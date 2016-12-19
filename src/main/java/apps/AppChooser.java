@@ -1,13 +1,13 @@
-package userinterface;
+package apps;
 
-import userinterface.utilities.InvalidInputException;
+import apps.utilities.InvalidInputException;
 
-public class InterfaceChooser implements Launchable {
+public class AppChooser implements Launchable {
 
 	private final String[] args;
 	private Launchable app;
 
-	public InterfaceChooser(String[] args) {
+	public AppChooser(String[] args) {
 		this.args = args;
 	}
 

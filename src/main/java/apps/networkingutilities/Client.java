@@ -1,43 +1,42 @@
-package userinterface.networkingutilities;
+package apps.networkingutilities;
 
 import java.io.*;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-class Server {
+class Client {
 
+	private final String HOST_NAME;
 	private final int PORT_NUMBER;
 	private final Protocol protocol;
 
 	private final String messageToSend;
 
-	Server(int PORT_NUMBER) {
+	Client(String HOST_NAME, int PORT_NUMBER) {
+		this.HOST_NAME = HOST_NAME;
 		this.PORT_NUMBER = PORT_NUMBER;
-		protocol = new Protocol(Protocol.ConnectionType.SERVER);
+		this.protocol = new Protocol(Protocol.ConnectionType.CLIENT);
 		this.messageToSend = null;
 	}
 
-	Server(int PORT_NUMBER, String messageToSend) {
+	Client(String HOST_NAME, int PORT_NUMBER, String messageToSend) {
+		this.HOST_NAME = HOST_NAME;
 		this.PORT_NUMBER = PORT_NUMBER;
-		protocol = new Protocol(Protocol.ConnectionType.SERVER);
+		this.protocol = new Protocol(Protocol.ConnectionType.CLIENT);
 		this.messageToSend = messageToSend;
 	}
 
 	void launchConnection() {
 		protocol.notifyOpeningConnection();
-		waitForClient();
 		try (
-				ServerSocket serverSocket =
-						new ServerSocket(PORT_NUMBER);
-				Socket clientSocket = serverSocket.accept();
+				Socket socket =
+						new Socket(HOST_NAME, PORT_NUMBER);
 				PrintWriter out =
-						new PrintWriter(clientSocket.getOutputStream(), true);
+						new PrintWriter(socket.getOutputStream(), true);
 				BufferedReader in =
 						new BufferedReader(
-								new InputStreamReader(clientSocket.getInputStream()))
+								new InputStreamReader(socket.getInputStream()))
 		) {
-			protocol.setTimeout(clientSocket);
-			protocol.setTimeout(serverSocket);
+			protocol.setTimeout(socket);
 			if (messageToSend != null) {
 				protocol.sendMessage(out, messageToSend);
 			}
@@ -48,10 +47,6 @@ class Server {
 		} catch (IOException ioException) {
 			protocol.handleIOException();
 		}
-	}
-
-	private void waitForClient() {
-		System.out.println("Waiting for client...");
 	}
 
 }
