@@ -3,7 +3,7 @@ package userinterface.networkingutilities;
 import java.io.*;
 import java.net.Socket;
 
-public class Client {
+class Client {
 
 	private final String HOST_NAME;
 	private final int PORT_NUMBER;
@@ -11,21 +11,21 @@ public class Client {
 
 	private final String messageToSend;
 
-	public Client(String HOST_NAME, int PORT_NUMBER) {
+	Client(String HOST_NAME, int PORT_NUMBER) {
 		this.HOST_NAME = HOST_NAME;
 		this.PORT_NUMBER = PORT_NUMBER;
 		this.protocol = new Protocol(Protocol.ConnectionType.CLIENT);
 		this.messageToSend = null;
 	}
 
-	public Client(String HOST_NAME, int PORT_NUMBER, String messageToSend) {
+	Client(String HOST_NAME, int PORT_NUMBER, String messageToSend) {
 		this.HOST_NAME = HOST_NAME;
 		this.PORT_NUMBER = PORT_NUMBER;
 		this.protocol = new Protocol(Protocol.ConnectionType.CLIENT);
 		this.messageToSend = messageToSend;
 	}
 
-	public void launchConnection() {
+	void launchConnection() {
 		protocol.notifyOpeningConnection();
 		try (
 				Socket socket =

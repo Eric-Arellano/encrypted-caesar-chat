@@ -4,26 +4,26 @@ import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+class Server {
 
 	private final int PORT_NUMBER;
 	private final Protocol protocol;
 
 	private final String messageToSend;
 
-	public Server(int PORT_NUMBER) {
+	Server(int PORT_NUMBER) {
 		this.PORT_NUMBER = PORT_NUMBER;
 		protocol = new Protocol(Protocol.ConnectionType.SERVER);
 		this.messageToSend = null;
 	}
 
-	public Server(int PORT_NUMBER, String messageToSend) {
+	Server(int PORT_NUMBER, String messageToSend) {
 		this.PORT_NUMBER = PORT_NUMBER;
 		protocol = new Protocol(Protocol.ConnectionType.SERVER);
 		this.messageToSend = messageToSend;
 	}
 
-	public void launchConnection() {
+	void launchConnection() {
 		protocol.notifyOpeningConnection();
 		waitForClient();
 		try (
