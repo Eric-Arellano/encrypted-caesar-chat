@@ -9,10 +9,12 @@ public class ConnectionLauncher {
 
 	private final String[] args;
 	private final AppChooser chooser;
+	private boolean quitConcurrentConnection;
 
 	public ConnectionLauncher(String[] args) {
 		this.args = args;
 		chooser = new AppChooser(args);
+		this.quitConcurrentConnection = false;
 	}
 
 	public void launchConnection() {
@@ -23,13 +25,23 @@ public class ConnectionLauncher {
 		}
 	}
 
+	public void closeConcurrentConnection() {
+		quitConcurrentConnection = true;
+	}
+
 	private void launchChatConnection() {
 		if (isChatServer()) {
 			Server server = createServer();
-			server.launchConnection();
+			server.launchConcurrentConnection();
+			while (!quitConcurrentConnection) {
+			}
+			server.quitConcurrentConnection();
 		} else if (isChatClient()) {
 			Client client = createClient();
-			client.launchConnection();
+			client.launchConcurrentConnection();
+			while (!quitConcurrentConnection) {
+			}
+			client.quitConcurrentConnection();
 		}
 	}
 

@@ -50,6 +50,37 @@ class Server {
 		}
 	}
 
+	void launchConcurrentConnection() {
+		protocol.notifyOpeningConnection();
+		waitForClient();
+		try (
+				ServerSocket serverSocket =
+						new ServerSocket(PORT_NUMBER);
+				Socket clientSocket = serverSocket.accept();
+				PrintWriter out =
+						new PrintWriter(clientSocket.getOutputStream(), true);
+				BufferedReader in =
+						new BufferedReader(
+								new InputStreamReader(clientSocket.getInputStream()))
+		) {
+			while (!quitConcurrentConnection()) {
+				if (messageToSend != null) {
+					protocol.sendMessage(out, messageToSend);
+				}
+				protocol.readMessage(in);
+			}
+			protocol.closeConnection();
+		} catch (InterruptedIOException timeoutException) {
+			protocol.handleTimeoutException();
+		} catch (IOException ioException) {
+			protocol.handleIOException();
+		}
+	}
+
+	boolean quitConcurrentConnection() {
+		return false;
+	}
+
 	private void waitForClient() {
 		System.out.println("Waiting for client...");
 	}

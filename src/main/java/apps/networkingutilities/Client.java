@@ -49,4 +49,33 @@ class Client {
 		}
 	}
 
+	void launchConcurrentConnection() {
+		protocol.notifyOpeningConnection();
+		try (
+				Socket socket =
+						new Socket(HOST_NAME, PORT_NUMBER);
+				PrintWriter out =
+						new PrintWriter(socket.getOutputStream(), true);
+				BufferedReader in =
+						new BufferedReader(
+								new InputStreamReader(socket.getInputStream()))
+		) {
+			while (!quitConcurrentConnection()) {
+				if (messageToSend != null) {
+					protocol.sendMessage(out, messageToSend);
+				}
+				protocol.readMessage(in);
+			}
+			protocol.closeConnection();
+		} catch (InterruptedIOException timeoutException) {
+			protocol.handleTimeoutException();
+		} catch (IOException ioException) {
+			protocol.handleIOException();
+		}
+	}
+
+	boolean quitConcurrentConnection() {
+		return false;
+	}
+
 }

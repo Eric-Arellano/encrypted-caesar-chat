@@ -27,6 +27,7 @@ class ChatApp implements Launchable {
 	private class CommandLineInterface implements Runnable {
 
 		public void run() {
+			connectionLauncher.closeConcurrentConnection();
 			// ask to:
 			// 1) send message that will be encrypted upon arrival
 			// 2) wait until receiving encrypted message that can then be decrypted locally with key
