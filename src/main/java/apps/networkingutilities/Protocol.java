@@ -36,9 +36,11 @@ class Protocol {
 
 
 	void sendMessage(PrintWriter writer, String messageToSend) {
-		notifySending();
-		writer.println(messageToSend);
-		notifySent();
+		if (messageToSend != null) {
+			notifySending();
+			writer.println(messageToSend);
+			notifySent();
+		}
 	}
 
 	private void notifySending() {

@@ -38,9 +38,7 @@ class Server {
 		) {
 			protocol.setTimeout(clientSocket);
 			protocol.setTimeout(serverSocket);
-			if (messageToSend != null) {
-				protocol.sendMessage(out, messageToSend);
-			}
+			protocol.sendMessage(out, messageToSend);
 			protocol.readMessage(in);
 			protocol.closeConnection();
 		} catch (InterruptedIOException timeoutException) {
@@ -64,12 +62,9 @@ class Server {
 								new InputStreamReader(clientSocket.getInputStream()))
 		) {
 			while (!quitConcurrentConnection()) {
-				if (messageToSend != null) {
-					protocol.sendMessage(out, messageToSend);
-				}
+				protocol.sendMessage(out, messageToSend);
 				protocol.readMessage(in);
 			}
-			protocol.closeConnection();
 		} catch (InterruptedIOException timeoutException) {
 			protocol.handleTimeoutException();
 		} catch (IOException ioException) {
