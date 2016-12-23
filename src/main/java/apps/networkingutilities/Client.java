@@ -1,63 +1,35 @@
 package apps.networkingutilities;
 
 import java.io.IOException;
-import java.io.InterruptedIOException;
 import java.net.Socket;
 
-class Client {
+class Client implements Connection {
 
-	private final String HOST_NAME;
-	private final int PORT_NUMBER;
+	private final Socket socket;
 	private final Protocol protocol;
 
 	private final String messageToSend;
 
-	Client(String HOST_NAME, int PORT_NUMBER) {
-		this.HOST_NAME = HOST_NAME;
-		this.PORT_NUMBER = PORT_NUMBER;
-		this.protocol = new Protocol(Protocol.ConnectionType.CLIENT);
+	Client(String HOST_NAME, int PORT_NUMBER) throws IOException {
+		socket = new Socket(HOST_NAME, PORT_NUMBER);
+		this.protocol = new Protocol(ConnectionType.CLIENT);
 		this.messageToSend = null;
+		protocol.notifyOpeningConnection();
 	}
 
-	Client(String HOST_NAME, int PORT_NUMBER, String messageToSend) {
-		this.HOST_NAME = HOST_NAME;
-		this.PORT_NUMBER = PORT_NUMBER;
-		this.protocol = new Protocol(Protocol.ConnectionType.CLIENT);
+	Client(String HOST_NAME, int PORT_NUMBER, String messageToSend) throws IOException {
+		socket = new Socket(HOST_NAME, PORT_NUMBER);
+		this.protocol = new Protocol(ConnectionType.CLIENT);
 		this.messageToSend = messageToSend;
-	}
-
-	void launchConnection() {
 		protocol.notifyOpeningConnection();
-		try (
-				Socket socket =
-						new Socket(HOST_NAME, PORT_NUMBER)
-		) {
-			protocol.setTimeout(socket);
-			protocol.sendMessage(socket, messageToSend);
-			protocol.readMessage(socket);
-			protocol.closeConnection();
-		} catch (InterruptedIOException timeoutException) {
-			protocol.handleTimeoutException();
-		} catch (IOException ioException) {
-			protocol.handleIOException();
-		}
 	}
 
-	void launchConcurrentConnection() {
-		protocol.notifyOpeningConnection();
-		try (
-				Socket socket =
-						new Socket(HOST_NAME, PORT_NUMBER)
-		) {
-			while (true) {
-				protocol.sendMessage(socket, messageToSend);
-				protocol.readMessage(socket);
-			}
-		} catch (InterruptedIOException timeoutException) {
-			protocol.closeConnection();
-		} catch (IOException ioException) {
-			protocol.handleIOException();
-		}
+	public void listenAndProcess() throws IOException {
+		protocol.sendMessage(socket, messageToSend);
+		protocol.readMessage(socket);
 	}
 
+	public void closeConnection() throws IOException {
+		protocol.closeConnection();
+	}
 }

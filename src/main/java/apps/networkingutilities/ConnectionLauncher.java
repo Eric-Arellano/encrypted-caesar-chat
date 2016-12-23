@@ -3,12 +3,15 @@ package apps.networkingutilities;
 import apps.AppChooser;
 import apps.utilities.CommandLineParser;
 
+import java.io.IOException;
+
 import static apps.networkingutilities.LocalHostNameUtility.getLocalHostName;
 
 public class ConnectionLauncher {
 
 	private final String[] args;
 	private final AppChooser chooser;
+	private Connection connection;
 
 	public ConnectionLauncher(String[] args) {
 		this.args = args;
@@ -20,34 +23,38 @@ public class ConnectionLauncher {
 	// -----------------------------------------------------------------------------------
 
 	public void launchConnection() {
-		if (chooser.isChatApp()) {
-			launchChatConnection();
-		} else if (chooser.isNetworkingApp()) {
-			launchNetworkConnection();
+		try {
+			if (isNetworkClient() || isChatClient()) {
+				connection = createClient();
+			} else {
+				connection = createServer();
+			}
+		} catch (IOException failureToLaunchException) {
+			System.out.println("The connection failed to start.");
 		}
+
 	}
 
 	public void listenAndProcess() {
-
+		try {
+			connection.listenAndProcess();
+		} catch (IOException e) {
+			System.out.println("Failure listening to and writing to other socket.");
+		}
 	}
 
 	public void closeConnection() {
-
+		try {
+			connection.closeConnection();
+		} catch (IOException e) {
+			System.out.println("Failure closing connection.");
+		}
 	}
 
 	// -----------------------------------------------------------------------------------
 	// Launch connections
 	// -----------------------------------------------------------------------------------
 
-	private void launchChatConnection() {
-		if (isChatServer()) {
-			Server server = createServer();
-			server.launchConcurrentConnection();
-		} else if (isChatClient()) {
-			Client client = createClient();
-			client.launchConcurrentConnection();
-		}
-	}
 
 	private boolean isChatServer() {
 		return args.length == 2;
@@ -55,16 +62,6 @@ public class ConnectionLauncher {
 
 	private boolean isChatClient() {
 		return args.length == 3;
-	}
-
-	private void launchNetworkConnection() {
-		if (isNetworkServer()) {
-			Server server = createServer();
-			server.launchConnection();
-		} else if (isNetworkClient()) {
-			Client client = createClient();
-			client.launchConnection();
-		}
 	}
 
 	private boolean isNetworkServer() {
@@ -75,7 +72,7 @@ public class ConnectionLauncher {
 		return args.length == 2 || args.length == 5;
 	}
 
-	private Server createServer() {
+	private Server createServer() throws IOException {
 		final int PORT_NUMBER = parsePortNumber();
 		if (includesMessage()) {
 			String messageToSend = parseAndTranslateInputtedMessage();
@@ -85,7 +82,7 @@ public class ConnectionLauncher {
 		}
 	}
 
-	private Client createClient() {
+	private Client createClient() throws IOException {
 		final String HOST_NAME = parseHostName();
 		final int PORT_NUMBER = parsePortNumber();
 		if (includesMessage()) {
