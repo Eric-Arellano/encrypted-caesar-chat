@@ -1,45 +1,42 @@
-package apps.networking;
+package apps.networkingutilities;
 
-import apps.Launchable;
+import apps.AppChooser;
 import apps.utilities.CommandLineParser;
 
-import static apps.networking.LocalHostNameUtility.getLocalHostName;
+import static apps.networkingutilities.LocalHostNameUtility.getLocalHostName;
 
-public class NetworkingApp implements Launchable {
+public class ConnectionLauncher {
 
 	private final String[] args;
+	private final AppChooser chooser;
 
-	public NetworkingApp(String[] args) {
+	public ConnectionLauncher(String[] args) {
 		this.args = args;
+		chooser = new AppChooser(args);
 	}
 
-	public void launchApp() {
-		if (isServer()) {
+	public void launchConnection() {
+			if (chooser.isNetworkingApp()) {
+			launchNetworkConnection();
+		}
+	}
+
+	private void launchNetworkConnection() {
+		if (isNetworkServer()) {
 			Server server = createServer();
 			server.launchConnection();
-		} else if (isClient()) {
+		} else if (isNetworkClient()) {
 			Client client = createClient();
 			client.launchConnection();
 		}
 	}
 
-	private boolean isServer() {
+	private boolean isNetworkServer() {
 		return args.length == 1 || args.length == 4;
 	}
 
-	private boolean isClient() {
+	private boolean isNetworkClient() {
 		return args.length == 2 || args.length == 5;
-	}
-
-	private boolean isLocalClient() {
-		String HOST_NAME = args[0];
-		return HOST_NAME.equalsIgnoreCase("local")
-				|| HOST_NAME.equalsIgnoreCase("l")
-				|| HOST_NAME.equalsIgnoreCase("-l");
-	}
-
-	private boolean includesMessage() {
-		return args.length == 4 || args.length == 5;
 	}
 
 	private Server createServer() {
@@ -73,16 +70,27 @@ public class NetworkingApp implements Launchable {
 		return hostName;
 	}
 
+	private boolean isLocalClient() {
+		String HOST_NAME = getInputtedHostName();
+		return HOST_NAME.equalsIgnoreCase("local")
+				|| HOST_NAME.equalsIgnoreCase("l")
+				|| HOST_NAME.equalsIgnoreCase("-l");
+	}
+
 	private String getInputtedHostName() {
 		return args[0];
 	}
 
 	private int parsePortNumber() {
-		if (isServer()) {
+		if (isNetworkServer()) {
 			return Integer.parseInt(args[0]);
 		} else {
 			return Integer.parseInt(args[1]);
 		}
+	}
+
+	private boolean includesMessage() {
+		return chooser.isNetworkingApp() && (args.length == 4 || args.length == 5);
 	}
 
 	private String parseAndTranslateInputtedMessage() {
@@ -94,7 +102,7 @@ public class NetworkingApp implements Launchable {
 	}
 
 	private int parseMessageArgIndex() {
-		if (isServer()) {
+		if (isNetworkServer()) {
 			return 1;
 		} else {
 			return 2;

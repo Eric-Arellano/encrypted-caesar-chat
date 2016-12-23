@@ -1,4 +1,4 @@
-package apps.networking;
+package apps.networkingutilities;
 
 import java.io.*;
 import java.net.Socket;

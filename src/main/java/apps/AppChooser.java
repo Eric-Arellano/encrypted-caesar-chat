@@ -1,6 +1,5 @@
 package apps;
 
-import apps.networking.NetworkingApp;
 import apps.utilities.InvalidInputException;
 
 public class AppChooser implements Launchable {
@@ -38,7 +37,7 @@ public class AppChooser implements Launchable {
 		return args.length == 3;
 	}
 
-	private boolean isNetworkingApp() {
+	public boolean isNetworkingApp() {
 		return args.length == 1 || args.length == 2 || args.length == 4 || args.length == 5;
 	}
 
