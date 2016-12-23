@@ -1,6 +1,7 @@
 package apps.networkingutilities;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.net.Socket;
 
 class Client {
@@ -29,16 +30,11 @@ class Client {
 		protocol.notifyOpeningConnection();
 		try (
 				Socket socket =
-						new Socket(HOST_NAME, PORT_NUMBER);
-				PrintWriter out =
-						new PrintWriter(socket.getOutputStream(), true);
-				BufferedReader in =
-						new BufferedReader(
-								new InputStreamReader(socket.getInputStream()))
+						new Socket(HOST_NAME, PORT_NUMBER)
 		) {
 			protocol.setTimeout(socket);
-			protocol.sendMessage(out, messageToSend);
-			protocol.readMessage(in);
+			protocol.sendMessage(socket, messageToSend);
+			protocol.readMessage(socket);
 			protocol.closeConnection();
 		} catch (InterruptedIOException timeoutException) {
 			protocol.handleTimeoutException();
@@ -51,16 +47,11 @@ class Client {
 		protocol.notifyOpeningConnection();
 		try (
 				Socket socket =
-						new Socket(HOST_NAME, PORT_NUMBER);
-				PrintWriter out =
-						new PrintWriter(socket.getOutputStream(), true);
-				BufferedReader in =
-						new BufferedReader(
-								new InputStreamReader(socket.getInputStream()))
+						new Socket(HOST_NAME, PORT_NUMBER)
 		) {
 			while (true) {
-				protocol.sendMessage(out, messageToSend);
-				protocol.readMessage(in);
+				protocol.sendMessage(socket, messageToSend);
+				protocol.readMessage(socket);
 			}
 		} catch (InterruptedIOException timeoutException) {
 			protocol.closeConnection();

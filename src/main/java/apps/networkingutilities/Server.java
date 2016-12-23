@@ -1,6 +1,7 @@
 package apps.networkingutilities;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InterruptedIOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -13,13 +14,13 @@ class Server {
 
 	Server(int PORT_NUMBER) {
 		this.PORT_NUMBER = PORT_NUMBER;
-		protocol = new Protocol(Protocol.ConnectionType.SERVER);
+		this.protocol = new Protocol(Protocol.ConnectionType.SERVER);
 		this.messageToSend = null;
 	}
 
 	Server(int PORT_NUMBER, String messageToSend) {
 		this.PORT_NUMBER = PORT_NUMBER;
-		protocol = new Protocol(Protocol.ConnectionType.SERVER);
+		this.protocol = new Protocol(Protocol.ConnectionType.SERVER);
 		this.messageToSend = messageToSend;
 	}
 
@@ -29,17 +30,12 @@ class Server {
 		try (
 				ServerSocket serverSocket =
 						new ServerSocket(PORT_NUMBER);
-				Socket clientSocket = serverSocket.accept();
-				PrintWriter out =
-						new PrintWriter(clientSocket.getOutputStream(), true);
-				BufferedReader in =
-						new BufferedReader(
-								new InputStreamReader(clientSocket.getInputStream()))
+				Socket clientSocket = serverSocket.accept()
 		) {
 			protocol.setTimeout(clientSocket);
 			protocol.setTimeout(serverSocket);
-			protocol.sendMessage(out, messageToSend);
-			protocol.readMessage(in);
+			protocol.sendMessage(clientSocket, messageToSend);
+			protocol.readMessage(clientSocket);
 			protocol.closeConnection();
 		} catch (InterruptedIOException timeoutException) {
 			protocol.handleTimeoutException();
@@ -54,16 +50,11 @@ class Server {
 		try (
 				ServerSocket serverSocket =
 						new ServerSocket(PORT_NUMBER);
-				Socket clientSocket = serverSocket.accept();
-				PrintWriter out =
-						new PrintWriter(clientSocket.getOutputStream(), true);
-				BufferedReader in =
-						new BufferedReader(
-								new InputStreamReader(clientSocket.getInputStream()))
+				Socket clientSocket = serverSocket.accept()
 		) {
 			while (true) {
-				protocol.sendMessage(out, messageToSend);
-				protocol.readMessage(in);
+				protocol.sendMessage(clientSocket, messageToSend);
+				protocol.readMessage(clientSocket);
 			}
 		} catch (InterruptedIOException timeoutException) {
 			protocol.handleTimeoutException();
