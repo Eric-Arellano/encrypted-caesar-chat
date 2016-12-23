@@ -13,8 +13,9 @@ class ChatApp implements Launchable {
 	}
 
 	public void launchApp() {
-		Runnable networkListener = new NetworkListener();
-		Callable commandLineInterface = new CommandLineInterface();
+		Runnable networkListener = connectionLauncher::launchConnection;
+		Callable commandLineInterface = this::closeApp;
+
 		ExecutorService executor = Executors.newFixedThreadPool(2);
 		try {
 			executor.submit(networkListener);
@@ -28,23 +29,13 @@ class ChatApp implements Launchable {
 		}
 	}
 
-	private class NetworkListener implements Runnable {
+	// TODO: ask to:
+	// 1) send message that will be encrypted upon arrival
+	// 2) wait until receiving encrypted message that can then be decrypted locally with key
+	// (never send key)
 
-		public void run() {
-			connectionLauncher.launchConnection();
-		}
-	}
-
-	private class CommandLineInterface implements Callable {
-
-		public Object call() throws InterruptedException {
-			throw new InterruptedException("Close app.");
-			// ask to:
-			// 1) send message that will be encrypted upon arrival
-			// 2) wait until receiving encrypted message that can then be decrypted locally with key
-			// (never send key)
-		}
-
+	private Object closeApp() throws InterruptedException {
+		throw new InterruptedException("Close app.");
 	}
 
 }
