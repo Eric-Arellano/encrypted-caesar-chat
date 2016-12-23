@@ -2,6 +2,8 @@ package apps;
 
 import apps.networkingutilities.ConnectionLauncher;
 
+import java.util.concurrent.*;
+
 class ChatApp implements Launchable {
 
 	private final ConnectionLauncher connectionLauncher;
@@ -12,9 +14,18 @@ class ChatApp implements Launchable {
 
 	public void launchApp() {
 		Runnable networkListener = new NetworkListener();
-		networkListener.run();
-		Runnable commandLineInterface = new CommandLineInterface();
-		commandLineInterface.run();
+		Callable commandLineInterface = new CommandLineInterface();
+		ExecutorService executor = Executors.newFixedThreadPool(2);
+		try {
+			executor.submit(networkListener);
+			Future commandLine = executor.submit(commandLineInterface);
+			commandLine.get();
+		} catch (ExecutionException | InterruptedException interrupted) {
+			System.out.println("Shut down.");
+			executor.shutdown();
+			executor.shutdownNow();
+			System.exit(1);
+		}
 	}
 
 	private class NetworkListener implements Runnable {
@@ -24,10 +35,10 @@ class ChatApp implements Launchable {
 		}
 	}
 
-	private class CommandLineInterface implements Runnable {
+	private class CommandLineInterface implements Callable {
 
-		public void run() {
-			connectionLauncher.closeConcurrentConnection();
+		public Object call() throws InterruptedException {
+			throw new InterruptedException("Close app.");
 			// ask to:
 			// 1) send message that will be encrypted upon arrival
 			// 2) wait until receiving encrypted message that can then be decrypted locally with key

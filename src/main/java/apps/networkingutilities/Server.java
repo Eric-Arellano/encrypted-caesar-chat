@@ -61,7 +61,7 @@ class Server {
 						new BufferedReader(
 								new InputStreamReader(clientSocket.getInputStream()))
 		) {
-			while (!quitConcurrentConnection()) {
+			while (true) {
 				protocol.sendMessage(out, messageToSend);
 				protocol.readMessage(in);
 			}
@@ -70,10 +70,6 @@ class Server {
 		} catch (IOException ioException) {
 			protocol.handleIOException();
 		}
-	}
-
-	boolean quitConcurrentConnection() {
-		return false;
 	}
 
 	private void waitForClient() {
