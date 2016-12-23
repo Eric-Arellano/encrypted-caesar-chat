@@ -15,6 +15,10 @@ public class ConnectionLauncher {
 		chooser = new AppChooser(args);
 	}
 
+	// -----------------------------------------------------------------------------------
+	// Public interface
+	// -----------------------------------------------------------------------------------
+
 	public void launchConnection() {
 		if (chooser.isChatApp()) {
 			launchChatConnection();
@@ -22,6 +26,18 @@ public class ConnectionLauncher {
 			launchNetworkConnection();
 		}
 	}
+
+	public void listenAndProcess() {
+
+	}
+
+	public void closeConnection() {
+
+	}
+
+	// -----------------------------------------------------------------------------------
+	// Launch connections
+	// -----------------------------------------------------------------------------------
 
 	private void launchChatConnection() {
 		if (isChatServer()) {
@@ -79,6 +95,10 @@ public class ConnectionLauncher {
 			return new Client(HOST_NAME, PORT_NUMBER);
 		}
 	}
+
+	// -----------------------------------------------------------------------------------
+	// Parse inputs for creation
+	// -----------------------------------------------------------------------------------
 
 	private String parseHostName() {
 		String hostName;

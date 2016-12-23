@@ -7,13 +7,21 @@ import java.util.concurrent.*;
 class ChatApp implements Launchable {
 
 	private final ConnectionLauncher connectionLauncher;
+	private volatile boolean keepRunning;
 
 	ChatApp(String[] args) {
 		this.connectionLauncher = new ConnectionLauncher(args);
+		this.keepRunning = true;
 	}
 
 	public void launchApp() {
-		Runnable networkListener = connectionLauncher::launchConnection;
+		Runnable networkListener = () -> {
+			connectionLauncher.launchConnection();
+			while (keepRunning) {
+				connectionLauncher.listenAndProcess();
+			}
+			connectionLauncher.closeConnection();
+		};
 		Callable commandLineInterface = this::closeApp;
 
 		ExecutorService executor = Executors.newFixedThreadPool(2);
@@ -22,6 +30,7 @@ class ChatApp implements Launchable {
 			Future commandLine = executor.submit(commandLineInterface);
 			commandLine.get();
 		} catch (ExecutionException | InterruptedException interrupted) {
+			connectionLauncher.closeConnection();
 			System.out.println("Shut down.");
 			executor.shutdown();
 			executor.shutdownNow();

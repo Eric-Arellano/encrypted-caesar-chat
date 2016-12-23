@@ -12,6 +12,8 @@ class NetworkingApp implements Launchable {
 
 	public void launchApp() {
 		connectionLauncher.launchConnection();
+		connectionLauncher.listenAndProcess();
+		connectionLauncher.closeConnection();
 	}
 
 }
