@@ -2,7 +2,8 @@ package apps;
 
 import apps.networkingutilities.ConnectionLauncher;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 class ChatApp implements Launchable {
 
@@ -15,36 +16,45 @@ class ChatApp implements Launchable {
 	}
 
 	public void launchApp() {
-		Runnable networkListener = () -> {
+		ExecutorService executor = Executors.newFixedThreadPool(2);
+		Runnable networkListener = createNetworkListener();
+		Runnable commandLineInterface = createCommandLineInterface(executor);
+
+		executor.submit(networkListener);
+		executor.submit(commandLineInterface);
+	}
+
+	private Runnable createNetworkListener() {
+		return () -> {
 			connectionLauncher.launchConnection();
 			while (keepRunning) {
 				connectionLauncher.listenAndProcess();
 			}
 			connectionLauncher.closeConnection();
 		};
-		Callable commandLineInterface = this::closeApp;
-
-		ExecutorService executor = Executors.newFixedThreadPool(2);
-		try {
-			executor.submit(networkListener);
-			Future commandLine = executor.submit(commandLineInterface);
-			commandLine.get();
-		} catch (ExecutionException | InterruptedException interrupted) {
-			connectionLauncher.closeConnection();
-			System.out.println("Shut down.");
-			executor.shutdown();
-			executor.shutdownNow();
-			System.exit(1);
-		}
 	}
 
-	// TODO: ask to:
-	// 1) send message that will be encrypted upon arrival
-	// 2) wait until receiving encrypted message that can then be decrypted locally with key
-	// (never send key)
+	private Runnable createCommandLineInterface(ExecutorService executor) {
+		return () -> {
+			closeApp(executor);
+			// TODO: ask to:
+			// 1) send message that will be encrypted upon arrival
+			// 2) wait until receiving encrypted message that can then be decrypted locally with key
+			// (never send key)
+		};
+	}
 
-	private Object closeApp() throws InterruptedException {
-		throw new InterruptedException("Close app.");
+	private synchronized void closeApp(ExecutorService executor) {
+		try {
+			keepRunning = true;
+			Thread.sleep(50);
+		} catch (InterruptedException interruptedException) {
+			System.out.println("Error shutting down.");
+		}
+//		System.out.println("Shut down.");
+//		executor.shutdown();
+//		executor.shutdownNow();
+//		System.exit(1);
 	}
 
 }
