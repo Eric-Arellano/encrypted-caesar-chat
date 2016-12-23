@@ -1,4 +1,4 @@
-package userInterface.networking;
+package apps.networking;
 
 import java.io.*;
 import java.net.ServerSocket;

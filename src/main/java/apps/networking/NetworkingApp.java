@@ -1,9 +1,9 @@
-package userInterface.networking;
+package apps.networking;
 
-import userInterface.Launchable;
-import userInterface.utilities.CommandLineParser;
+import apps.Launchable;
+import apps.utilities.CommandLineParser;
 
-import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
+import static apps.networking.LocalHostNameUtility.getLocalHostName;
 
 public class NetworkingApp implements Launchable {
 

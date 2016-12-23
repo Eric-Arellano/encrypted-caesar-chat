@@ -1,4 +1,4 @@
-package userInterface;
+package apps;
 
 public interface Launchable {
 

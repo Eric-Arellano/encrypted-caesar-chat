@@ -1,14 +1,14 @@
-package userInterface;
+package apps;
 
-import userInterface.networking.NetworkingApp;
-import userInterface.utilities.InvalidInputException;
+import apps.networking.NetworkingApp;
+import apps.utilities.InvalidInputException;
 
-public class InterfaceChooser implements Launchable {
+public class AppChooser implements Launchable {
 
 	private final String[] args;
 	private Launchable app;
 
-	public InterfaceChooser(String[] args) {
+	public AppChooser(String[] args) {
 		this.args = args;
 	}
 

@@ -1,7 +1,7 @@
-package userInterface.utilities;
+package apps.utilities;
 
-import static userInterface.utilities.MessageTranslator.EncryptMode;
-import static userInterface.utilities.MessageTranslator.translateMessage;
+import static apps.utilities.MessageTranslator.EncryptMode;
+import static apps.utilities.MessageTranslator.translateMessage;
 
 public class CommandLineParser {
 

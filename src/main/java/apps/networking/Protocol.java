@@ -1,4 +1,4 @@
-package userInterface.networking;
+package apps.networking;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,8 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
-import static userInterface.networking.LocalHostNameUtility.getLocalHostName;
-import static userInterface.networking.LocalHostNameUtility.getLocalIPAddress;
+import static apps.networking.LocalHostNameUtility.getLocalHostName;
+import static apps.networking.LocalHostNameUtility.getLocalIPAddress;
 
 class Protocol {
 
