@@ -8,6 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 
+import static apps.networkingutilities.Connection.ConnectionType;
 import static apps.networkingutilities.LocalHostNameUtility.getLocalHostName;
 import static apps.networkingutilities.LocalHostNameUtility.getLocalIPAddress;
 
@@ -88,26 +89,5 @@ class Protocol {
 		String exceptionMessage = String.format("IO Exception from %s.", connectionType.toString());
 		System.out.println(exceptionMessage);
 		System.exit(1);
-	}
-
-	enum ConnectionType {
-		CLIENT, SERVER;
-
-		@Override
-		public String toString() {
-			return name().toLowerCase();
-		}
-
-		static String getOtherConnectionType(ConnectionType currentType) {
-			switch (currentType) {
-				case CLIENT:
-					return SERVER.toString();
-				case SERVER:
-					return CLIENT.toString();
-				default:
-					return null;
-			}
-		}
-
 	}
 }
