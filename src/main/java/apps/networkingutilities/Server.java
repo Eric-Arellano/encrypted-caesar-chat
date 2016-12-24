@@ -24,20 +24,22 @@ class Server implements Connection {
 		openSockets(PORT_NUMBER);
 	}
 
-	private void openSockets(int PORT_NUMBER) throws IOException {
-		this.serverSocket = new ServerSocket(PORT_NUMBER);
-		protocol.notifyOpeningConnection();
-		waitForClient();
-		clientSocket = serverSocket.accept();
-	}
-
 	public void listenAndProcess() throws IOException {
 		protocol.sendMessage(clientSocket, messageToSend);
 		protocol.readMessage(clientSocket);
 	}
 
 	public void closeConnection() throws IOException {
+		clientSocket.close();
+		serverSocket.close();
 		protocol.closeConnection();
+	}
+
+	private void openSockets(int PORT_NUMBER) throws IOException {
+		this.serverSocket = new ServerSocket(PORT_NUMBER);
+		protocol.notifyOpeningConnection();
+		waitForClient();
+		clientSocket = serverSocket.accept();
 	}
 
 	private void waitForClient() {

@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 
 import static apps.networkingutilities.Connection.ConnectionType;
 import static apps.networkingutilities.LocalHostNameUtility.getLocalHostName;
@@ -25,17 +23,6 @@ class Protocol {
 				connectionType.toString(), getLocalHostName(), getLocalIPAddress());
 		System.out.println(openingMessage);
 	}
-
-	void setTimeout(Socket socket) throws SocketException {
-		final int THREE_SECONDS = 3000;
-		socket.setSoTimeout(THREE_SECONDS);
-	}
-
-	void setTimeout(ServerSocket socket) throws SocketException {
-		final int THREE_SECONDS = 3000;
-		socket.setSoTimeout(THREE_SECONDS);
-	}
-
 
 	void sendMessage(Socket socket, String messageToSend) throws IOException {
 		PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
@@ -78,16 +65,4 @@ class Protocol {
 		System.exit(1);
 	}
 
-	void handleTimeoutException() {
-		String exceptionMessage = "Connection timeout. Make sure either the server or client is " +
-				"sending a message.";
-		System.out.println(exceptionMessage);
-		System.exit(1);
-	}
-
-	void handleIOException() {
-		String exceptionMessage = String.format("IO Exception from %s.", connectionType.toString());
-		System.out.println(exceptionMessage);
-		System.exit(1);
-	}
 }

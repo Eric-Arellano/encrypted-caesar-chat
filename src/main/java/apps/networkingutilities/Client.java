@@ -5,23 +5,21 @@ import java.net.Socket;
 
 class Client implements Connection {
 
-	private final Socket socket;
+	private Socket socket;
 	private final Protocol protocol;
 
 	private final String messageToSend;
 
 	Client(String HOST_NAME, int PORT_NUMBER) throws IOException {
-		socket = new Socket(HOST_NAME, PORT_NUMBER);
 		this.protocol = new Protocol(ConnectionType.CLIENT);
 		this.messageToSend = null;
-		protocol.notifyOpeningConnection();
+		openSocket(HOST_NAME, PORT_NUMBER);
 	}
 
 	Client(String HOST_NAME, int PORT_NUMBER, String messageToSend) throws IOException {
-		socket = new Socket(HOST_NAME, PORT_NUMBER);
 		this.protocol = new Protocol(ConnectionType.CLIENT);
 		this.messageToSend = messageToSend;
-		protocol.notifyOpeningConnection();
+		openSocket(HOST_NAME, PORT_NUMBER);
 	}
 
 	public void listenAndProcess() throws IOException {
@@ -30,6 +28,13 @@ class Client implements Connection {
 	}
 
 	public void closeConnection() throws IOException {
+		socket.close();
 		protocol.closeConnection();
 	}
+
+	private void openSocket(String HOST_NAME, int PORT_NUMBER) throws IOException {
+		socket = new Socket(HOST_NAME, PORT_NUMBER);
+		protocol.notifyOpeningConnection();
+	}
+
 }
