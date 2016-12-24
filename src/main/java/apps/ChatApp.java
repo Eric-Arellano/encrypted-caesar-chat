@@ -1,17 +1,17 @@
 package apps;
 
-import apps.networkingutilities.ConnectionLauncher;
+import apps.networkingutilities.ConnectionInterfacer;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 class ChatApp implements Launchable {
 
-	private final ConnectionLauncher connectionLauncher;
+	private final ConnectionInterfacer connectionLauncher;
 	private volatile boolean keepRunning;
 
 	ChatApp(String[] args) {
-		this.connectionLauncher = new ConnectionLauncher(args);
+		this.connectionLauncher = new ConnectionInterfacer(args);
 		this.keepRunning = true;
 	}
 

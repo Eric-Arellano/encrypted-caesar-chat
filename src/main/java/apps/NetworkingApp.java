@@ -1,13 +1,13 @@
 package apps;
 
-import apps.networkingutilities.ConnectionLauncher;
+import apps.networkingutilities.ConnectionInterfacer;
 
 class NetworkingApp implements Launchable {
 
-	private final ConnectionLauncher connectionLauncher;
+	private final ConnectionInterfacer connectionLauncher;
 
 	NetworkingApp(String[] args) {
-		this.connectionLauncher = new ConnectionLauncher(args);
+		this.connectionLauncher = new ConnectionInterfacer(args);
 	}
 
 	public void launchApp() {
