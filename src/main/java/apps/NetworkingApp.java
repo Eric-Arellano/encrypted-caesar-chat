@@ -4,16 +4,17 @@ import apps.networkingutilities.ConnectionInterfacer;
 
 class NetworkingApp implements Launchable {
 
-	private final ConnectionInterfacer connectionLauncher;
+	private final ConnectionInterfacer connectionInterfacer;
 
 	NetworkingApp(String[] args) {
-		this.connectionLauncher = new ConnectionInterfacer(args);
+		this.connectionInterfacer = new ConnectionInterfacer(args);
 	}
 
 	public void launchApp() {
-		connectionLauncher.launchConnection();
-		connectionLauncher.listenAndProcess();
-		connectionLauncher.closeConnection();
+		connectionInterfacer.launchConnection();
+		connectionInterfacer.sendMessage();
+		connectionInterfacer.listenForMessage();
+		connectionInterfacer.closeConnection();
 	}
 
 }

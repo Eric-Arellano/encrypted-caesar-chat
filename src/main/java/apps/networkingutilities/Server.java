@@ -24,9 +24,12 @@ class Server implements Connection {
 		openSockets(PORT_NUMBER);
 	}
 
-	public void listenAndProcess() throws IOException {
-		protocol.sendMessage(clientSocket, messageToSend);
+	public void listenForMessage() throws IOException {
 		protocol.readMessage(clientSocket);
+	}
+
+	public void sendMessage() throws IOException {
+		protocol.sendMessage(clientSocket, messageToSend);
 	}
 
 	public void closeConnection() throws IOException {

@@ -2,9 +2,11 @@ package apps.networkingutilities;
 
 import java.io.IOException;
 
-public interface Connection {
+interface Connection {
 
-	void listenAndProcess() throws IOException;
+	void listenForMessage() throws IOException;
+
+	void sendMessage() throws IOException;
 
 	void closeConnection() throws IOException;
 

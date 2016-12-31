@@ -22,9 +22,12 @@ class Client implements Connection {
 		openSocket(HOST_NAME, PORT_NUMBER);
 	}
 
-	public void listenAndProcess() throws IOException {
-		protocol.sendMessage(socket, messageToSend);
+	public void listenForMessage() throws IOException {
 		protocol.readMessage(socket);
+	}
+
+	public void sendMessage() throws IOException {
+		protocol.sendMessage(socket, messageToSend);
 	}
 
 	public void closeConnection() throws IOException {

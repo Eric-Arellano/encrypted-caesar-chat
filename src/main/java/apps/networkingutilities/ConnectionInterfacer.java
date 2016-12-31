@@ -24,11 +24,19 @@ public class ConnectionInterfacer {
 
 	}
 
-	public void listenAndProcess() {
+	public void listenForMessage() {
 		try {
-			connection.listenAndProcess();
+			connection.listenForMessage();
 		} catch (IOException e) {
-			System.out.println("Failure listening to and writing to other socket.");
+			System.out.println("Failure listening to other socket.");
+		}
+	}
+
+	public void sendMessage() {
+		try {
+			connection.sendMessage();
+		} catch (IOException e) {
+			System.out.println("Failure writing to other socket.");
 		}
 	}
 
