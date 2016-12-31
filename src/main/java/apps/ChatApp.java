@@ -7,12 +7,14 @@ import java.util.concurrent.Executors;
 
 class ChatApp implements Launchable {
 
-	private final ConnectionInterfacer connectionLauncher;
+	private final ConnectionInterfacer connectionInterfacer;
 	private volatile boolean keepRunning;
+	private volatile boolean messageReceived;
 
 	ChatApp(String[] args) {
-		this.connectionLauncher = new ConnectionInterfacer(args);
+		this.connectionInterfacer = new ConnectionInterfacer(args);
 		this.keepRunning = true;
+		this.messageReceived = false;
 	}
 
 	public void launchApp() {
@@ -20,23 +22,30 @@ class ChatApp implements Launchable {
 		Runnable networkListener = createNetworkListener();
 		Runnable commandLineInterface = createCommandLineInterface(executor);
 
+		connectionInterfacer.launchConnection();
 		executor.submit(networkListener);
 		executor.submit(commandLineInterface);
 	}
 
+	private synchronized void closeApp() {
+		keepRunning = false;
+		notifyAll();
+		connectionInterfacer.closeConnection();
+	}
+
 	private Runnable createNetworkListener() {
 		return () -> {
-			connectionLauncher.launchConnection();
 			while (keepRunning) {
-				connectionLauncher.listenAndProcess();
+				connectionInterfacer.listenForMessage();
+				messageReceived = true;
+				notifyAll();
 			}
-			connectionLauncher.closeConnection();
 		};
 	}
 
 	private Runnable createCommandLineInterface(ExecutorService executor) {
 		return () -> {
-			closeApp(executor);
+			closeApp();
 			// TODO: ask to:
 			// 1) send message that will be encrypted upon arrival
 			// 2) wait until receiving encrypted message that can then be decrypted locally with key
@@ -44,17 +53,36 @@ class ChatApp implements Launchable {
 		};
 	}
 
-	private synchronized void closeApp(ExecutorService executor) {
-		try {
-			keepRunning = true;
-			Thread.sleep(50);
-		} catch (InterruptedException interruptedException) {
-			System.out.println("Error shutting down.");
+	private synchronized void receiveMessage() {
+		if (messageReceived) {
+			askToDecryptReceivedMessage();
+			String encryptedMessage = askForMessage();
+			String key = askForKey();
+			decryptMessage(encryptedMessage, key);
+			messageReceived = false;
 		}
-//		System.out.println("Shut down.");
-//		executor.shutdown();
-//		executor.shutdownNow();
-//		System.exit(1);
 	}
+
+	private void askToDecryptReceivedMessage() {
+
+	}
+
+	private String askForMessage() {
+		return null;
+	}
+
+	private String askForKey() {
+		return null;
+	}
+
+	private void decryptMessage(String encryptedMessage, String key) {
+
+	}
+
+	private synchronized void sendMessage(String message) {
+		connectionInterfacer.sendMessage();
+	}
+
+
 
 }
