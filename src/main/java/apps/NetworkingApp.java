@@ -12,12 +12,12 @@ class NetworkingApp implements Launchable {
 
 	public void launchApp() {
 		connectionInterfacer.launchConnection();
-		sendMessage();
+		sendMessageIfPresent();
 		connectionInterfacer.listenForMessage();
 		connectionInterfacer.closeConnection();
 	}
 
-	private void sendMessage() {
+	private void sendMessageIfPresent() {
 		if (connectionInterfacer.isMessageToSend()) {
 			connectionInterfacer.sendMessage(connectionInterfacer.getMessageToSend());
 		}
