@@ -32,9 +32,9 @@ public class ConnectionInterfacer {
 		}
 	}
 
-	public void sendMessage() {
+	public void sendMessage(String message) {
 		try {
-			connection.sendMessage();
+			connection.sendMessage(message);
 		} catch (IOException e) {
 			System.out.println("Failure writing to other socket.");
 		}
@@ -48,25 +48,22 @@ public class ConnectionInterfacer {
 		}
 	}
 
+	public boolean isMessageToSend() {
+		return parser.includesMessage();
+	}
+
+	public String getMessageToSend() {
+		return parser.parseAndTranslateInputtedMessage();
+	}
+
 	private Server createServer() throws IOException {
 		final int PORT_NUMBER = parser.parsePortNumber();
-		if (parser.includesMessage()) {
-			String messageToSend = parser.parseAndTranslateInputtedMessage();
-			return new Server(PORT_NUMBER, messageToSend);
-		} else {
-			return new Server(PORT_NUMBER);
-		}
+		return new Server(PORT_NUMBER);
 	}
 
 	private Client createClient() throws IOException {
 		final String HOST_NAME = parser.parseHostName();
 		final int PORT_NUMBER = parser.parsePortNumber();
-		if (parser.includesMessage()) {
-			String messageToSend = parser.parseAndTranslateInputtedMessage();
-			return new Client(HOST_NAME, PORT_NUMBER, messageToSend);
-		} else {
-			return new Client(HOST_NAME, PORT_NUMBER);
-		}
+		return new Client(HOST_NAME, PORT_NUMBER);
 	}
-
 }

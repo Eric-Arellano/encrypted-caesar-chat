@@ -6,7 +6,7 @@ interface Connection {
 
 	void listenForMessage() throws IOException;
 
-	void sendMessage() throws IOException;
+	void sendMessage(String message) throws IOException;
 
 	void closeConnection() throws IOException;
 

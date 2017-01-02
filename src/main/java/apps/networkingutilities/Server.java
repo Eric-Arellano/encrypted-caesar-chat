@@ -10,17 +10,8 @@ class Server implements Connection {
 	private Socket clientSocket;
 	private final Protocol protocol;
 
-	private final String messageToSend;
-
 	Server(int PORT_NUMBER) throws IOException {
 		this.protocol = new Protocol(ConnectionType.SERVER);
-		this.messageToSend = null;
-		openSockets(PORT_NUMBER);
-	}
-
-	Server(int PORT_NUMBER, String messageToSend) throws IOException {
-		this.protocol = new Protocol(ConnectionType.SERVER);
-		this.messageToSend = messageToSend;
 		openSockets(PORT_NUMBER);
 	}
 
@@ -28,8 +19,8 @@ class Server implements Connection {
 		protocol.readMessage(clientSocket);
 	}
 
-	public void sendMessage() throws IOException {
-		protocol.sendMessage(clientSocket, messageToSend);
+	public void sendMessage(String message) throws IOException {
+		protocol.sendMessage(clientSocket, message);
 	}
 
 	public void closeConnection() throws IOException {

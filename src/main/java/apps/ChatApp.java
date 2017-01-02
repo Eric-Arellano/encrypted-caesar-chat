@@ -68,7 +68,7 @@ class ChatApp implements Launchable {
 			askToDecryptReceivedMessage();
 			String encryptedMessage = requestMessage(EncryptMode.DECRYPT);
 			String key = requestKey(EncryptMode.DECRYPT);
-			decryptMessage(encryptedMessage, key);
+			translateMessage(EncryptMode.DECRYPT, encryptedMessage, key);
 			messageReceived = false;
 		}
 	}
@@ -76,11 +76,6 @@ class ChatApp implements Launchable {
 	private void askToDecryptReceivedMessage() {
 
 	}
-
-	private void decryptMessage(String encryptedMessage, String key) {
-
-	}
-
 
 	// -----------------------------------------------------------------------------------
 	// Encrypt and send message
@@ -94,7 +89,7 @@ class ChatApp implements Launchable {
 	}
 
 	private synchronized void sendMessage(String message) {
-		connectionInterfacer.sendMessage();
+		connectionInterfacer.sendMessage(message);
 	}
 
 }
