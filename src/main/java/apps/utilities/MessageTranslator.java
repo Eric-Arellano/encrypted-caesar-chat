@@ -23,7 +23,7 @@ public class MessageTranslator {
 	}
 
 	public enum EncryptMode {
-		ENCRYPT, DECRYPT, INVALID;
+		ENCRYPT, DECRYPT, INVALID, QUIT_APP;
 
 		@Override
 		public String toString() {

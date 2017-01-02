@@ -5,9 +5,10 @@ import apps.networkingutilities.ConnectionInterfacer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static apps.utilities.ConsoleInterfacer.requestKey;
+import static apps.utilities.ConsoleInterfacer.requestMessage;
 import static apps.utilities.MessageTranslator.EncryptMode;
 import static apps.utilities.MessageTranslator.translateMessage;
-import static apps.utilities.UserInputParser.getValidStringInput;
 
 class ChatApp implements Launchable {
 
@@ -65,8 +66,8 @@ class ChatApp implements Launchable {
 	private synchronized void receiveMessage() {
 		if (messageReceived) {
 			askToDecryptReceivedMessage();
-			String encryptedMessage = requestMessage();
-			String key = requestKey();
+			String encryptedMessage = requestMessage(EncryptMode.DECRYPT);
+			String key = requestKey(EncryptMode.DECRYPT);
 			decryptMessage(encryptedMessage, key);
 			messageReceived = false;
 		}
@@ -86,40 +87,10 @@ class ChatApp implements Launchable {
 	// -----------------------------------------------------------------------------------
 
 	private void encryptAndSendMessage() {
-		String message = requestMessage();
-		String key = requestKey();
+		String message = requestMessage(EncryptMode.ENCRYPT);
+		String key = requestKey(EncryptMode.ENCRYPT);
 		String encryptedMessage = translateMessage(EncryptMode.ENCRYPT, message, key);
 		sendMessage(encryptedMessage);
-	}
-
-	private String requestMessage() {
-		promptMessage();
-		return listenForMessage();
-	}
-
-	private void promptMessage() {
-		String prompt = String.format("Please type your decrypted message (use lowercase and/or " +
-				"uppercase letters, but no spaces or special characters): ");
-		System.out.println(prompt);
-	}
-
-	private String listenForMessage() {
-		return getValidStringInput();
-	}
-
-	private String requestKey() {
-		promptKey();
-		return listenForKey();
-	}
-
-	private void promptKey() {
-		String prompt = String.format("Please type your encryption key (use a lowercase letter or " +
-				"letters): ");
-		System.out.println(prompt);
-	}
-
-	private String listenForKey() {
-		return getValidStringInput();
 	}
 
 	private synchronized void sendMessage(String message) {
