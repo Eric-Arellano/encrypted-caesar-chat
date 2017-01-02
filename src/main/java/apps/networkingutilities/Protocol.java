@@ -25,12 +25,31 @@ class Protocol {
 	}
 
 	void sendMessage(Socket socket, String messageToSend) throws IOException {
-		PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
-		if (messageToSend != null) {
-			notifySending();
-			writer.println(messageToSend);
-			notifySent();
+		try (PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
+			if (messageToSend != null) {
+				notifySending();
+				writer.println(messageToSend);
+				notifySent();
+			}
 		}
+	}
+
+	void readMessage(Socket socket) throws IOException {
+		try (BufferedReader reader = new BufferedReader(
+				new InputStreamReader(socket.getInputStream()))) {
+			String receivedMessage = reader.readLine();
+			if (receivedMessage != null) {
+				notifyReceived();
+				System.out.println(receivedMessage);
+			}
+		}
+	}
+
+	void closeConnection() {
+		String closingMessage = String.format("\nClosing %s's connection. Restart app if you'd like " +
+				"to run it again.", connectionType.toString());
+		System.out.println(closingMessage);
+		System.exit(1);
 	}
 
 	private void notifySending() {
@@ -45,24 +64,8 @@ class Protocol {
 		System.out.println(sentNotification);
 	}
 
-	void readMessage(Socket socket) throws IOException {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		String receivedMessage = reader.readLine();
-		if (receivedMessage != null) {
-			notifyReceived();
-			System.out.println(receivedMessage);
-		}
-	}
-
 	private void notifyReceived() {
 		System.out.println("\nMessage received!\n");
-	}
-
-	void closeConnection() {
-		String closingMessage = String.format("\nClosing %s's connection. Restart app if you'd like " +
-				"to run it again.", connectionType.toString());
-		System.out.println(closingMessage);
-		System.exit(1);
 	}
 
 }
