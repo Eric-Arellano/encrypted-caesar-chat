@@ -14,26 +14,22 @@ public class AppChooser implements Launchable {
 	public void launchApp() {
 		try {
 			if (isConsoleApp()) {
-				launchConsoleApp();
+				app = new ConsoleApp();
 			} else if (isCommandLineApp()) {
-				launchCommandLineApp();
+				app = new CommandLineApp(args);
 			} else if (isNetworkingApp()) {
-				launchNetworkingApp();
+				app = new NetworkingApp(args);
 			} else if (isChatApp()) {
-				launchChatApp();
+				app = new ChatApp(args);
 			} else {
 				throw new InvalidInputException("Invalid command line arguments.");
 			}
+			app.launchApp();
 		} catch (InvalidInputException invalidCommandLineException) {
 			System.out.println("Invalid command line arguments.");
 			System.exit(1);
 		}
 	}
-
-
-	// -----------------------------------------------------------------------------------
-	// Determine app type
-	// -----------------------------------------------------------------------------------
 
 	private boolean isConsoleApp() {
 		return args.length == 0;
@@ -72,31 +68,6 @@ public class AppChooser implements Launchable {
 		return prefix.equalsIgnoreCase("chat")
 				|| prefix.equalsIgnoreCase("c")
 				|| prefix.equalsIgnoreCase("-c");
-	}
-
-
-	// -----------------------------------------------------------------------------------
-	// Launch apps
-	// -----------------------------------------------------------------------------------
-
-	private void launchConsoleApp() {
-		app = new ConsoleApp();
-		app.launchApp();
-	}
-
-	private void launchCommandLineApp() {
-		app = new CommandLineApp(args);
-		app.launchApp();
-	}
-
-	private void launchNetworkingApp() {
-		app = new NetworkingApp(args);
-		app.launchApp();
-	}
-
-	private void launchChatApp() {
-		app = new ChatApp(args);
-		app.launchApp();
 	}
 
 }
