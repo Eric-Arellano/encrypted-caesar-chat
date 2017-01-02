@@ -25,4 +25,8 @@ public enum EncryptMode {
 		return mode.equals(EncryptMode.DECRYPT);
 	}
 
+	public static boolean isQuitApp(EncryptMode mode) {
+		return mode.equals(EncryptMode.QUIT_APP);
+	}
+
 }
