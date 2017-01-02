@@ -5,6 +5,10 @@ import apps.networkingutilities.ConnectionInterfacer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static apps.utilities.MessageTranslator.EncryptMode;
+import static apps.utilities.MessageTranslator.translateMessage;
+import static apps.utilities.UserInputParser.getValidStringInput;
+
 class ChatApp implements Launchable {
 
 	private final ConnectionInterfacer connectionInterfacer;
@@ -53,11 +57,16 @@ class ChatApp implements Launchable {
 		};
 	}
 
+
+	// -----------------------------------------------------------------------------------
+	// Receive and decrypt message
+	// -----------------------------------------------------------------------------------
+
 	private synchronized void receiveMessage() {
 		if (messageReceived) {
 			askToDecryptReceivedMessage();
-			String encryptedMessage = askForMessage();
-			String key = askForKey();
+			String encryptedMessage = requestMessage();
+			String key = requestKey();
 			decryptMessage(encryptedMessage, key);
 			messageReceived = false;
 		}
@@ -67,22 +76,54 @@ class ChatApp implements Launchable {
 
 	}
 
-	private String askForMessage() {
-		return null;
-	}
-
-	private String askForKey() {
-		return null;
-	}
-
 	private void decryptMessage(String encryptedMessage, String key) {
 
+	}
+
+
+	// -----------------------------------------------------------------------------------
+	// Encrypt and send message
+	// -----------------------------------------------------------------------------------
+
+	private void encryptAndSendMessage() {
+		String message = requestMessage();
+		String key = requestKey();
+		String encryptedMessage = translateMessage(EncryptMode.ENCRYPT, message, key);
+		sendMessage(encryptedMessage);
+	}
+
+	private String requestMessage() {
+		promptMessage();
+		return listenForMessage();
+	}
+
+	private void promptMessage() {
+		String prompt = String.format("Please type your decrypted message (use lowercase and/or " +
+				"uppercase letters, but no spaces or special characters): ");
+		System.out.println(prompt);
+	}
+
+	private String listenForMessage() {
+		return getValidStringInput();
+	}
+
+	private String requestKey() {
+		promptKey();
+		return listenForKey();
+	}
+
+	private void promptKey() {
+		String prompt = String.format("Please type your encryption key (use a lowercase letter or " +
+				"letters): ");
+		System.out.println(prompt);
+	}
+
+	private String listenForKey() {
+		return getValidStringInput();
 	}
 
 	private synchronized void sendMessage(String message) {
 		connectionInterfacer.sendMessage();
 	}
-
-
 
 }
