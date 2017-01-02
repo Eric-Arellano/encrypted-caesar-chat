@@ -1,7 +1,8 @@
 package apps;
 
+import apps.utilities.EncryptMode;
+
 import static apps.utilities.ConsoleInterfacer.*;
-import static apps.utilities.MessageTranslator.EncryptMode;
 import static apps.utilities.MessageTranslator.translateMessage;
 
 class ConsoleApp implements Launchable {

@@ -1,6 +1,5 @@
 package apps.utilities;
 
-import static apps.utilities.MessageTranslator.EncryptMode;
 import static apps.utilities.MessageTranslator.translateMessage;
 
 public class CommandLineParser {
@@ -21,6 +20,7 @@ public class CommandLineParser {
 			} else if (isDecryptionInput(modeValue)) {
 				mode = EncryptMode.DECRYPT;
 			} else {
+				mode = EncryptMode.INVALID;
 				throw new InvalidInputException("Invalid mode input.");
 			}
 		} catch (InvalidInputException invalidInputException) {

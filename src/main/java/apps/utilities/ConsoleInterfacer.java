@@ -1,6 +1,5 @@
 package apps.utilities;
 
-import static apps.utilities.MessageTranslator.EncryptMode;
 import static apps.utilities.UserInputParser.getValidIntInput;
 import static apps.utilities.UserInputParser.getValidStringInput;
 
@@ -55,7 +54,7 @@ public class ConsoleInterfacer {
 	private static void promptMessage(EncryptMode encryptMode) {
 		String prompt = String.format("Please type your %sed message (use lowercase and/or uppercase " +
 						"letters, but no spaces or special characters): ",
-				MessageTranslator.EncryptMode.getInverseMode(encryptMode));
+				EncryptMode.getInverseMode(encryptMode));
 		System.out.println(prompt);
 	}
 

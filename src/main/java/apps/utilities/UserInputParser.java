@@ -3,11 +3,11 @@ package apps.utilities;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class UserInputParser {
+class UserInputParser {
 
 	private static final Scanner scanner = new Scanner(System.in);
 
-	public static int getValidIntInput(int RANGE_LOWER_BOUND, int RANGE_UPPER_BOUND) {
+	static int getValidIntInput(int RANGE_LOWER_BOUND, int RANGE_UPPER_BOUND) {
 		int inputtedValue;
 		try {
 			if (scanner.hasNextInt()) {
@@ -30,7 +30,7 @@ public class UserInputParser {
 		return inputtedValue;
 	}
 
-	public static String getValidStringInput() {
+	static String getValidStringInput() {
 		String inputtedValue = "";
 		try {
 			if (scanner.hasNextLine()) {
