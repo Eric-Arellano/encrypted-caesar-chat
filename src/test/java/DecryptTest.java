@@ -42,9 +42,23 @@ class DecryptTest {
 			assertEquals("Zack", caesar.decryptMessage("Cdfn", "c"));
 		}
 
-		@Disabled("Add support for special characters, spaces, & numbers in encryption/decryption")
+		@Disabled("Add support for spaces in encryption/decryption")
 		@Test
-		@DisplayName("special characters & numbers")
+		@DisplayName("spaces decryption")
+		void decryptSpaces() {
+			assertEquals("za ck", caesar.decryptMessage("cd fn", "c"));
+		}
+
+		@Disabled("Add support for numbers in encryption/decryption")
+		@Test
+		@DisplayName("numbers decryption")
+		void decryptNumbers() {
+			// TODO: how is this supposed to decrypt?
+		}
+
+		@Disabled("Add support for special characters in encryption/decryption")
+		@Test
+		@DisplayName("special characters decryption")
 		void decryptNumbersSpecialCharacters() {
 			// TODO: how is this supposed to decrypt?
 		}
@@ -86,9 +100,23 @@ class DecryptTest {
 			assertEquals("Zack", vigenere.decryptMessage("Acdm", "Ab"));
 		}
 
-		@Disabled("Add support for special characters, spaces, & numbers in encryption/decryption")
+		@Disabled("Add support for spaces in encryption/decryption")
 		@Test
-		@DisplayName("special characters & numbers")
+		@DisplayName("spaces decryption")
+		void decryptSpaces() {
+			assertEquals("za ck", vigenere.decryptMessage("ac dm", "ab"));
+		}
+
+		@Disabled("Add support for numbers in encryption/decryption")
+		@Test
+		@DisplayName("numbers decryption")
+		void decryptNumbers() {
+			// TODO: how is this supposed to decrypt?
+		}
+
+		@Disabled("Add support for special characters in encryption/decryption")
+		@Test
+		@DisplayName("special characters decryption")
 		void decryptNumbersSpecialCharacters() {
 			// TODO: how is this supposed to decrypt?
 		}
