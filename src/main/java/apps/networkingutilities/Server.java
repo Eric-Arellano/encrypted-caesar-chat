@@ -1,53 +1,39 @@
 package apps.networkingutilities;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-class Server {
+class Server implements Connection {
 
-	private final int PORT_NUMBER;
+	private ServerSocket serverSocket;
+	private Socket clientSocket;
 	private final Protocol protocol;
 
-	private final String messageToSend;
-
-	Server(int PORT_NUMBER) {
-		this.PORT_NUMBER = PORT_NUMBER;
-		protocol = new Protocol(Protocol.ConnectionType.SERVER);
-		this.messageToSend = null;
+	Server(int PORT_NUMBER) throws IOException {
+		this.protocol = new Protocol(ConnectionType.SERVER);
+		openSockets(PORT_NUMBER);
 	}
 
-	Server(int PORT_NUMBER, String messageToSend) {
-		this.PORT_NUMBER = PORT_NUMBER;
-		protocol = new Protocol(Protocol.ConnectionType.SERVER);
-		this.messageToSend = messageToSend;
+	public void listenForMessage() throws IOException {
+		protocol.readMessage(clientSocket);
 	}
 
-	void launchConnection() {
+	public void sendMessage(String message) throws IOException {
+		protocol.sendMessage(clientSocket, message);
+	}
+
+	public void closeConnection() throws IOException {
+		clientSocket.close();
+		serverSocket.close();
+		protocol.closeConnection();
+	}
+
+	private void openSockets(int PORT_NUMBER) throws IOException {
+		this.serverSocket = new ServerSocket(PORT_NUMBER);
 		protocol.notifyOpeningConnection();
 		waitForClient();
-		try (
-				ServerSocket serverSocket =
-						new ServerSocket(PORT_NUMBER);
-				Socket clientSocket = serverSocket.accept();
-				PrintWriter out =
-						new PrintWriter(clientSocket.getOutputStream(), true);
-				BufferedReader in =
-						new BufferedReader(
-								new InputStreamReader(clientSocket.getInputStream()))
-		) {
-			protocol.setTimeout(clientSocket);
-			protocol.setTimeout(serverSocket);
-			if (messageToSend != null) {
-				protocol.sendMessage(out, messageToSend);
-			}
-			protocol.readMessage(in);
-			protocol.closeConnection();
-		} catch (InterruptedIOException timeoutException) {
-			protocol.handleTimeoutException();
-		} catch (IOException ioException) {
-			protocol.handleIOException();
-		}
+		clientSocket = serverSocket.accept();
 	}
 
 	private void waitForClient() {

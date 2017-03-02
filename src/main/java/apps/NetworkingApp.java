@@ -1,17 +1,26 @@
 package apps;
 
-import apps.networkingutilities.ConnectionLauncher;
+import apps.networkingutilities.ConnectionInterfacer;
 
 class NetworkingApp implements Launchable {
 
-	private final ConnectionLauncher connectionLauncher;
+	private final ConnectionInterfacer connectionInterfacer;
 
 	NetworkingApp(String[] args) {
-		this.connectionLauncher = new ConnectionLauncher(args);
+		this.connectionInterfacer = new ConnectionInterfacer(args);
 	}
 
 	public void launchApp() {
-		connectionLauncher.launchConnection();
+		connectionInterfacer.launchConnection();
+		sendMessageIfPresent();
+		connectionInterfacer.listenForMessage();
+		connectionInterfacer.closeConnection();
+	}
+
+	private void sendMessageIfPresent() {
+		if (connectionInterfacer.isMessageToSend()) {
+			connectionInterfacer.sendMessage(connectionInterfacer.getMessageToSend());
+		}
 	}
 
 }

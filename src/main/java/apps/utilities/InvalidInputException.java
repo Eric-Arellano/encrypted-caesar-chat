@@ -6,7 +6,7 @@ public class InvalidInputException extends Exception {
 		super(message);
 	}
 
-	public static boolean isNotValidLetter(String message) {
+	static boolean isNotValidLetter(String message) {
 		return !isValidLetter(message);
 	}
 
@@ -19,15 +19,15 @@ public class InvalidInputException extends Exception {
 		return true;
 	}
 
-	public static boolean isNotValidRange(int input, int lowerBound, int upperBound) {
+	static boolean isNotValidRange(int input, int lowerBound, int upperBound) {
 		return input < lowerBound || input > upperBound;
 	}
 
-	public static String returnOutOfBoundsMessage(int lowerBound, int upperBound) {
+	static String returnOutOfBoundsMessage(int lowerBound, int upperBound) {
 		return "Oops! Please enter an integer between " + lowerBound + "-" + upperBound + ".";
 	}
 
-	public static String returnInvalidLetterMessage() {
+	static String returnInvalidLetterMessage() {
 		return "Oops! Please enter a String with only lowercase and uppercase letters (no numbers, " +
 				"spaces, or special characters).";
 	}

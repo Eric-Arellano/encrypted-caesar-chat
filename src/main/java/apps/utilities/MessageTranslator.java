@@ -3,6 +3,8 @@ package apps.utilities;
 import encryptors.Decryptable;
 import encryptors.Encryptable;
 
+import static apps.utilities.EncryptMode.isDecryption;
+import static apps.utilities.EncryptMode.isEncryption;
 import static encryptors.CipherChooser.chooseDecryptionCipher;
 import static encryptors.CipherChooser.chooseEncryptionCipher;
 
@@ -12,32 +14,12 @@ public class MessageTranslator {
 		if (isEncryption(mode)) {
 			Encryptable encryptor = chooseEncryptionCipher(key);
 			return encryptor.encryptMessage(message, key);
-		} else {
+		} else if (isDecryption(mode)) {
 			Decryptable decryptor = chooseDecryptionCipher(key);
 			return decryptor.decryptMessage(message, key);
+		} else {
+			return "Invalid encryption or decryption mode.";
 		}
-	}
-
-	private static boolean isEncryption(EncryptMode mode) {
-		return mode.equals(EncryptMode.ENCRYPT);
-	}
-
-	public enum EncryptMode {
-		ENCRYPT, DECRYPT, INVALID;
-
-		@Override
-		public String toString() {
-			return name().toLowerCase();
-		}
-
-		public static String getInverseMode(EncryptMode currentMode) {
-			if (currentMode.equals(ENCRYPT)) {
-				return DECRYPT.toString();
-			} else {
-				return ENCRYPT.toString();
-			}
-		}
-
 	}
 
 }

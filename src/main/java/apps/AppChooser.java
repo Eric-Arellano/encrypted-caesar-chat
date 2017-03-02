@@ -14,19 +14,21 @@ public class AppChooser implements Launchable {
 	public void launchApp() {
 		try {
 			if (isConsoleApp()) {
-				launchConsoleApp();
+				app = new ConsoleApp();
 			} else if (isCommandLineApp()) {
-				launchCommandLineApp();
+				app = new CommandLineApp(args);
 			} else if (isNetworkingApp()) {
-				launchNetworkingApp();
+				app = new NetworkingApp(args);
+			} else if (isChatApp()) {
+				app = new ChatApp(args);
 			} else {
 				throw new InvalidInputException("Invalid command line arguments.");
 			}
+			app.launchApp();
 		} catch (InvalidInputException invalidCommandLineException) {
 			System.out.println("Invalid command line arguments.");
 			System.exit(1);
 		}
-
 	}
 
 	private boolean isConsoleApp() {
@@ -34,26 +36,38 @@ public class AppChooser implements Launchable {
 	}
 
 	private boolean isCommandLineApp() {
+		return isCommandLineArgsLength() && isNotChatApp();
+	}
+
+	private boolean isCommandLineArgsLength() {
 		return args.length == 3;
 	}
 
 	public boolean isNetworkingApp() {
+		return isNetworkingArgsLength() && isNotChatApp();
+	}
+
+	private boolean isNetworkingArgsLength() {
 		return args.length == 1 || args.length == 2 || args.length == 4 || args.length == 5;
 	}
 
-	private void launchConsoleApp() {
-		app = new ConsoleApp();
-		app.launchApp();
+	private boolean isNotChatApp() {
+		return !isChatApp();
 	}
 
-	private void launchCommandLineApp() {
-		app = new CommandLineApp(args);
-		app.launchApp();
+	public boolean isChatApp() {
+		return isChatArgsLength() && isChatPrefix();
 	}
 
-	private void launchNetworkingApp() {
-		app = new NetworkingApp(args);
-		app.launchApp();
+	private boolean isChatArgsLength() {
+		return args.length == 2 || args.length == 3;
+	}
+
+	private boolean isChatPrefix() {
+		String prefix = args[0];
+		return prefix.equalsIgnoreCase("chat")
+				|| prefix.equalsIgnoreCase("c")
+				|| prefix.equalsIgnoreCase("-c");
 	}
 
 }

@@ -1,52 +1,34 @@
 package apps.networkingutilities;
 
-import java.io.*;
+import java.io.IOException;
 import java.net.Socket;
 
-class Client {
+class Client implements Connection {
 
-	private final String HOST_NAME;
-	private final int PORT_NUMBER;
+	private Socket socket;
 	private final Protocol protocol;
 
-	private final String messageToSend;
-
-	Client(String HOST_NAME, int PORT_NUMBER) {
-		this.HOST_NAME = HOST_NAME;
-		this.PORT_NUMBER = PORT_NUMBER;
-		this.protocol = new Protocol(Protocol.ConnectionType.CLIENT);
-		this.messageToSend = null;
+	Client(String HOST_NAME, int PORT_NUMBER) throws IOException {
+		this.protocol = new Protocol(ConnectionType.CLIENT);
+		openSocket(HOST_NAME, PORT_NUMBER);
 	}
 
-	Client(String HOST_NAME, int PORT_NUMBER, String messageToSend) {
-		this.HOST_NAME = HOST_NAME;
-		this.PORT_NUMBER = PORT_NUMBER;
-		this.protocol = new Protocol(Protocol.ConnectionType.CLIENT);
-		this.messageToSend = messageToSend;
+	public void listenForMessage() throws IOException {
+		protocol.readMessage(socket);
 	}
 
-	void launchConnection() {
+	public void sendMessage(String message) throws IOException {
+		protocol.sendMessage(socket, message);
+	}
+
+	public void closeConnection() throws IOException {
+		socket.close();
+		protocol.closeConnection();
+	}
+
+	private void openSocket(String HOST_NAME, int PORT_NUMBER) throws IOException {
+		socket = new Socket(HOST_NAME, PORT_NUMBER);
 		protocol.notifyOpeningConnection();
-		try (
-				Socket socket =
-						new Socket(HOST_NAME, PORT_NUMBER);
-				PrintWriter out =
-						new PrintWriter(socket.getOutputStream(), true);
-				BufferedReader in =
-						new BufferedReader(
-								new InputStreamReader(socket.getInputStream()))
-		) {
-			protocol.setTimeout(socket);
-			if (messageToSend != null) {
-				protocol.sendMessage(out, messageToSend);
-			}
-			protocol.readMessage(in);
-			protocol.closeConnection();
-		} catch (InterruptedIOException timeoutException) {
-			protocol.handleTimeoutException();
-		} catch (IOException ioException) {
-			protocol.handleIOException();
-		}
 	}
 
 }
