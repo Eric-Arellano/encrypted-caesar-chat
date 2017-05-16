@@ -1,8 +1,8 @@
-package apps.networkingutilities;
+package networkingutilities;
 
 import apps.AppChooser;
 
-import static apps.networkingutilities.LocalHostNameUtility.getLocalHostName;
+import static networkingutilities.LocalHostNameUtility.getLocalHostName;
 
 class NetworkingCommandLineParser {
 
@@ -81,7 +81,7 @@ class NetworkingCommandLineParser {
 		String mode = args[START_MESSAGE_INDEX];
 		String message = args[START_MESSAGE_INDEX + 1];
 		String key = args[START_MESSAGE_INDEX + 2];
-		return apps.utilities.CommandLineParser.parseAndTranslateInputtedMessage(mode, message, key);
+		return inpututilities.CommandLineParser.parseAndTranslateInputtedMessage(mode, message, key);
 	}
 
 	private int parseMessageArgIndex() {

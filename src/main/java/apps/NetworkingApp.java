@@ -1,6 +1,6 @@
 package apps;
 
-import apps.networkingutilities.ConnectionInterfacer;
+import networkingutilities.ConnectionInterfacer;
 
 class NetworkingApp implements Launchable {
 

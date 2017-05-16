@@ -1,6 +1,6 @@
 package apps;
 
-import apps.utilities.InvalidInputException;
+import inpututilities.InvalidInputException;
 
 public class AppChooser implements Launchable {
 

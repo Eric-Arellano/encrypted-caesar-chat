@@ -1,10 +1,10 @@
-package apps.utilities;
+package inpututilities;
 
 import encryptors.Decryptable;
 import encryptors.Encryptable;
 
-import static apps.utilities.EncryptMode.isDecryption;
-import static apps.utilities.EncryptMode.isEncryption;
+import static inpututilities.EncryptMode.isDecryption;
+import static inpututilities.EncryptMode.isEncryption;
 import static encryptors.CipherChooser.chooseDecryptionCipher;
 import static encryptors.CipherChooser.chooseEncryptionCipher;
 

@@ -1,14 +1,14 @@
 package apps;
 
-import apps.networkingutilities.ConnectionInterfacer;
-import apps.utilities.EncryptMode;
+import networkingutilities.ConnectionInterfacer;
+import inpututilities.EncryptMode;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static apps.utilities.ConsoleInterfacer.requestKey;
-import static apps.utilities.ConsoleInterfacer.requestMessage;
-import static apps.utilities.MessageTranslator.translateMessage;
+import static inpututilities.ConsoleInterfacer.requestKey;
+import static inpututilities.ConsoleInterfacer.requestMessage;
+import static inpututilities.MessageTranslator.translateMessage;
 
 class ChatApp implements Launchable {
 

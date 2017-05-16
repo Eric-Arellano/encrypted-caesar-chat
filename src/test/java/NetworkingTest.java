@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("apps.networkingutilities test")
+@DisplayName("networkingutilities test")
 public class NetworkingTest {
 
 	@Test

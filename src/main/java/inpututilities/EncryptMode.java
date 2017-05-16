@@ -1,4 +1,4 @@
-package apps.utilities;
+package inpututilities;
 
 public enum EncryptMode {
 

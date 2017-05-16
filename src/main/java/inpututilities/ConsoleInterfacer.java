@@ -1,7 +1,7 @@
-package apps.utilities;
+package inpututilities;
 
-import static apps.utilities.UserInputParser.getValidIntInput;
-import static apps.utilities.UserInputParser.getValidStringInput;
+import static inpututilities.UserInputParser.getValidIntInput;
+import static inpututilities.UserInputParser.getValidStringInput;
 
 public class ConsoleInterfacer {
 

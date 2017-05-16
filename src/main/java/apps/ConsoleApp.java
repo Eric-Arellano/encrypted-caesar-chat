@@ -1,10 +1,10 @@
 package apps;
 
-import apps.utilities.EncryptMode;
+import inpututilities.EncryptMode;
 
-import static apps.utilities.ConsoleInterfacer.*;
-import static apps.utilities.EncryptMode.isQuitApp;
-import static apps.utilities.MessageTranslator.translateMessage;
+import static inpututilities.ConsoleInterfacer.*;
+import static inpututilities.EncryptMode.isQuitApp;
+import static inpututilities.MessageTranslator.translateMessage;
 
 class ConsoleApp implements Launchable {
 

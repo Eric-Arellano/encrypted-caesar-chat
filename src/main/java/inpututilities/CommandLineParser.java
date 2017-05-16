@@ -1,6 +1,6 @@
-package apps.utilities;
+package inpututilities;
 
-import static apps.utilities.MessageTranslator.translateMessage;
+import static inpututilities.MessageTranslator.translateMessage;
 
 public class CommandLineParser {
 
