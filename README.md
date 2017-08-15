@@ -3,26 +3,29 @@ Allows Caesar and Vigenere encryption of a String, with multiple input interface
 
 For Innovation Week Encryption Workshop.
 
-# Run program
+## Install program
 1. Clone this repo.
-1. Build with command line ```gradlew build``` (pc) or ```./gradlew build``` (mac/linux)
-1. Execute program with ```java -cp build/classes/main Encryptor [args]```
-  1. interactive console app - no args
-  1. command line
-    1. ```[-e message key]``` - return encrypted message
-    1. ```[-d message key]``` - return decrypted message
-  1. command line with networking
-    1. ```[PORT_NUMBER]``` - start server (waits for client's message)
-    1. ```[PORT_NUMBER -e/-d message key]``` - start server (will send 
-      message when client connects)
-    1. ```[SERVER_HOST_NAME PORT_NUMBER]``` - start client and read message 
-        from specified server (use name ```local``` if localhost)
-    1. ```[SERVER_HOST_NAME PORT_NUMBER -e/-d message key]``` - start 
-        client and send message to specified server (use name ```local``` if localhost)
-  1. chat app
-    1. ```[chat PORT_NUMBER]``` - start chat app on server (waits for client)
-    2. ```[chat SERVER_HOST_NAME PORT_NUMBER]``` - start chat app on client
-  
+1. Build with command line `gradlew build` (pc) or `./gradlew build` (mac/linux)
+
+## Run program
+
+#### Interactive console app
+1. `java -cp build/classes/main Encryptor`
+
+#### CLI
+1. To encrypt: `java -cp build/classes/main Encryptor -e <message> <key>`
+1. To decrypt: `java -cp build/classes/main Encryptor -d <message> <key>`
+    
+#### CLI with networking
+You must start both a server and a client, which can be done in either order.
+
+##### Start server
+1. To start server and wait for client's message: `java -cp build/classes/main Encryptor <port-number>`
+1. To start server and send message to client when it connects: `java -cp build/classes/main Encryptor <port-number> <-e or -d> <message> <key>`
+
+##### Start client
+1. To start client and read from specified server: `java -cp build/classes/main Encryptor <server-host-name> <port-number>`
+1. To start client and send message to specified server: `java -cp build/classes/main Encryptor <server-host-name> <port-number> <-e or -d> <message> <key>`
   
 
 # What I learned
