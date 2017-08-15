@@ -10,22 +10,22 @@ For Innovation Week Encryption Workshop.
 ## Run program
 
 #### Interactive console app
-1. `java -cp build/classes/main Encryptor`
+1. `./run.sh`
 
 #### CLI
-1. To encrypt: `java -cp build/classes/main Encryptor -e <message> <key>`
-1. To decrypt: `java -cp build/classes/main Encryptor -d <message> <key>`
+1. To encrypt: `./run.sh -e <message> <key>`
+1. To decrypt: `./run.sh -d <message> <key>`
     
 #### CLI with networking
 You must start both a server and a client, which can be done in either order.
 
 ##### Start server
-1. To start server and wait for client's message: `java -cp build/classes/main Encryptor <port-number>`
-1. To start server and send message to client when it connects: `java -cp build/classes/main Encryptor <port-number> <-e or -d> <message> <key>`
+1. To start server and wait for client's message: `./run.sh <port-number>`
+1. To start server and send message to client when it connects: `./run.sh <port-number> <-e or -d> <message> <key>`
 
 ##### Start client
-1. To start client and read from specified server: `java -cp build/classes/main Encryptor <server-host-name> <port-number>`
-1. To start client and send message to specified server: `java -cp build/classes/main Encryptor <server-host-name> <port-number> <-e or -d> <message> <key>`
+1. To start client and read from specified server: `./run.sh <server-host-name> <port-number>`
+1. To start client and send message to specified server: `./run.sh <server-host-name> <port-number> <-e or -d> <message> <key>`
   
 
 # What I learned

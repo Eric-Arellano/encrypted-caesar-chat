@@ -33,7 +33,7 @@ public class ConsoleInterfacer {
 			case 0:
 				return EncryptMode.QUIT_APP;
 			default:
-				return EncryptMode.INVALID;
+				throw new IllegalStateException("Invalid encrypt mode.");
 		}
 	}
 
