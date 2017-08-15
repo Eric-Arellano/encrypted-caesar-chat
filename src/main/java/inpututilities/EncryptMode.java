@@ -2,7 +2,7 @@ package inpututilities;
 
 public enum EncryptMode {
 
-	ENCRYPT, DECRYPT, INVALID, QUIT_APP;
+	ENCRYPT, DECRYPT, QUIT_APP;
 
 	@Override
 	public String toString() {

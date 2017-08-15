@@ -13,12 +13,8 @@ public class ConnectionInterfacer {
 
 	public void launchConnection() {
 		try {
-			if (parser.isClient()) {
-				connection = createClient();
-			} else {
-				connection = createServer();
-			}
-		} catch (IOException failureToLaunchException) {
+			connection = parser.isClient() ? createClient() : createServer();
+		} catch (IOException e) {
 			System.out.println("The connection failed to start.");
 		}
 
@@ -48,7 +44,7 @@ public class ConnectionInterfacer {
 		}
 	}
 
-	public boolean isMessageToSend() {
+	public boolean hasMessageToSend() {
 		return parser.includesMessage();
 	}
 

@@ -7,25 +7,19 @@ public class CommandLineParser {
 	public static String parseAndTranslateInputtedMessage(String encryptMode, String message,
 	                                                      String key) {
 		EncryptMode mode = parseMode(encryptMode);
-		String validatedMessage = validateMessage(message);
-		String validatedKey = validateKey(key);
-		return translateMessage(mode, validatedMessage, validatedKey);
+		validateMessage(message);
+		validateKey(key);
+		return translateMessage(mode, message, key);
 	}
 
 	private static EncryptMode parseMode(String modeValue) {
-		EncryptMode mode = EncryptMode.INVALID;
-		try {
-			if (isEncryptionInput(modeValue)) {
-				mode = EncryptMode.ENCRYPT;
-			} else if (isDecryptionInput(modeValue)) {
-				mode = EncryptMode.DECRYPT;
-			} else {
-				mode = EncryptMode.INVALID;
-				throw new InvalidInputException("Invalid mode input.");
-			}
-		} catch (InvalidInputException invalidInputException) {
-			System.out.println("Invalid mode input.");
-			System.exit(1);
+		EncryptMode mode;
+		if (isEncryptionInput(modeValue)) {
+			mode = EncryptMode.ENCRYPT;
+		} else if (isDecryptionInput(modeValue)) {
+			mode = EncryptMode.DECRYPT;
+		} else {
+			throw new IllegalArgumentException("Invalid mode input.");
 		}
 		return mode;
 	}
@@ -44,28 +38,16 @@ public class CommandLineParser {
 				modeValue.equalsIgnoreCase("-d");
 	}
 
-	private static String validateMessage(String inputtedMessage) {
-		try {
-			if (InvalidInputException.isNotValidLetter(inputtedMessage)) {
-				throw new InvalidInputException("Invalid message.");
-			}
-		} catch (InvalidInputException invalidInputException) {
-			System.out.println("Invalid message.");
-			System.exit(1);
+	private static void validateMessage(String message) {
+		if (InvalidInputHelper.containsInvalidLetters(message)) {
+			throw new IllegalArgumentException("Invalid message.");
 		}
-		return inputtedMessage;
 	}
 
-	private static String validateKey(String inputtedKey) {
-		try {
-			if (InvalidInputException.isNotValidLetter(inputtedKey)) {
-				throw new InvalidInputException("Invalid key.");
-			}
-		} catch (InvalidInputException invalidInputException) {
-			System.out.println("Invalid key.");
-			System.exit(1);
+	private static void validateKey(String key) {
+		if (InvalidInputHelper.containsInvalidLetters(key)) {
+			throw new IllegalArgumentException("Invalid key.");
 		}
-		return inputtedKey;
 	}
 
 }

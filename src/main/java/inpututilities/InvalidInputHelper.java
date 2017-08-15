@@ -1,22 +1,18 @@
 package inpututilities;
 
-public class InvalidInputException extends Exception {
+class InvalidInputHelper extends Exception {
 
-	public InvalidInputException(String message) {
+	InvalidInputHelper(String message) {
 		super(message);
 	}
 
-	static boolean isNotValidLetter(String message) {
-		return !isValidLetter(message);
-	}
-
-	private static boolean isValidLetter(String message) {
+	static boolean containsInvalidLetters(String message) {
 		for (Character character : message.toCharArray()) {
 			if (!Character.isLetter(character)) {
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	static boolean isNotValidRange(int input, int lowerBound, int upperBound) {

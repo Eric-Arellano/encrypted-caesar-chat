@@ -13,17 +13,17 @@ class UserInputParser {
 			if (scanner.hasNextInt()) {
 				inputtedValue = scanner.nextInt();
 				scanner.nextLine();
-				if (InvalidInputException.isNotValidRange(inputtedValue,
+				if (InvalidInputHelper.isNotValidRange(inputtedValue,
 						RANGE_LOWER_BOUND,
 						RANGE_UPPER_BOUND)) {
-					throw new InvalidInputException("Out of range.");
+					throw new InvalidInputHelper("Out of range.");
 				}
 			} else {
 				scanner.next();
 				throw new InputMismatchException("Not int.");
 			}
-		} catch (InvalidInputException | InputMismatchException outOfRangeException) {
-			System.out.println(InvalidInputException.returnOutOfBoundsMessage(RANGE_LOWER_BOUND,
+		} catch (InvalidInputHelper | InputMismatchException outOfRangeException) {
+			System.out.println(InvalidInputHelper.returnOutOfBoundsMessage(RANGE_LOWER_BOUND,
 					RANGE_UPPER_BOUND));
 			inputtedValue = getValidIntInput(RANGE_LOWER_BOUND, RANGE_UPPER_BOUND);
 		}
@@ -35,12 +35,12 @@ class UserInputParser {
 		try {
 			if (scanner.hasNextLine()) {
 				inputtedValue = scanner.nextLine();
-				if (InvalidInputException.isNotValidLetter(inputtedValue)) {
-					throw new InvalidInputException("Includes non-letters.");
+				if (InvalidInputHelper.containsInvalidLetters(inputtedValue)) {
+					throw new InvalidInputHelper("Includes non-letters.");
 				}
 			}
-		} catch (InvalidInputException invalidInputException) {
-			System.out.println(InvalidInputException.returnInvalidLetterMessage());
+		} catch (InvalidInputHelper invalidInputHelper) {
+			System.out.println(InvalidInputHelper.returnInvalidLetterMessage());
 			inputtedValue = getValidStringInput();
 		}
 		return inputtedValue;

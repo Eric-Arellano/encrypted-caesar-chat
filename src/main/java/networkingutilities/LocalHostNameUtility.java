@@ -6,23 +6,21 @@ import java.net.UnknownHostException;
 class LocalHostNameUtility {
 
 	static String getLocalHostName() {
-		String hostName = "";
+		String hostName;
 		try {
 			hostName = InetAddress.getLocalHost().getHostName();
 		} catch (UnknownHostException unknownHostException) {
-			System.out.println("Host cannot be resolved.");
-			System.exit(1);
+			throw new IllegalArgumentException("Cannot resolve host name.");
 		}
 		return hostName;
 	}
 
 	static String getLocalIPAddress() {
-		String ipAddress = "";
+		String ipAddress;
 		try {
 			ipAddress = InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException unknownHostException) {
-			System.out.println("IP address cannot be resolved.");
-			System.exit(1);
+			throw new IllegalArgumentException("Cannot resolve IP address.");
 		}
 		return ipAddress;
 	}

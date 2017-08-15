@@ -18,7 +18,7 @@ class NetworkingApp implements Launchable {
 	}
 
 	private void sendMessageIfPresent() {
-		if (connectionInterfacer.isMessageToSend()) {
+		if (connectionInterfacer.hasMessageToSend()) {
 			connectionInterfacer.sendMessage(connectionInterfacer.getMessageToSend());
 		}
 	}

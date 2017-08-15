@@ -1,34 +1,29 @@
 package apps;
 
-import inpututilities.InvalidInputException;
-
 public class AppChooser implements Launchable {
 
 	private final String[] args;
-	private Launchable app;
 
 	public AppChooser(String[] args) {
 		this.args = args;
 	}
 
 	public void launchApp() {
-		try {
-			if (isConsoleApp()) {
-				app = new ConsoleApp();
-			} else if (isCommandLineApp()) {
-				app = new CommandLineApp(args);
-			} else if (isNetworkingApp()) {
-				app = new NetworkingApp(args);
-			} else if (isChatApp()) {
-				app = new ChatApp(args);
-			} else {
-				throw new InvalidInputException("Invalid command line arguments.");
-			}
-			app.launchApp();
-		} catch (InvalidInputException invalidCommandLineException) {
-			System.out.println("Invalid command line arguments.");
-			System.exit(1);
+		// determine app type
+		Launchable app;
+		if (isConsoleApp()) {
+			app = new ConsoleApp();
+		} else if (isCommandLineApp()) {
+			app = new CommandLineApp(args);
+		} else if (isNetworkingApp()) {
+			app = new NetworkingApp(args);
+		} else if (isChatApp()) {
+			app = new ChatApp(args);
+		} else {
+			throw new IllegalArgumentException("Invalid command line arguments.");
 		}
+		// launch app
+		app.launchApp();
 	}
 
 	private boolean isConsoleApp() {
